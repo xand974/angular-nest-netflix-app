@@ -10,6 +10,7 @@ import { encryptPassword } from '../utils/hash';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token/token.service';
 import { RegisterDto } from './dto/register.dto';
+import { UserModel } from 'src/types';
 @Injectable()
 export class AuthService {
   constructor(
@@ -33,16 +34,19 @@ export class AuthService {
   }
 
   public async login({ email, password }: { email: string; password: string }) {
-    const userFound = await this.authModel.findOne({ email });
+    const userFound = (await this.authModel.findOne({ email })) as UserModel;
     if (!userFound) throw new NotFoundException();
     const isVerify = await bcrypt.compare(password, userFound.password);
     if (!isVerify) throw new BadRequestException();
 
-    const token = this.tokenService.genToken({
+    const token = await this.tokenService.genToken({
       userId: userFound.id,
       isAdmin: userFound.isAdmin,
     });
-
-    return token;
+    const res = await this.tokenService.save({
+      token,
+      userId: userFound.id,
+    });
+    return res.token;
   }
 }

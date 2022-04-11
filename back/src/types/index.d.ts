@@ -1,4 +1,6 @@
 export interface UserModel {
+  id?: string;
+
   email: string;
 
   password: string;
@@ -10,4 +12,14 @@ export interface UserModel {
   isAdmin: boolean;
 
   photoURL: string;
+}
+
+export interface TokenModel {
+  id?: string;
+
+  userId: string;
+
+  token: string;
+
+  expiresIn: string;
 }

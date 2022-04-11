@@ -12,7 +12,6 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UsersService } from './users.service';
 import { Response } from 'express';
-
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}

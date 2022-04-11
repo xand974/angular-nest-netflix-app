@@ -19,6 +19,17 @@ export class UsersService {
     });
   }
 
+  async getByEmail(email: string) {
+    const user = await this.authModel.findOne({ email });
+    if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
+    return user;
+  }
+
+  async getAll(limit = 10) {
+    const users = await this.userModel.find().limit(limit);
+    return users;
+  }
+
   async addUserinfos(createUserDto: CreateUserDto) {
     const user = await this.authModel.findById(createUserDto.userId);
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);

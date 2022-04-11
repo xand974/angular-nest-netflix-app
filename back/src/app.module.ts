@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
+import { AdminMiddleware } from './middlewares/admin.guard';
 
 @Module({
   imports: [
@@ -17,4 +23,13 @@ import { TokenModule } from './token/token.module';
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AdminMiddleware)
+      .forRoutes(
+        { path: '/api/users', method: RequestMethod.ALL },
+        { path: '/api/films', method: RequestMethod.ALL },
+      );
+  }
+}
