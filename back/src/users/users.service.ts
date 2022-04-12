@@ -3,24 +3,30 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { Model } from 'mongoose';
 import { User } from './schema/user.schema';
-import { Auth } from 'src/auth/schema/auth.schema';
-import { CreateUserDto } from './dto/createUser.dto';
+import { PasswordService } from 'src/password/password.service';
+
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
-    @InjectModel('Auth') private readonly authModel: Model<Auth>,
+    private passwordService: PasswordService,
   ) {}
 
   async updateUser(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.getUser(id);
+    const user = await this.userModel.findById(id);
+    if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
+    if (updateUserDto.password) {
+      updateUserDto.password = await this.passwordService.genPassword(
+        updateUserDto.password,
+      );
+    }
     await user.update(updateUserDto, {
       new: true,
     });
   }
 
   async getByEmail(email: string) {
-    const user = await this.authModel.findOne({ email });
+    const user = await this.userModel.findOne({ email });
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
     return user;
   }
@@ -30,24 +36,16 @@ export class UsersService {
     return users;
   }
 
-  async addUserinfos(createUserDto: CreateUserDto) {
-    const user = await this.authModel.findById(createUserDto.userId);
-    if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-
-    const newUser = new this.userModel(createUserDto);
-    await newUser.save();
-    return newUser;
-  }
-
   async getUser(id: string) {
-    const user = await this.userModel.findOne({ userId: id });
-    if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-
+    const userFound = await this.userModel.findById(id);
+    if (!userFound)
+      throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
+    const { password, ...user } = userFound['_doc'];
     return user;
   }
 
   async deleteUser(id: string) {
-    const user = await this.getUser(id);
+    const user = await this.userModel.findById(id);
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
 
     await user.delete();

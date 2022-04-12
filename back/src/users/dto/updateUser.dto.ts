@@ -7,5 +7,5 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
-  photoURL?: string;
+  password?: string;
 }

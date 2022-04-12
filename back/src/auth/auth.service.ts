@@ -1,31 +1,31 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Auth } from 'src/auth/schema/auth.schema';
 import { Model } from 'mongoose';
-import { encryptPassword } from '../utils/hash';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from 'src/token/token.service';
 import { RegisterDto } from './dto/register.dto';
 import { UserModel } from 'src/types';
+import { User } from 'src/users/schema/user.schema';
+import { PasswordService } from '../password/password.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel('Auth') private readonly authModel: Model<Auth>,
     private readonly tokenService: TokenService,
+    private readonly passwordService: PasswordService,
+    @InjectModel('User') private readonly userModel: Model<User>,
   ) {}
 
   public async register(registerDto: RegisterDto): Promise<string> {
-    const userFound = await this.authModel.findOne({
+    const userFound = await this.userModel.findOne({
       email: registerDto.email,
     });
-    if (userFound) throw new BadRequestException();
-    const hashPass = await encryptPassword(registerDto.password);
-    const user = new this.authModel({
-      email: registerDto.email,
+
+    if (userFound) throw new HttpException('user exists', HttpStatus.CONFLICT);
+    const hashPass = await this.passwordService.genPassword(
+      registerDto.password,
+    );
+    const user = new this.userModel({
+      ...registerDto,
       password: hashPass,
       isAdmin: false,
     });
@@ -34,19 +34,17 @@ export class AuthService {
   }
 
   public async login({ email, password }: { email: string; password: string }) {
-    const userFound = (await this.authModel.findOne({ email })) as UserModel;
-    if (!userFound) throw new NotFoundException();
+    const userFound = (await this.userModel.findOne({ email })) as UserModel;
+    if (!userFound)
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     const isVerify = await bcrypt.compare(password, userFound.password);
-    if (!isVerify) throw new BadRequestException();
+    if (!isVerify)
+      throw new HttpException('are you really you ?', HttpStatus.FORBIDDEN);
 
     const token = await this.tokenService.genToken({
       userId: userFound.id,
-      isAdmin: userFound.isAdmin,
+      isAdmin: userFound.isAdmin ?? false,
     });
-    const res = await this.tokenService.save({
-      token,
-      userId: userFound.id,
-    });
-    return res.token;
+    return token;
   }
 }

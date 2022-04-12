@@ -4,24 +4,28 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
-import { AdminMiddleware } from './middlewares/admin.guard';
+import { AdminMiddleware } from './middlewares/admin.middleware';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { PasswordService } from './password/password.service';
+import { PasswordModule } from './password/password.module';
 
 @Module({
   imports: [
-    UsersModule,
     AuthModule,
+    UsersModule,
+    TokenModule,
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: '.env.local',
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
-    TokenModule,
+    PasswordModule,
   ],
-  providers: [],
+  providers: [PasswordService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

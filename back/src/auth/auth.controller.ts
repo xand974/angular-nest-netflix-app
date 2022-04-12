@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UserInfosService } from 'src/user.infos/user.infos.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -8,16 +8,18 @@ import { RegisterDto } from './dto/register.dto';
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private userService: UsersService,
+    private userInfosService: UserInfosService,
   ) {}
 
   @Post('register')
   public async register(@Body() registerDto: RegisterDto) {
     const id = await this.authService.register(registerDto);
-    await this.userService.addUserinfos({
+    await this.userInfosService.addUserinfos({
+      photoURL: '/assets/img/default-user.jpg',
       userId: id,
-      photoURL: '/assets/img/default.png',
-      username: 'default',
+      username: registerDto.username ?? 'default',
+      city: 'somewhere',
+      ip: 'unknown',
     });
     return 'user created';
   }
