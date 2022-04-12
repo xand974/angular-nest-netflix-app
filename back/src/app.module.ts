@@ -10,22 +10,22 @@ import { TokenModule } from './token/token.module';
 import { AdminMiddleware } from './middlewares/admin.middleware';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { PasswordService } from './password/password.service';
 import { PasswordModule } from './password/password.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     TokenModule,
+    PasswordModule,
+    EmailModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env.local',
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
-    PasswordModule,
   ],
-  providers: [PasswordService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

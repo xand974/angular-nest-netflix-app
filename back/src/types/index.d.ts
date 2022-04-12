@@ -10,4 +10,6 @@ export interface UserModel {
   isAdmin: boolean;
 
   photoURL?: string;
+
+  isVerified: boolean;
 }

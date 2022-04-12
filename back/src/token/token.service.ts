@@ -29,4 +29,16 @@ export class TokenService {
       );
     return payload;
   }
+
+  genEmailToken({ email, isVerified }: { email: string; isVerified: boolean }) {
+    return this.jwtService.sign(
+      { email, isVerified },
+      {
+        secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
+        expiresIn: this.configService.get(
+          'JWT_VERIFICATION_TOKEN_EXPIRATION_TIME',
+        ),
+      },
+    );
+  }
 }

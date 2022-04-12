@@ -7,12 +7,14 @@ import { RegisterDto } from './dto/register.dto';
 import { UserModel } from 'src/types';
 import { User } from 'src/users/schema/user.schema';
 import { PasswordService } from '../password/password.service';
+import { EmailService } from 'src/email/email.service';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly tokenService: TokenService,
     private readonly passwordService: PasswordService,
     @InjectModel('User') private readonly userModel: Model<User>,
+    private readonly emailService: EmailService,
   ) {}
 
   public async register(registerDto: RegisterDto): Promise<string> {
@@ -28,8 +30,13 @@ export class AuthService {
       ...registerDto,
       password: hashPass,
       isAdmin: false,
+      isVerified: false,
     });
     const result = await user.save();
+    this.emailService.sendEmailVerification({
+      email: user.email,
+      isVerified: true,
+    });
     return result.id;
   }
 
@@ -37,8 +44,14 @@ export class AuthService {
     const userFound = (await this.userModel.findOne({ email })) as UserModel;
     if (!userFound)
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
-    const isVerify = await bcrypt.compare(password, userFound.password);
-    if (!isVerify)
+    if (!userFound.isVerified) {
+      this.emailService.sendEmailVerification({
+        email: userFound.email,
+        isVerified: true,
+      });
+    }
+    const samePass = await bcrypt.compare(password, userFound.password);
+    if (!samePass)
       throw new HttpException('are you really you ?', HttpStatus.FORBIDDEN);
 
     const token = await this.tokenService.genToken({
