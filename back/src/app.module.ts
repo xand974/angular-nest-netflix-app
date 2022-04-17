@@ -10,16 +10,14 @@ import { TokenModule } from './token/token.module';
 import { AdminMiddleware } from './middlewares/admin.middleware';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { PasswordModule } from './password/password.module';
-import { EmailModule } from './email/email.module';
+import { UserInfosModule } from './user.infos/user.infos.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     TokenModule,
-    PasswordModule,
-    EmailModule,
+    UserInfosModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env.local',
@@ -32,8 +30,9 @@ export class AppModule implements NestModule {
     consumer
       .apply(AdminMiddleware)
       .forRoutes(
-        { path: '/api/users', method: RequestMethod.ALL },
-        { path: '/api/films', method: RequestMethod.ALL },
+        { path: 'api/users', method: RequestMethod.ALL },
+        { path: 'api/user-infos', method: RequestMethod.ALL },
+        { path: 'api/films', method: RequestMethod.ALL },
       );
   }
 }

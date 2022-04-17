@@ -33,10 +33,10 @@ export class AuthService {
       isVerified: false,
     });
     const result = await user.save();
-    this.emailService.sendEmailVerification({
-      email: user.email,
-      isVerified: true,
-    });
+    // this.emailService.sendEmailVerification({
+    //   email: user.email,
+    //   isVerified: true,
+    // });
     return result.id;
   }
 
@@ -44,12 +44,12 @@ export class AuthService {
     const userFound = (await this.userModel.findOne({ email })) as UserModel;
     if (!userFound)
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
-    if (!userFound.isVerified) {
-      this.emailService.sendEmailVerification({
-        email: userFound.email,
-        isVerified: true,
-      });
-    }
+    // if (!userFound.isVerified) {
+    //   this.emailService.sendEmailVerification({
+    //     email: userFound.email,
+    //     isVerified: true,
+    //   });
+    // }
     const samePass = await bcrypt.compare(password, userFound.password);
     if (!samePass)
       throw new HttpException('are you really you ?', HttpStatus.FORBIDDEN);

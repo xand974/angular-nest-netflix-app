@@ -19,15 +19,14 @@ export class TokenService {
 
   verifyToken(token: string) {
     const tokenHeader = token.split(' ')[1];
-    const payload = this.jwtService.verify(tokenHeader, {
-      secret: this.configService.get('SECRET_TOKEN'),
-    });
-    if (!payload)
-      throw new HttpException(
-        'you are not authentificated',
-        HttpStatus.UNAUTHORIZED,
-      );
-    return payload;
+    try {
+      const payload = this.jwtService.verify(tokenHeader, {
+        secret: this.configService.get('SECRET_TOKEN'),
+      });
+      return payload;
+    } catch (err) {
+      throw new HttpException('token cannot be verified', HttpStatus.FORBIDDEN);
+    }
   }
 
   genEmailToken({ email, isVerified }: { email: string; isVerified: boolean }) {
