@@ -1,36 +1,33 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { EmailService } from './email.service';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { join } from 'path';
 import { TokenModule } from 'src/token/token.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TokenModule,
-    MailerModule.forRoot({
-      // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
-      // or
-      transport: {
-        host: 'pop.gmail.com',
-        port: 465,
-        secure: true, // use SSL
-        auth: {
-          user: process.env.EMAIL_NODE_CRE,
-          pass: process.env.PASS_NODE_CRE,
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        transport: {
+          host: configService.get<string>('HOST'),
+          secureConnection: false,
+          port: parseInt(configService.get<string>('PORT')),
+          tls: {
+            ciphers: 'SSLv3',
+            rejectUnauthorized: false,
+          },
+          auth: {
+            user: configService.get<string>('EMAIL_NODE_CRE'),
+            pass: configService.get<string>('PASS_NODE_CRE'),
+          },
         },
-        tls: { rejectUnauthorized: false },
-      },
-      defaults: {
-        from: '"No Reply" <malet@gmail.com>',
-      },
-      template: {
-        dir: join(__dirname, 'templates'),
-        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
-        options: {
-          strict: true,
+        defaults: {
+          from: `"noreply" ${configService.get<string>('FROM')}`,
         },
-      },
+      }),
+      inject: [ConfigService],
     }),
   ],
   providers: [EmailService],
