@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { EmailModule } from 'src/email/email.module';
 import { PasswordModule } from 'src/password/password.module';
-import { UserInfosModule } from 'src/user.infos/user.infos.module';
+import { UserInfosModule } from 'src/user-infos/user.infos.module';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
