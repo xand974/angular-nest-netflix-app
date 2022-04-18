@@ -8,6 +8,8 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { Role } from 'src/roles/roles';
+import { Roles } from 'src/roles/roles.decorator';
 import { AuthenticatedGuard } from 'src/guards/authenticated.guard';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UsersService } from './users.service';
@@ -18,6 +20,7 @@ export class UsersController {
   private readonly logger = new Logger(UsersController.name);
   constructor(private readonly userService: UsersService) {}
 
+  @Roles(Role.Admin)
   @Put('update-user/:id')
   public async updateUser(
     @Param('id') id,
@@ -28,6 +31,7 @@ export class UsersController {
     return 'user has been updated';
   }
 
+  @Roles(Role.Admin)
   @Delete('delete-user/:id')
   public async deleteUser(@Param('id') id: string) {
     await this.userService.deleteUser(id);
@@ -35,18 +39,21 @@ export class UsersController {
     return 'user has been deleted';
   }
 
+  @Roles(Role.Admin)
   @Get('get-user/:id')
   public async getUser(@Param('id') id: string) {
     this.logger.log(`get user : ${id}`);
     return await this.userService.getUser(id);
   }
 
+  @Roles(Role.Admin)
   @Get('get-all')
   public async getAllUser(limit?: number) {
     this.logger.log(`proceed get ${limit} users`);
     return await this.userService.getAll(limit);
   }
 
+  @Roles(Role.Admin)
   @Get('get-by-email')
   public async getByEmail(email: string) {
     this.logger.log(`proceed to get ${email} informations`);
