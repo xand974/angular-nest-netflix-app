@@ -29,10 +29,6 @@ export class AuthService {
     return 'user created';
   }
 
-  public test() {
-    return this.tokenService.genToken({ userId: '202202', isAdmin: false });
-  }
-
   public async validateUser({
     username,
     password,

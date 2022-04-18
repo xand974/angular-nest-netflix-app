@@ -8,7 +8,7 @@ export class TokenService {
     private configService: ConfigService,
   ) {}
 
-  async genToken({ userId, isAdmin }: { userId: string; isAdmin: boolean }) {
+  genToken({ userId, isAdmin }: { userId: string; isAdmin: boolean }) {
     return this.jwtService.sign({ userId, isAdmin });
   }
 
