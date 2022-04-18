@@ -9,20 +9,12 @@ export class TokenService {
   ) {}
 
   async genToken({ userId, isAdmin }: { userId: string; isAdmin: boolean }) {
-    return await this.jwtService.sign(
-      { userId, isAdmin },
-      {
-        secret: this.configService.get('SECRET_TOKEN'),
-      },
-    );
+    return this.jwtService.sign({ userId, isAdmin });
   }
 
   verifyToken(token: string) {
-    const tokenHeader = token.split(' ')[1];
     try {
-      const payload = this.jwtService.verify(tokenHeader, {
-        secret: this.configService.get('SECRET_TOKEN'),
-      });
+      const payload = this.jwtService.verify(token);
       return payload;
     } catch (err) {
       throw new HttpException('token cannot be verified', HttpStatus.FORBIDDEN);

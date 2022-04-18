@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { Model } from 'mongoose';
 import { User } from './schema/user.schema';
 import { PasswordService } from 'src/password/password.service';
+import { UserModel } from 'src/types';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +12,12 @@ export class UsersService {
     @InjectModel('User') private readonly userModel: Model<User>,
     private passwordService: PasswordService,
   ) {}
+
+  async create(user: UserModel) {
+    const newUser = new this.userModel(user);
+    await newUser.save();
+    return newUser;
+  }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userModel.findById(id);
@@ -28,7 +35,14 @@ export class UsersService {
   async getByEmail(email: string) {
     const user = await this.userModel.findOne({ email });
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-    return user;
+    const { password, ...rest } = user['_doc'];
+    return user['_doc'];
+  }
+
+  async getByUsername(username: string) {
+    const user = await this.userModel.findOne({ username });
+    if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
+    return user['_doc'];
   }
 
   async getAll(limit = 10) {

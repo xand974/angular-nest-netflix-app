@@ -1,7 +1,7 @@
-import { Body, Controller, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Logger, Post, UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { UserInfosService } from 'src/user.infos/user.infos.service';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 
 @Controller('api/auth')
@@ -26,10 +26,10 @@ export class AuthController {
     return 'user created';
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Body() loginDto: LoginDto) {
-    const token = await this.authService.login(loginDto);
+  public async login() {
     this.logger.log(`user is logged in`);
-    return token;
+    return { msg: 'logged in !' };
   }
 }

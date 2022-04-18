@@ -20,7 +20,7 @@ import { UserInfosModule } from './user.infos/user.infos.module';
     UserInfosModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.local',
+      envFilePath: '.development.env',
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
   ],

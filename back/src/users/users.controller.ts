@@ -8,11 +8,12 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { AuthenticatedGuard } from 'src/guards/authenticated.guard';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UsersService } from './users.service';
-import { AuthGuard } from 'src/guards/auth.guard';
+
+@UseGuards(AuthenticatedGuard)
 @Controller('api/users')
-@UseGuards(AuthGuard)
 export class UsersController {
   private readonly logger = new Logger(UsersController.name);
   constructor(private readonly userService: UsersService) {}
