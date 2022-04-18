@@ -23,7 +23,7 @@ export class AuthService {
     this.userService.create({
       ...registerDto,
       password: hashPass,
-      isAdmin: false,
+      roles: ['user'],
       isVerified: false,
     });
     return 'user created';

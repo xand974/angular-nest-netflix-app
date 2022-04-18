@@ -7,7 +7,7 @@ export interface UserModel {
 
   username: string;
 
-  isAdmin: boolean;
+  roles?: string[];
 
   photoURL?: string;
 

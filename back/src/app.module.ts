@@ -11,6 +11,8 @@ import { AdminMiddleware } from './middlewares/admin.middleware';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { UserInfosModule } from './user.infos/user.infos.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/role.guard';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { UserInfosModule } from './user.infos/user.infos.module';
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
   ],
+  providers: [{ provide: APP_GUARD, useClass: RolesGuard }],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
