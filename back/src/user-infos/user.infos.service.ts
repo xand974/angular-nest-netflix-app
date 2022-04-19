@@ -8,7 +8,7 @@ import { UserInfos } from './schema/user-infos.schema';
 export class UserInfosService {
   constructor(
     private readonly userService: UsersService,
-    @InjectModel('User_Infos')
+    @InjectModel(UserInfos.name)
     private readonly userInfosModel: Model<UserInfos>,
   ) {}
 

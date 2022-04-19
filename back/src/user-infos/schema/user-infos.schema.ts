@@ -1,21 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
+import { User } from '../../users/schema/user.schema';
 
 export type UserInfosDocument = UserInfos & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class UserInfos {
-  @Prop()
+  @Prop({ type: String })
   photoURL: string;
 
-  @Prop()
+  @Prop({ type: SchemaTypes.ObjectId, ref: User.name, required: true })
   userId: string;
 
-  @Prop()
+  @Prop({ type: String })
   username: string;
-  @Prop()
+
+  @Prop({ type: String })
   city?: string;
-  @Prop()
+
+  @Prop({ type: String })
   ip?: string;
 }
 
