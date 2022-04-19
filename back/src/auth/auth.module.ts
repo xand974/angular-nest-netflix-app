@@ -16,6 +16,7 @@ import { SessionSerializer } from './session.serialize';
     EmailModule,
     UserInfosModule,
     PasswordModule,
+    EmailModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, SessionSerializer],

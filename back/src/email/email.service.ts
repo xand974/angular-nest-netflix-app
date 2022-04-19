@@ -1,11 +1,12 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TokenService } from 'src/token/token.service';
 import { registerVerificationTemplate } from './templates/email-verification';
 
 @Injectable()
 export class EmailService {
+  private logger = new Logger();
   constructor(
     private readonly tokenService: TokenService,
     private readonly configService: ConfigService,
@@ -32,5 +33,8 @@ export class EmailService {
       html: emailTemplate,
       subject: text,
     });
+    this.logger.log(
+      `verification email from ${from} has been sended to ${email}`,
+    );
   }
 }

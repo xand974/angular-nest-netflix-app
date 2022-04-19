@@ -39,6 +39,10 @@ export class UsersService {
     return user['_doc'];
   }
 
+  public async isUserInDb(email: string): Promise<boolean> {
+    return (await this.userModel.findOne({ email })) !== null ? true : false;
+  }
+
   async getByUsername(username: string) {
     const user = await this.userModel.findOne({ username });
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);

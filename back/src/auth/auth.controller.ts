@@ -3,6 +3,7 @@ import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { UserInfosService } from 'src/user-infos/user.infos.service';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { EmailService } from '../email/email.service';
 
 @Controller('api/auth')
 export class AuthController {
@@ -10,17 +11,23 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private userInfosService: UserInfosService,
+    private emailService: EmailService,
   ) {}
 
   @Post('register')
   public async register(@Body() registerDto: RegisterDto) {
-    const id = await this.authService.register(registerDto);
+    this.logger.log(`proceed to register`);
+    const { email, id } = await this.authService.register(registerDto);
     await this.userInfosService.addUserinfos({
       photoURL: '/assets/img/default-user.jpg',
       userId: id,
       username: registerDto.username ?? 'default',
       city: 'somewhere',
       ip: 'unknown',
+    });
+    await this.emailService.sendEmailVerification({
+      email: 'weanimepro@gmail.com',
+      isVerified: true,
     });
     this.logger.log(`register completed, new user : ${id}`);
     return 'user created';

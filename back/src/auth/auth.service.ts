@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { TokenService } from 'src/token/token.service';
 import { RegisterDto } from './dto/register.dto';
 import { PasswordService } from '../password/password.service';
-import { EmailService } from 'src/email/email.service';
 import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class AuthService {
@@ -10,23 +9,24 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly passwordService: PasswordService,
     private readonly userService: UsersService,
-    private readonly emailService: EmailService,
   ) {}
 
-  public async register(registerDto: RegisterDto): Promise<string> {
-    const userFound = await this.userService.getByEmail(registerDto.email);
-
+  public async register(
+    registerDto: RegisterDto,
+  ): Promise<{ email: string; id: string }> {
+    const userFound = await this.userService.isUserInDb(registerDto.email);
     if (userFound) throw new HttpException('user exists', HttpStatus.CONFLICT);
     const hashPass = await this.passwordService.genPassword(
       registerDto.password,
     );
-    this.userService.create({
+    const { email, id } = await this.userService.create({
       ...registerDto,
       password: hashPass,
       roles: ['user'],
       isVerified: false,
     });
-    return 'user created';
+
+    return { email, id };
   }
 
   public async validateUser({

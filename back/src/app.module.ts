@@ -1,10 +1,5 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
 import { AdminMiddleware } from './middlewares/admin.middleware';
@@ -24,18 +19,14 @@ import { RolesGuard } from './guards/role.guard';
       isGlobal: true,
       envFilePath: '.development.env',
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URL'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   providers: [{ provide: APP_GUARD, useClass: RolesGuard }],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AdminMiddleware)
-      .forRoutes(
-        { path: 'api/users', method: RequestMethod.ALL },
-        { path: 'api/user-infos', method: RequestMethod.ALL },
-        { path: 'api/films', method: RequestMethod.ALL },
-      );
-  }
-}
+export class AppModule {}
