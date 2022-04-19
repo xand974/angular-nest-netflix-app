@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokenModule } from './token/token.module';
 import { AuthModule } from './auth/auth.module';
@@ -18,7 +18,13 @@ import { RolesGuard } from './guards/role.guard';
       isGlobal: true,
       envFilePath: '.development.env',
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URL'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   providers: [{ provide: APP_GUARD, useClass: RolesGuard }],
 })
