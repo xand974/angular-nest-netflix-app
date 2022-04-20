@@ -13,3 +13,37 @@ export interface UserModel {
 
   isVerified: boolean;
 }
+
+export interface MovieModel {
+  id?: string;
+
+  name: string;
+
+  synopsis: string;
+
+  ageLimit?: number;
+
+  releaseYear?: number;
+
+  movieURL: string;
+
+  bigPictureURL?: string;
+
+  thumbnailURL: string;
+
+  type: 'movie' | 'series' | 'documentary';
+
+  genre: string[];
+}
+
+export interface ListModel {
+  id?: string;
+
+  movieIds: string[];
+
+  name: string;
+
+  genre: string[];
+
+  type: string;
+}
