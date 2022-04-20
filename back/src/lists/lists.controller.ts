@@ -12,7 +12,7 @@ import {
 import { ListsService } from './lists.service';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from '../roles/roles';
-import { ListModel } from '../types/index';
+import { ListModel } from 'netflix-malet-types';
 import { UseGuards } from '@nestjs/common';
 import { AuthenticatedGuard } from '../guards/authenticated.guard';
 

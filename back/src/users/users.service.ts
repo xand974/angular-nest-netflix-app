@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { Model } from 'mongoose';
 import { User } from './schema/user.schema';
 import { PasswordService } from 'src/password/password.service';
-import { UserModel } from 'src/types';
+import { UserModel } from 'netflix-malet-types';
 
 @Injectable()
 export class UsersService {

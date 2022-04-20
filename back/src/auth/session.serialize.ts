@@ -1,5 +1,5 @@
 import { PassportSerializer } from '@nestjs/passport';
-import { UserModel } from 'src/types';
+import { UserModel } from 'netflix-malet-types';
 
 export class SessionSerializer extends PassportSerializer {
   // eslint-disable-next-line @typescript-eslint/ban-types

@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Movie } from './schema/movie.schema';
 import { Model } from 'mongoose';
-import { MovieModel } from '../types/index';
+import { MovieModel } from 'netflix-malet-types';
 
 @Injectable()
 export class MoviesService {

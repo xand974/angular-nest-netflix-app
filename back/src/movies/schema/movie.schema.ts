@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { MovieModel } from '../../types/index';
+import { MovieModel } from 'netflix-malet-types';
 
 export type MovieType = Movie & Document;
 

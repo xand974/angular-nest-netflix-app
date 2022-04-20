@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { MovieModel } from '../types/index';
+import { MovieModel } from 'netflix-malet-types';
 import { AuthenticatedGuard } from '../guards/authenticated.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from '../roles/roles';

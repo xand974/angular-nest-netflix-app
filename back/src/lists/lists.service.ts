@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { List } from './schema/list.schema';
 import { Model } from 'mongoose';
-import { ListModel } from '../types/index';
+import { ListModel } from 'netflix-malet-types';
 
 @Injectable()
 export class ListsService {
