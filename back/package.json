@@ -34,7 +34,6 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.0",
     "express-session": "^1.17.2",
-    "handlebars": "^4.7.7",
     "mongoose": "^6.2.10",
     "nodemailer": "^6.7.3",
     "passport": "^0.5.2",

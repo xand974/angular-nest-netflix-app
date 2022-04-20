@@ -8,6 +8,7 @@ import { UserInfosModule } from './user-infos/user.infos.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
 import { MoviesModule } from './movies/movies.module';
+import { ListsModule } from './lists/lists.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MoviesModule } from './movies/movies.module';
     TokenModule,
     UserInfosModule,
     MoviesModule,
+    ListsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.development.env',

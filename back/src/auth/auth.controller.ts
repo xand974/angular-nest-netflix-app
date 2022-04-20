@@ -9,9 +9,9 @@ import { EmailService } from '../email/email.service';
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
   constructor(
-    private authService: AuthService,
-    private userInfosService: UserInfosService,
-    private emailService: EmailService,
+    private readonly authService: AuthService,
+    private readonly userInfosService: UserInfosService,
+    private readonly emailService: EmailService,
   ) {}
 
   @Post('register')

@@ -10,7 +10,7 @@ import { UserModel } from 'src/types';
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    private passwordService: PasswordService,
+    private readonly passwordService: PasswordService,
   ) {}
 
   async create(user: UserModel) {

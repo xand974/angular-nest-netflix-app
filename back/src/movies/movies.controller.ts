@@ -19,8 +19,8 @@ import { Role } from '../roles/roles';
 @UseGuards(AuthenticatedGuard)
 @Controller('api/movies')
 export class MoviesController {
-  private logger = new Logger();
-  constructor(private movieService: MoviesService) {}
+  private readonly logger = new Logger();
+  constructor(private readonly movieService: MoviesService) {}
 
   @Roles(Role.Admin)
   @Post('create')

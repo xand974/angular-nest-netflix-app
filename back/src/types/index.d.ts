@@ -35,3 +35,15 @@ export interface MovieModel {
 
   genre: string[];
 }
+
+export interface ListModel {
+  id?: string;
+
+  movieIds: string[];
+
+  name: string;
+
+  genre: string[];
+
+  type: string;
+}

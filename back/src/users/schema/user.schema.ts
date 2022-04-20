@@ -17,7 +17,7 @@ export class User {
   @Prop({ required: true, type: Boolean })
   isVerified: boolean;
 
-  @Prop({ required: true, type: Array })
+  @Prop({ required: true, type: [String] })
   roles: string[];
 }
 

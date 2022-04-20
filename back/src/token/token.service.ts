@@ -5,7 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 export class TokenService {
   constructor(
     private readonly jwtService: JwtService,
-    private configService: ConfigService,
+    private readonly configService: ConfigService,
   ) {}
 
   genToken({ userId, isAdmin }: { userId: string; isAdmin: boolean }) {

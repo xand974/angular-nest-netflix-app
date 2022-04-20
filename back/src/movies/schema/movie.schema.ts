@@ -27,7 +27,7 @@ export class Movie implements MovieModel {
   @Prop({ type: String })
   thumbnailURL: string;
 
-  @Prop({ type: Array, default: [] })
+  @Prop({ type: [String], default: [] })
   genre: string[];
 
   @Prop({ type: String })
