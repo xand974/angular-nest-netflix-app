@@ -1,0 +1,48 @@
+<div class="register">
+  <header class="register__header">
+    <div class="register__header__left">
+      <img [src]="svgLogo" alt="" class="register__header__left__svg" />
+    </div>
+    <div class="register__header__right">
+      <select
+        name="language"
+        class="register__header__right__select"
+        id="language"
+      >
+        <option value="en">
+          <!-- <nb-icon icon="globe-outline"></nb-icon> -->
+          English
+        </option>
+        <option value="fr">French</option>
+      </select>
+      <a href="/login" class="register__header__right__btn"> Sign In </a>
+    </div>
+  </header>
+
+  <section class="register__body">
+    <div class="register__body__container">
+      <h1 class="register__body__container__title">
+        Unlimited movies, TV <br />
+        shows, and more
+      </h1>
+      <h4 class="register__body__container__text">
+        Watch anywhere. Cancel anytime
+      </h4>
+      <p class="register__body__container__info">
+        Ready to watch? Enter your email to create or restart your membership.
+      </p>
+
+      <form [formGroup]="credential" class="register__body__container__form">
+        <input
+          formControlName="email"
+          placeholder="Email address"
+          type="text"
+          name="email"
+        />
+        <button (click)="register($event)">
+          <span> Get Started <span>></span> </span>
+        </button>
+      </form>
+    </div>
+  </section>
+</div>

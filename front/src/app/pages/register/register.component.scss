@@ -1,0 +1,105 @@
+.register {
+  height: 100vh;
+  padding: 3rem 5rem;
+  overflow: hidden;
+  background: url("../../../assets/images/netflix-register-bg.jpeg") no-repeat;
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.527);
+    top: 0;
+    left: 0;
+  }
+
+  &__header {
+    z-index: 23;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__left {
+      height: 60px;
+      &__svg {
+        width: 200px;
+        height: 100%;
+      }
+    }
+    &__right {
+      display: flex;
+      align-items: center;
+      &__select {
+        margin-right: 50px;
+        font-size: 1rem;
+        font-weight: lighter;
+        background: black;
+        border: 1px solid white;
+        padding: 10px 15px 10px 8px;
+        color: white;
+        border-radius: 3px;
+      }
+      &__btn {
+        background-color: #d22f27;
+        border-radius: 3px;
+        color: white;
+        padding: 11px;
+      }
+    }
+  }
+
+  &__body {
+    position: relative;
+    z-index: 20;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__container {
+      color: white;
+      &__title {
+        margin-bottom: 5px;
+        font-size: 3rem;
+        line-height: 1.4;
+        text-align: center;
+      }
+      &__text {
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: lighter;
+        font-size: 1.4rem;
+      }
+      &__info {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        font-weight: lighter;
+      }
+      &__form {
+        display: flex;
+        align-items: center;
+
+        input {
+          flex: 1;
+          border: none;
+          padding: 15px;
+          outline: none;
+        }
+        button {
+          padding: 13px;
+          border: none;
+          background-color: #d22f27;
+          color: white;
+          font-size: 1.1rem;
+          cursor: pointer;
+          & > span {
+            display: flex;
+            align-items: center;
+            span {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
