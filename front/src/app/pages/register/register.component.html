@@ -9,10 +9,7 @@
         class="register__header__right__select"
         id="language"
       >
-        <option value="en">
-          <!-- <nb-icon icon="globe-outline"></nb-icon> -->
-          English
-        </option>
+        <option value="en">English</option>
         <option value="fr">French</option>
       </select>
       <a href="/login" class="register__header__right__btn"> Sign In </a>
@@ -38,11 +35,36 @@
           placeholder="Email address"
           type="text"
           name="email"
+          *ngIf="!isEmailValid"
         />
+        <input
+          formControlName="password"
+          placeholder="Your password"
+          type="password"
+          name="password"
+          *ngIf="isEmailValid"
+        />
+
         <button (click)="register($event)">
-          <span> Get Started <span>></span> </span>
+          <span>
+            Get Started
+            <span
+              ><nb-icon
+                class="arrow-icon"
+                icon="arrow-ios-forward-outline"
+              ></nb-icon
+            ></span>
+          </span>
         </button>
       </form>
+      <span
+        *ngIf="
+          credential.value.email.length > 0 &&
+          !checkEmailValid(credential.value.email)
+        "
+        class="register__body__container__error"
+        >Email must be valid</span
+      >
     </div>
   </section>
 </div>

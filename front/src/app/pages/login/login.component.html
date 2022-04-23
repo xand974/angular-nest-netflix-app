@@ -1,1 +1,36 @@
-<p>login works!</p>
+<div class="login">
+  <div class="wrapper">
+    <h1>S'identifier</h1>
+    <form>
+      <div class="login__wrapper">
+        <label for="email"> E-mail ou numéro de téléphone </label>
+        <input type="text" id="email" name="email" />
+      </div>
+      <div class="login__wrapper">
+        <label for="password"> Mot de Passe </label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <button>Se connecter</button>
+    </form>
+    <div class="remember">
+      <div class="remember__wrapper">
+        <input type="checkbox" name="souvenir" id="souvenir" />
+        <label for="souvenir">Se souvenir de moi </label>
+      </div>
+      <div>Besoin d'aide ?</div>
+    </div>
+    <div class="first__visit">
+      <p>Première visite sur Netflix ?</p>
+      <a href="/register">
+        <span>Inscrivez-vous.</span>
+      </a>
+    </div>
+    <div class="captcha">
+      <p>
+        Cette page est protégée par Google reCAPTCHA pour nous assurer que vous
+        n'êtes pas un robot
+      </p>
+      <span>En savoir plus.</span>
+    </div>
+  </div>
+</div>

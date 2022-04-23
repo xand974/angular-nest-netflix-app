@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   public svgLogo = '../../../assets/images/netflix.svg';
+  public isEmailValid: boolean = false;
   public credential = this.formBuilder.group({
     email: '',
     password: '',
@@ -18,6 +19,15 @@ export class RegisterComponent implements OnInit {
 
   register(e: MouseEvent) {
     e.preventDefault();
-    console.log(this.credential.value);
+    const email = this.credential.value['email'];
+    if (!this.checkEmailValid(email)) return;
+    this.isEmailValid = true;
+  }
+
+  checkEmailValid(email: string) {
+    if (!email || email === '') return false;
+    const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (email.match(pattern)) return true;
+    return false;
   }
 }
