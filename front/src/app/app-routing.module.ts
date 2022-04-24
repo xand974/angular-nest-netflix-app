@@ -7,13 +7,15 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { WatchComponent } from './pages/watch/watch.component';
 import { AuthGuard } from './guards/auth.guard';
+import { BrowseComponent } from './pages/browse/browse.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/browse', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'watch/:id', component: WatchComponent, canActivate: [AuthGuard] },
+  { path: 'browse', component: BrowseComponent, canActivate: [AuthGuard] },
   {
     path: '**',
     pathMatch: 'full',
