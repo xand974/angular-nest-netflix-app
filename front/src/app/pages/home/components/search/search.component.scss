@@ -1,0 +1,31 @@
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-right: 20px;
+  &__input {
+    padding: 5px;
+    padding-left: 10px;
+    outline: none;
+    background: rgb(201, 201, 201);
+    border-radius: 10px;
+    border: none;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: all 0.3s ease;
+  }
+  &__btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &__icon {
+      width: 20px;
+      color: gray;
+      position: absolute;
+      right: 10px;
+      top: 53%;
+      transform: translateY(-50%);
+    }
+  }
+}

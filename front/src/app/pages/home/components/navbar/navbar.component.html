@@ -5,10 +5,15 @@
       alt=""
       class="nav__left__logo"
     />
-    <malet-navbar-links> </malet-navbar-links>
+    <malet-navbar-links class="nav__left__links"> </malet-navbar-links>
   </div>
   <div class="nav__right">
-    <malet-search></malet-search>
-    <malet-dropdown></malet-dropdown>
+    <malet-search class="nav__right__search"></malet-search>
+    <malet-dropdown
+      [imgURL]="
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReHTRKk6eSVY0cdIDwD_u94q7vzCMqzyxwbA&usqp=CAU'
+      "
+      class="nav__right__dropdown"
+    ></malet-dropdown>
   </div>
 </header>
