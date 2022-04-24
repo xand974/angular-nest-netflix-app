@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { BrowseCardInterface } from '../../../../types/browse.types';
+import { BrowseCardInterface } from 'src/types/browse.types';
 
 @Component({
   selector: 'app-browse-card',

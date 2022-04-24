@@ -3,21 +3,20 @@
     <h1 class="browse__container__title">Who's watching?</h1>
     <div class="browse__container__cards">
       <app-browse-card
+        class="browse__container__cards__card"
         *ngFor="let user of userCards"
         [userCard]="user"
         (onSelectUser)="selectUser(user.id)"
       ></app-browse-card>
-      <div class="browse__container__cards__add">
+      <a class="browse__container__cards__add" href="/add-profile">
         <div class="browse__container__cards__add__container">
           <nb-icon
             class="browse__container__cards__add__container__icon"
             icon="plus-circle-outline"
           ></nb-icon>
         </div>
-        <a class="browse__container__cards__add__link" href="/add-profile"
-          >Add Profile</a
-        >
-      </div>
+        <p class="browse__container__cards__add__link">Add Profile</p>
+      </a>
     </div>
     <a class="browse__container__link" href="/manage">Manage Profiles </a>
   </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BrowseCardInterface } from 'src/app/types/browse.types';
+import { BrowseCardInterface } from 'src/types/browse.types';
 
 @Component({
   selector: 'app-browse',
