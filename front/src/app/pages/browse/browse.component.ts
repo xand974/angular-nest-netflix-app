@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowseCardInterface } from 'src/types/browse.types';
 
@@ -6,6 +6,7 @@ import { BrowseCardInterface } from 'src/types/browse.types';
   selector: 'app-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseComponent implements OnInit {
   public userCards: BrowseCardInterface[] = [

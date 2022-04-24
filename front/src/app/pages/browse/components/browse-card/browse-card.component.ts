@@ -1,10 +1,18 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { BrowseCardInterface } from 'src/types/browse.types';
 
 @Component({
   selector: 'app-browse-card',
   templateUrl: './browse-card.component.html',
   styleUrls: ['./browse-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseCardComponent implements OnInit {
   @Input() userCard = {} as BrowseCardInterface;
