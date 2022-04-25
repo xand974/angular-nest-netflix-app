@@ -1,20 +1,27 @@
 .nav {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   margin: auto;
-  padding: 20px 0;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  height: 60px;
+  padding: 20px 5%;
+  z-index: 100;
   &__left {
     display: flex;
     align-items: center;
     &__logo {
       width: 100px;
       cursor: pointer;
+      margin-right: 20px;
     }
   }
   &__right {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 }
