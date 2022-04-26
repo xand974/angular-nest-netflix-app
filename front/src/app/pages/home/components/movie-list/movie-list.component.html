@@ -1,0 +1,15 @@
+<div class="list">
+  <div class="list__top">
+    <h1 class="list__title">Les meilleurs films de netflix</h1>
+  </div>
+  <div class="list__bottom">
+    <button class="list__bottom__btn list__bottom__btn--left">
+      <nb-icon class="arrow" icon="arrow-ios-back-outline"></nb-icon>
+    </button>
+    <malet-movie-list-item *ngFor="let list of movieList; ngTrackBy: trackBy">
+    </malet-movie-list-item>
+    <button class="list__bottom__btn list__bottom__btn--right">
+      <nb-icon class="arrow" icon="arrow-ios-forward-outline"></nb-icon>
+    </button>
+  </div>
+</div>

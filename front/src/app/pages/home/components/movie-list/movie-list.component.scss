@@ -1,0 +1,44 @@
+.list {
+  position: relative;
+  bottom: 80px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+  &__top {
+    width: 90%;
+    margin: 0 auto 20px auto;
+  }
+  &__bottom {
+    display: flex;
+    align-items: center;
+    width: 95%;
+    margin-left: auto;
+    transition: all 0.3s ease-in;
+    transform: translateX(10px);
+    &__btn {
+      position: absolute;
+      border: none;
+      height: 100%;
+      width: 10%;
+      cursor: pointer;
+      nb-icon.arrow {
+        width: 50px;
+        color: #f1f1f1;
+      }
+      &--left {
+        left: calc(10px - 8%);
+        background: linear-gradient(
+          280deg,
+          rgba(5, 10, 28, 0.14189425770308128) 10%,
+          rgba(5, 10, 28, 0.6853335084033614) 34%,
+          rgba(10, 11, 15, 0.8954175420168067) 62%
+        );
+      }
+      &--right {
+        background: rgba(0, 0, 0, 0.336);
+        right: -1px;
+      }
+    }
+  }
+}
