@@ -1,11 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ListModel } from 'netflix-malet-types';
 @Component({
   selector: 'malet-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent implements OnInit, AfterViewInit {
+  @ViewChild('list') list = {} as ElementRef<HTMLDivElement>;
+  private slideIndex: number = 0;
+
   public movieList: ListModel[] = [
     {
       id: '123',
@@ -77,4 +88,26 @@ export class MovieListComponent implements OnInit {
     return value.id;
   }
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    console.log(this.list.nativeElement);
+  }
+
+  goTo(direction: 'left' | 'right') {
+    if (!this.list) return;
+    const cardWidth = 20;
+    const numberOfCardDisplayed = 4;
+    const container = this.list.nativeElement;
+    const size = this.movieList.length - numberOfCardDisplayed;
+    const { x } = container.getBoundingClientRect();
+
+    if (direction === 'left' && this.slideIndex > 0) {
+      this.slideIndex--;
+      container.style.transform = `translateX(-${cardWidth + x}vw)`;
+    }
+    if (direction === 'right' && this.slideIndex < size) {
+      this.slideIndex++;
+      container.style.transform = `translateX(-${cardWidth + x}vw)`;
+    }
+  }
 }
