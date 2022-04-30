@@ -15,6 +15,7 @@ import { ListModel } from 'netflix-malet-types';
 })
 export class MovieListComponent implements OnInit, AfterViewInit {
   @ViewChild('list') list = {} as ElementRef<HTMLDivElement>;
+  public hideLeftButton: boolean = true;
   private slideIndex: number = 0;
 
   public movieList: ListModel[] = [
@@ -82,6 +83,8 @@ export class MovieListComponent implements OnInit, AfterViewInit {
       type: 'Series',
     },
   ];
+
+  public hideButton: boolean = false;
   constructor() {}
 
   trackBy(index: number, value: ListModel) {
@@ -89,9 +92,7 @@ export class MovieListComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-    console.log(this.list.nativeElement);
-  }
+  ngAfterViewInit(): void {}
 
   goTo(direction: 'left' | 'right') {
     if (!this.list) return;
@@ -99,15 +100,38 @@ export class MovieListComponent implements OnInit, AfterViewInit {
     const numberOfCardDisplayed = 4;
     const container = this.list.nativeElement;
     const size = this.movieList.length - numberOfCardDisplayed;
-    const { x } = container.getBoundingClientRect();
+    const marginRight = 20;
 
-    if (direction === 'left' && this.slideIndex > 0) {
-      this.slideIndex--;
-      container.style.transform = `translateX(-${cardWidth + x}vw)`;
+    if (direction === 'left') {
+      this.slideIndex = this.slideIndex > 0 ? this.slideIndex - 1 : size;
+      container.style.transform = this.slide(cardWidth, marginRight, direction);
     }
-    if (direction === 'right' && this.slideIndex < size) {
-      this.slideIndex++;
-      container.style.transform = `translateX(-${cardWidth + x}vw)`;
+    if (direction === 'right') {
+      this.slideIndex = this.slideIndex === size ? 0 : this.slideIndex + 1;
+      container.style.transform = this.slide(
+        -cardWidth,
+        marginRight,
+        direction
+      );
     }
+  }
+
+  /**
+   * slide based on the direction
+   * @param {number} cardWidth
+   * @param {number} slideIndex
+   * @param {number} marginRight
+   * @param  {number}direction
+   * @returns {string}
+   */
+  private slide(
+    cardWidth: number,
+
+    marginRight: number,
+    direction: string
+  ): string {
+    return `translateX(calc(${direction === 'left' ? '-' : ''}${
+      cardWidth * this.slideIndex
+    }vw - ${marginRight * this.slideIndex}px ))`;
   }
 }
