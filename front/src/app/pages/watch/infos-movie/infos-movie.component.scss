@@ -1,0 +1,46 @@
+.infos__video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.13);
+
+  /* SWITCH THIS */
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+
+  &__wrapper {
+    color: white;
+    width: 50%;
+    &__title {
+      font-size: 25px;
+      margin-bottom: 15px;
+      color: rgb(155, 155, 155);
+    }
+    &__sub--title {
+      font-size: 70px;
+      margin-bottom: 10px;
+    }
+    &__text--big {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    &__text--small {
+      font-weight: 500;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    &__text--long {
+      font-size: 20px;
+      color: rgb(155, 155, 155);
+    }
+  }
+}
