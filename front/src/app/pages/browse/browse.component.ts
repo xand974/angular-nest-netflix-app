@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BrowseCardInterface } from 'src/types/browse.types';
+import { BrowseCardInterface } from 'src/types/index';
 
 @Component({
   selector: 'app-browse',

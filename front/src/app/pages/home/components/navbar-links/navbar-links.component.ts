@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { LinkInterface } from 'src/types/navbar.types';
+import { LinkInterface } from 'src/types/index';
 
 @Component({
   selector: 'malet-navbar-links',
