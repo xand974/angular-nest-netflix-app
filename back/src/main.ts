@@ -5,7 +5,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const maxAge = parseInt(process.env.MAX_AGE_COOKIE);
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
+
   app.use(
     session({
       secret: process.env.SESSION_SECRET,

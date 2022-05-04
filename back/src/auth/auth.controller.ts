@@ -25,10 +25,10 @@ export class AuthController {
       city: 'somewhere',
       ip: 'unknown',
     });
-    await this.emailService.sendEmailVerification({
-      email: 'weanimepro@gmail.com',
-      isVerified: true,
-    });
+    // await this.emailService.sendEmailVerification({
+    //   email: 'weanimepro@gmail.com',
+    //   isVerified: true,
+    // });
     this.logger.log(`register completed, new user : ${id}`);
     return 'user created';
   }
