@@ -6,6 +6,7 @@ import { LoginModule } from './login/login.module';
 import { NotFoundModule } from './not-found/not-found.module';
 import { WatchModule } from './watch/watch.module';
 import { BrowseModule } from './browse/browse.module';
+import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
   declarations: [],
@@ -16,6 +17,7 @@ import { BrowseModule } from './browse/browse.module';
     NotFoundModule,
     WatchModule,
     BrowseModule,
+    PagesRoutingModule,
   ],
 })
 export class PagesModule {}

@@ -4,9 +4,10 @@ import { WatchComponent } from './watch.component';
 import { WatchService } from './watch.service';
 import { InfosMovieModule } from './infos-movie/infos-movie.module';
 import { NbIconModule } from '@nebular/theme';
+import { WatchRoutingModule } from './watch-routing.module';
 
 @NgModule({
-  imports: [CommonModule, InfosMovieModule, NbIconModule],
+  imports: [CommonModule, WatchRoutingModule, InfosMovieModule, NbIconModule],
   declarations: [WatchComponent],
   providers: [WatchService],
   exports: [WatchComponent],
