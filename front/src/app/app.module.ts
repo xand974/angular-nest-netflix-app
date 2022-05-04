@@ -7,6 +7,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RegisterModule } from './pages/register/register.module';
 import { NbThemeModule } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +18,7 @@ import { PagesModule } from './pages/pages.module';
     NbThemeModule.forRoot(),
     BrowserAnimationsModule,
     PagesModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
