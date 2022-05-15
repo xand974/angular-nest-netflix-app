@@ -7,6 +7,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RegisterModule } from './pages/register/register.module';
 import { NbThemeModule } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,8 +19,11 @@ import { PagesModule } from './pages/pages.module';
     NbThemeModule.forRoot(),
     BrowserAnimationsModule,
     PagesModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

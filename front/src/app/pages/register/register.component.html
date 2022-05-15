@@ -38,6 +38,13 @@
           *ngIf="!isEmailValid"
         />
         <input
+          formControlName="username"
+          placeholder="Username"
+          type="text"
+          name="username"
+          *ngIf="!isEmailValid"
+        />
+        <input
           formControlName="password"
           placeholder="Your password"
           type="password"
@@ -46,7 +53,7 @@
         />
 
         <button (click)="register($event)">
-          <span>
+          <span [nbSpinner]="loading">
             Get Started
             <span
               ><nb-icon
@@ -64,6 +71,9 @@
         "
         class="register__body__container__error"
         >Email must be valid</span
+      >
+      <span *ngIf="error" class="register__body__container__error"
+        >users exist</span
       >
     </div>
   </section>
