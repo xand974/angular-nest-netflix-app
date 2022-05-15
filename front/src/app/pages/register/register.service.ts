@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, lastValueFrom, throwError } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SignInInterface } from 'src/types';
 
