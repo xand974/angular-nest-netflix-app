@@ -4,16 +4,18 @@ import * as passport from 'passport';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const maxAge = parseInt(process.env.MAX_AGE_COOKIE);
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  const maxAge = parseInt(process.env.MAX_AGE_COOKIE.trim());
+
+  const app = await NestFactory.create(AppModule, {
+    cors: { credentials: true, origin: 'http://localhost:4200' },
+  });
 
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge },
+      cookie: { maxAge: maxAge },
     }),
   );
 

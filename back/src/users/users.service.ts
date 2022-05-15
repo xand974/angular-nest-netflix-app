@@ -59,7 +59,7 @@ export class UsersService {
     if (!userFound)
       throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
     const { password, ...user } = userFound['_doc'];
-    return user;
+    return user as UserModel;
   }
 
   async deleteUser(id: string) {

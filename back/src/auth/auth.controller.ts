@@ -1,9 +1,18 @@
-import { Body, Controller, Logger, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { UserInfosService } from 'src/user-infos/user.infos.service';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { EmailService } from '../email/email.service';
+import { Request } from 'express';
 
 @Controller('api/auth')
 export class AuthController {
@@ -18,7 +27,7 @@ export class AuthController {
   public async register(@Body() registerDto: RegisterDto) {
     this.logger.log(`proceed to register`);
     const { email, id } = await this.authService.register(registerDto);
-    await this.userInfosService.addUserinfos({
+    await this.userInfosService.addUserInfos({
       photoURL: '/assets/img/default-user.jpg',
       userId: id,
       username: registerDto.username ?? 'default',
@@ -35,10 +44,17 @@ export class AuthController {
     };
   }
 
+  @Get('check-auth')
+  checkAuth(@Req() req: Request) {
+    const dateCookie = req.session.cookie.expires.getTime();
+    const expires = dateCookie - new Date().getTime();
+    return expires > 0;
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
   public async login() {
     this.logger.log(`user is logged in`);
-    return { msg: 'logged in !' };
+    return { data: 'success' };
   }
 }
