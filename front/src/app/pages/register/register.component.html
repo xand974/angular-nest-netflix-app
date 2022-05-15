@@ -67,7 +67,7 @@
       <span
         *ngIf="
           credential.value.email.length > 0 &&
-          !checkEmailValid(credential.value.email)
+          !checkEmail(credential.value.email)
         "
         class="register__body__container__error"
         >Email must be valid</span

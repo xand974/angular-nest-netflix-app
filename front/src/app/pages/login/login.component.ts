@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LoginService } from './login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,28 +15,37 @@ import { LoginService } from './login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
+  public error: boolean;
+  public loading: boolean;
   public credential = this.formBuilder.group({
     password: '',
     username: '',
+    souvenir: false,
   });
   constructor(
     private loginService: LoginService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {
+    this.loading = false;
+    this.error = false;
+  }
 
   ngOnInit(): void {}
 
-  login(e: KeyboardEvent) {
-    e.preventDefault();
-    const email = this.credential.value['email'];
-    if (!this.checkEmailValid(email)) return;
-    this.loginService.login(this.credential.value);
-  }
-
-  checkEmailValid(email: string) {
-    if (!email || email === '') return false;
-    const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (email.match(pattern)) return true;
-    return false;
+  public async login(e: MouseEvent) {
+    try {
+      this.error = false;
+      this.loading = true;
+      e.preventDefault();
+      await this.loginService.login(this.credential.value);
+      this.loading = false;
+      this.router.navigate(['/browse']);
+    } catch (err) {
+      this.error = true;
+      this.loading = false;
+      this.cdr.detectChanges();
+    }
   }
 }

@@ -1,20 +1,38 @@
 <div class="login">
   <div class="wrapper">
     <h1>S'identifier</h1>
-    <form>
+    <form [formGroup]="credential">
       <div class="login__wrapper">
-        <label for="email"> E-mail ou numéro de téléphone </label>
-        <input type="text" id="email" name="email" />
+        <label for="username"> Username </label>
+        <input
+          type="text"
+          formControlName="username"
+          id="username"
+          name="username"
+        />
       </div>
       <div class="login__wrapper">
         <label for="password"> Mot de Passe </label>
-        <input type="password" name="password" id="password" />
+        <input
+          type="password"
+          formControlName="password"
+          name="password"
+          id="password"
+        />
       </div>
-      <button>Se connecter</button>
+      <button (click)="login($event)">
+        <span [nbSpinner]="loading"> Se connecter </span>
+      </button>
+      <span *ngIf="error" style="color: #d22f27">Cannot log in</span>
     </form>
     <div class="remember">
       <div class="remember__wrapper">
-        <input type="checkbox" name="souvenir" id="souvenir" />
+        <input
+          type="checkbox"
+          formControlName="souvenir"
+          name="souvenir"
+          id="souvenir"
+        />
         <label for="souvenir">Se souvenir de moi </label>
       </div>
       <div>Besoin d'aide ?</div>

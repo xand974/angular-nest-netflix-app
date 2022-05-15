@@ -7,7 +7,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/browse', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/browse',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
   {
     path: '',
     loadChildren: () =>

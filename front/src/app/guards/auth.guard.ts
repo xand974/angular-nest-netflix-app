@@ -6,13 +6,14 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { LoginService } from '../pages/login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: LoginService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,10 +22,14 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // TODO - essayer d'implémenter avec cookie
-    if (localStorage.getItem('user') === null) return true;
-
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    return false;
+    return this.loginService
+      .checkAuth()
+      .then((res) => res)
+      .catch((err) => {
+        this.router.navigate(['/login'], {
+          queryParams: { returnUrl: state.url },
+        });
+        return false;
+      });
   }
 }
