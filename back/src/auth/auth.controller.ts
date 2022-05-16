@@ -12,7 +12,7 @@ import { UserInfosService } from 'src/user-infos/user.infos.service';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { EmailService } from '../email/email.service';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('api/auth')
 export class AuthController {
@@ -46,15 +46,25 @@ export class AuthController {
 
   @Get('check-auth')
   checkAuth(@Req() req: Request) {
-    const dateCookie = req.session.cookie.expires.getTime();
-    const expires = dateCookie - new Date().getTime();
-    return expires > 0;
+    console.log(req.user);
+    return req.user && req.user !== null ? true : false;
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login() {
+  public async login(@Req() req: Request) {
     this.logger.log(`user is logged in`);
-    return { data: 'success' };
+    return { data: 'success', user: req.user };
+  }
+
+  @Post('logout')
+  logout(@Req() req: Request) {
+    req.session.destroy((err) => {
+      throw new Error(err);
+    });
+    this.logger.log(`user is logged out`);
+    return {
+      data: 'success',
+    };
   }
 }
