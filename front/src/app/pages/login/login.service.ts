@@ -12,6 +12,7 @@ export class LoginService {
   private apiLoginUrl = `${environment.apiEndpoint}/auth/login`;
   private apiCheckAuthUrl = `${environment.apiEndpoint}/auth/check-auth`;
   private apiGetUserInfosUrl = `${environment.apiEndpoint}/user-infos/get`;
+  private apiSetAuthUrl = `${environment.apiEndpoint}/auth/set-auth`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -43,5 +44,9 @@ export class LoginService {
     return lastValueFrom(
       this.http.get(this.apiCheckAuthUrl).pipe(map((res) => res as boolean))
     );
+  }
+
+  setAuth() {
+    return lastValueFrom(this.http.get(this.apiSetAuthUrl));
   }
 }

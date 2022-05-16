@@ -24,7 +24,17 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return this.loginService
       .checkAuth()
-      .then((res) => res)
+      .then((res) => {
+        const user = localStorage.getItem('user-profile') ?? null;
+        if (res) {
+          return true;
+        } else {
+          this.router.navigate(['/login'], {
+            queryParams: { returnUrl: state.url },
+          });
+          return false;
+        }
+      })
       .catch((err) => {
         this.router.navigate(['/login'], {
           queryParams: { returnUrl: state.url },
