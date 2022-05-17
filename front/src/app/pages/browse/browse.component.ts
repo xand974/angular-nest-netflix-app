@@ -28,7 +28,7 @@ export class BrowseComponent implements OnInit {
   ];
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {}
 
   public selectUser(id: string) {
     this.router.navigate([`/home`], { queryParams: { user: id } });
