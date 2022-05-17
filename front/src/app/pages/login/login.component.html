@@ -21,9 +21,10 @@
         />
       </div>
       <button (click)="login($event)">
-        <span [nbSpinner]="loading"> Se connecter </span>
+        Se connecter
+        <span *ngIf="pending$ | async as pending" [nbSpinner]="pending"> </span>
       </button>
-      <span *ngIf="error" style="color: #d22f27">Cannot log in</span>
+      <span *ngIf="error$ | async" style="color: #d22f27">Cannot log in</span>
     </form>
     <div class="remember">
       <div class="remember__wrapper">

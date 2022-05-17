@@ -26,7 +26,7 @@ export class LoginService {
     );
   }
 
-  getUserProfile(username: string): Promise<void> {
+  getUserProfile(username: string): Promise<UserModel> {
     return lastValueFrom(
       this.http
         .get<UserModel>(`${this.apiGetUserInfosUrl}?u=${username}`, {
@@ -38,6 +38,7 @@ export class LoginService {
 
   setToLocalStorage(user: UserModel) {
     localStorage.setItem('user-profile', JSON.stringify(user));
+    return user;
   }
 
   checkAuth(): Promise<boolean> {

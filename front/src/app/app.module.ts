@@ -9,6 +9,9 @@ import { NbThemeModule } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './shared/auth/reducer/auth.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,6 +23,8 @@ import { InterceptorService } from './services/interceptor.service';
     BrowserAnimationsModule,
     PagesModule,
     HttpClientModule,
+    StoreModule.forRoot({ auth: authReducer }),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
