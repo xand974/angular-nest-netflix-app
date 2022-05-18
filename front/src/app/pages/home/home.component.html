@@ -1,8 +1,8 @@
+<ng-container *ngIf="loading$ | async as loading">
+  <malet-loading [loading]="loading"></malet-loading>
+</ng-container>
 <div class="home">
   <malet-navbar></malet-navbar>
   <malet-billboard></malet-billboard>
-  <malet-movie-list></malet-movie-list>
-  <malet-movie-list></malet-movie-list>
-  <malet-movie-list></malet-movie-list>
-  <malet-movie-list></malet-movie-list>
+  <malet-movie-list *ngFor="let movie of movies$ | async"></malet-movie-list>
 </div>

@@ -22,24 +22,25 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.loginService
-      .checkAuth()
-      .then((res) => {
-        const user = localStorage.getItem('user-profile') ?? null;
-        if (res) {
-          return true;
-        } else {
-          this.router.navigate(['/login'], {
-            queryParams: { returnUrl: state.url },
-          });
-          return false;
-        }
-      })
-      .catch((err) => {
-        this.router.navigate(['/login'], {
-          queryParams: { returnUrl: state.url },
-        });
-        return false;
-      });
+    const user = localStorage.getItem('user-profile') ?? null;
+    return user !== null;
+    // return this.loginService
+    //   .checkAuth()
+    //   .then((res) => {
+    //     if (res) {
+    //       return true;
+    //     } else {
+    //       this.router.navigate(['/login'], {
+    //         queryParams: { returnUrl: state.url },
+    //       });
+    //       return false;
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     this.router.navigate(['/login'], {
+    //       queryParams: { returnUrl: state.url },
+    //     });
+    //     return false;
+    //   });
   }
 }
