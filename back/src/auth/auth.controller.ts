@@ -46,13 +46,16 @@ export class AuthController {
 
   @Get('check-auth')
   checkAuth(@Req() req: Request) {
+    req.session['auth'] = true;
     console.log(req.user);
+
     return req.user && req.user !== null ? true : false;
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
   public async login(@Req() req: Request) {
+    console.log(req.user);
     this.logger.log(`user is logged in`);
     return { data: 'success', user: req.user };
   }
@@ -63,6 +66,7 @@ export class AuthController {
       throw new Error(err);
     });
     this.logger.log(`user is logged out`);
+
     return {
       data: 'success',
     };

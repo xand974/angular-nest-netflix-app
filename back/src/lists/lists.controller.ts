@@ -25,8 +25,8 @@ export class ListsController {
   @Roles(Role.Admin)
   @Post('create')
   public async create(@Body() list: ListModel) {
-    const newMovie = await this.listService.create(list);
-    this.logger.log(`list ${newMovie.id} has been created`);
+    const newList = await this.listService.create(list);
+    this.logger.log(`list ${newList.id} has been created`);
     return {
       msg: 'list created',
     };
@@ -34,40 +34,40 @@ export class ListsController {
 
   @Get('get-one')
   public async getOne(@Body() name: string) {
-    const movieFound = await this.listService.getByName(name);
-    this.logger.log(`random list: ${movieFound.id} `);
-    return movieFound;
+    const list = await this.listService.getByName(name);
+    this.logger.log(`random list: ${list.id} `);
+    return list;
   }
 
   @Get('get-id/:id')
   public async getById(@Param('id') id: string) {
-    const movieFound = await this.listService.getById(id);
-    this.logger.log(`random list: ${movieFound.id} `);
-    return movieFound;
+    const list = await this.listService.getById(id);
+    this.logger.log(`random list: ${list.id} `);
+    return list;
   }
 
   @Get('random')
   public async getRandom(@Query('size') size: string) {
-    const movieFound = await this.listService.getRandomBySize(size);
-    this.logger.log(`random list: ${movieFound.id} `);
-    return movieFound;
+    const list = await this.listService.getRandomBySize(size);
+    this.logger.log(`random list found `);
+    return list;
   }
 
   @Roles(Role.Admin)
   @Get('all')
   public async getAll() {
-    const movies = await this.listService.getAll();
-    this.logger.log(`get all movies`);
-    return movies;
+    const Lists = await this.listService.getAll();
+    this.logger.log(`get all Lists`);
+    return Lists;
   }
 
   @Roles(Role.Admin)
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() list: ListModel) {
-    const updatedMovie = await this.listService.updateOne({ id, ...list });
+    const updatedList = await this.listService.updateOne({ id, ...list });
     this.logger.log(`list ${id} has been updated`);
     return {
-      msg: 'movie has been updated',
+      msg: 'List has been updated',
     };
   }
 
