@@ -4,5 +4,8 @@
 <div class="home">
   <malet-navbar></malet-navbar>
   <malet-billboard></malet-billboard>
-  <malet-movie-list *ngFor="let movie of movies$ | async"></malet-movie-list>
+  <malet-movie-list
+    *ngFor="let list of lists$ | async"
+    [list]="list"
+  ></malet-movie-list>
 </div>

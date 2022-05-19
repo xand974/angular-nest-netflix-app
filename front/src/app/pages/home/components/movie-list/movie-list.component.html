@@ -5,17 +5,20 @@
   <div class="list__bottom">
     <button
       class="list__bottom__btn list__bottom__btn--left"
-      (click)="goTo('left')"
+      (click)="slideTo('left')"
     >
       <nb-icon class="arrow" icon="arrow-ios-back-outline"></nb-icon>
     </button>
     <div class="list__bottom__list" #list>
-      <malet-movie-list-item *ngFor="let list of movieList">
+      <malet-movie-list-item
+        *ngFor="let movie of movies$ | async"
+        [movie]="movie"
+      >
       </malet-movie-list-item>
     </div>
     <button
       class="list__bottom__btn list__bottom__btn--right"
-      (click)="goTo('right')"
+      (click)="slideTo('right')"
     >
       <nb-icon class="arrow" icon="arrow-ios-forward-outline"></nb-icon>
     </button>

@@ -13,22 +13,22 @@ import { ListModel } from 'netflix-malet-types';
 export class HomeComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<boolean>;
-  movies$: Observable<ListModel[]>;
+  lists$: Observable<ListModel[]>;
 
   constructor(private homeService: HomeService, private homeStore: HomeStore) {
     this.loading$ = this.homeStore.loading$;
     this.error$ = this.homeStore.error$;
-    this.movies$ = this.homeStore.movies$;
+    this.lists$ = this.homeStore.lists$;
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.initList();
   }
 
-  async initList() {
+  initList() {
     this.homeStore.setLoading(true);
     try {
-      this.homeStore.setMovies(this.homeService.getMovies());
+      this.homeStore.setLists(this.homeService.getLists());
       this.homeStore.setLoading(false);
     } catch (err) {
       this.homeStore.setError(true);

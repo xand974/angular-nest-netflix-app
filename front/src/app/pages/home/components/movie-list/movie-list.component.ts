@@ -3,103 +3,52 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ListModel } from 'netflix-malet-types';
+import { ListModel, MovieModel } from 'netflix-malet-types';
+import { Observable, lastValueFrom } from 'rxjs';
+import { HomeService } from '../../home.service';
+import { MovieListStore } from './movie-list.store';
 @Component({
   selector: 'malet-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MovieListStore],
 })
-export class MovieListComponent implements OnInit, AfterViewInit {
-  @ViewChild('list') list = {} as ElementRef<HTMLDivElement>;
+export class MovieListComponent implements OnInit {
+  @ViewChild('list') listElement = {} as ElementRef<HTMLDivElement>;
+  @Input() list: ListModel;
+  movies$: Observable<MovieModel[]>;
+
   public hideLeftButton: boolean = true;
   private slideIndex: number = 0;
 
-  public movieList: ListModel[] = [
-    {
-      id: '123',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '456',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '789',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '10',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '11',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '11',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '12',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '13',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-    {
-      id: '14',
-      movieIds: ['1', '2'],
-      name: 'list',
-      genre: ['fantasy'],
-      type: 'Series',
-    },
-  ];
-
   public hideButton: boolean = false;
-  constructor() {}
+  constructor(
+    private homeService: HomeService,
+    private cStore: MovieListStore
+  ) {
+    this.list = {} as ListModel;
+    this.movies$ = this.cStore.movies$;
+  }
 
   trackBy(index: number, value: ListModel) {
-    return value.id;
+    return value._id;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMovies();
+  }
 
-  ngAfterViewInit(): void {}
-
-  goTo(direction: 'left' | 'right') {
-    if (!this.list) return;
+  async slideTo(direction: 'left' | 'right') {
+    if (!this.listElement) return;
+    const list = await lastValueFrom(this.movies$);
     const cardWidth = 20;
     const numberOfCardDisplayed = 4;
-    const container = this.list.nativeElement;
-    const size = this.movieList.length - numberOfCardDisplayed;
+    const container = this.listElement.nativeElement;
+    const size = list.length - numberOfCardDisplayed;
     const marginRight = 20;
 
     if (direction === 'left') {
@@ -133,5 +82,15 @@ export class MovieListComponent implements OnInit, AfterViewInit {
     return `translateX(calc(${direction === 'left' ? '-' : ''}${
       cardWidth * this.slideIndex
     }vw - ${marginRight * this.slideIndex}px ))`;
+  }
+
+  getMovies() {
+    try {
+      this.cStore.setLoading(true);
+      this.cStore.setMovies(this.homeService.getMovies(this.list.movieIds));
+    } catch (err) {
+      this.cStore.setLoading(false);
+      this.cStore.setError(true);
+    }
   }
 }
