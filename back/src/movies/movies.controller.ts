@@ -32,11 +32,18 @@ export class MoviesController {
     };
   }
 
-  @Get('get-one')
-  public async getOne(@Body() name: string) {
-    const movieFound = await this.movieService.getByName(name);
-    this.logger.log(`random movie: ${movieFound.id} `);
-    return movieFound;
+  @Post('get-movies-in-list')
+  public async getOne(@Body() body: { ids: string[] }) {
+    const { ids } = body;
+    console.log(ids);
+
+    let movies: MovieModel[] = [];
+    for (const id of ids) {
+      const movie = await this.movieService.getById(id);
+      if (!movie) return;
+      movies.push(movie);
+    }
+    return movies;
   }
 
   @Get('random')

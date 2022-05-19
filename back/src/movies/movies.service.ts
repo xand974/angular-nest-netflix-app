@@ -23,6 +23,12 @@ export class MoviesService {
     return movie;
   }
 
+  public async getById(id: string) {
+    const movie = await this.movieModel.findById(id);
+    if (!movie) throw new HttpException('no movie', HttpStatus.NOT_FOUND);
+    return movie;
+  }
+
   public async getRandomMovie(type: MovieModel['type']) {
     const movie = (await this.movieModel.aggregate([
       {

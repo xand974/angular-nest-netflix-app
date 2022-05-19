@@ -35,7 +35,6 @@ export class ListsService {
         $sample: { size: sizeToNum },
       },
     ])) as ListModel[];
-    console.log(list);
 
     if (!list) throw new HttpException('no list', HttpStatus.NOT_FOUND);
     if (sizeToNum > 1) return list;
