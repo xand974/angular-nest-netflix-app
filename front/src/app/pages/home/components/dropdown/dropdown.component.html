@@ -4,12 +4,13 @@
 
   <div class="dropdown__container">
     <div class="dropdown__container__users">
-      <a class="dropdown__container__users__link">
-        <img
-          src="https://www.cityguide-dubai.com/fileadmin/_processed_/3/3/csm_img-worlds-of-adventures-teaser_40e4184da1.jpg"
-          alt=""
-        />
-        <p>User 1</p>
+      <a
+        class="dropdown__container__users__link"
+        (click)="goToAccount(user.tag)"
+        *ngFor="let user of usersDropdown"
+      >
+        <img [src]="user.bgImage || ''" alt="" />
+        <p>{{ user.text }}</p>
       </a>
       <div class="dropdown__container__users__manage">
         <nb-icon
@@ -24,9 +25,13 @@
         <nb-icon icon="person-outline"></nb-icon>
         <p>Account</p>
       </div>
-      <div class="dropdown__container__settings__item">
-        <nb-icon icon="question-mark-circle-outline"></nb-icon>
-        <p>Help Center</p>
+      <div
+        class="dropdown__container__settings__item"
+        (click)="handleDropdownSettings(setting.tag)"
+        *ngFor="let setting of settingsDropdown"
+      >
+        <nb-icon [icon]="setting.icon || ''"></nb-icon>
+        <p>{{ setting.text }}</p>
       </div>
     </div>
   </div>
