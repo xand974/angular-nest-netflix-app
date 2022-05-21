@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { LogInInterface } from 'src/types';
 import { lastValueFrom, map, Observable, switchMap } from 'rxjs';
 import { UserModel } from 'netflix-malet-types';
+import { ReqType } from '../../../types/req.types';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class LoginService {
   private apiCheckAuthUrl = `${environment.apiEndpoint}/auth/check-auth`;
   private apiGetUserInfosUrl = `${environment.apiEndpoint}/user-infos/get`;
   private apiSetAuthUrl = `${environment.apiEndpoint}/auth/set-auth`;
+  private apiLogoutUrl = `${environment.apiEndpoint}/auth/logout`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -43,11 +45,19 @@ export class LoginService {
 
   checkAuth(): Promise<boolean> {
     return lastValueFrom(
-      this.http.get(this.apiCheckAuthUrl).pipe(map((res) => res as boolean))
+      this.http
+        .get(this.apiCheckAuthUrl, { withCredentials: true })
+        .pipe(map((res) => res as boolean))
     );
   }
 
   setAuth() {
     return lastValueFrom(this.http.get(this.apiSetAuthUrl));
+  }
+
+  logout() {
+    return lastValueFrom(
+      this.http.post<ReqType>(this.apiLogoutUrl, {}, { withCredentials: true })
+    );
   }
 }

@@ -29,7 +29,7 @@ import {
 export class LoginComponent implements OnInit {
   public error$: Observable<boolean>;
   public pending$: Observable<boolean>;
-  pending: boolean;
+  public pending: boolean;
   public credential = this.formBuilder.group({
     password: '',
     username: '',

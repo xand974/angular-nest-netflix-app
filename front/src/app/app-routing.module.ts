@@ -5,6 +5,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RedirectGuard } from './guards/redirect.guard';
 
 const routes: Routes = [
   {
@@ -19,8 +20,16 @@ const routes: Routes = [
       import('./pages/pages.module').then((m) => m.PagesModule),
     canActivate: [AuthGuard],
   },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [RedirectGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [RedirectGuard],
+  },
   {
     path: '**',
     pathMatch: 'full',
