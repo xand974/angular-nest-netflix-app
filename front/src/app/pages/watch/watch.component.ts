@@ -43,9 +43,6 @@ export class WatchComponent implements OnInit {
     this.cStore.setLoading(true);
     try {
       this.cStore.setMovie(this.homeService.getMovieById(this.id));
-      this.homeService.getMovieById(this.id).subscribe((val) => {
-        console.log(val);
-      });
       this.cStore.setLoading(false);
     } catch (err) {
       this.cStore.setLoading(false);
