@@ -19,7 +19,7 @@ import { MovieListStore } from './movie-list.store';
   providers: [MovieListStore],
 })
 export class MovieListComponent implements OnInit {
-  @ViewChild('list') listElement = {} as ElementRef<HTMLDivElement>;
+  @ViewChild('listElement') listElement = {} as ElementRef<HTMLDivElement>;
   @Input() list: ListModel;
   movies$: Observable<MovieModel[]>;
 

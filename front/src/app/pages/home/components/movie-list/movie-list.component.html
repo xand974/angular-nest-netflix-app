@@ -1,6 +1,6 @@
 <div class="list">
   <div class="list__top">
-    <h1 class="list__title">Les meilleurs films de netflix</h1>
+    <h1 class="list__title">{{ list.name }}</h1>
   </div>
   <div class="list__bottom">
     <button
@@ -9,7 +9,7 @@
     >
       <nb-icon class="arrow" icon="arrow-ios-back-outline"></nb-icon>
     </button>
-    <div class="list__bottom__list" #list>
+    <div class="list__bottom__list" #listElement>
       <malet-movie-list-item
         *ngFor="let movie of movies$ | async"
         [movie]="movie"

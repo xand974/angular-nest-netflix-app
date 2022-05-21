@@ -19,6 +19,13 @@
     background: none;
     cursor: pointer;
 
+    &:hover {
+      .search__input {
+        background: red;
+        transform: scaleX(1);
+      }
+    }
+
     &__icon {
       width: 20px;
       color: gray;

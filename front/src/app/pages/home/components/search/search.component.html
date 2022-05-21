@@ -1,6 +1,12 @@
 <form class="search">
-  <input type="text" class="search__input" />
-  <button class="search__btn">
+  <input
+    [(ngModel)]="searchText"
+    type="text"
+    (blur)="blur($event)"
+    class="search__input"
+    #inputElement
+  />
+  <button class="search__btn" (click)="search($event)">
     <nb-icon icon="search-outline" class="search__btn__icon"></nb-icon>
   </button>
 </form>
