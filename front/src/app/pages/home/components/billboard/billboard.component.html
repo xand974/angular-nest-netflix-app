@@ -1,9 +1,5 @@
 <div class="billboard">
-  <img
-    src="https://n-cdn.serienjunkies.de/11/107331.jpg"
-    class="billboard__img"
-    alt=""
-  />
+  <img [src]="(movie$ | async)?.bigPictureURL" class="billboard__img" alt="" />
   <div class="billboard__layer"></div>
   <div class="billboard__layer__bottom"></div>
   <div class="billboard__container">
@@ -13,13 +9,11 @@
       class="billboard__container__img"
     />
     <p class="billboard__container__text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab nisi labore
-      animi iste placeat expedita vitae consectetur accusantium delectus at
-      molestiae dolorem beatae in
+      {{ (movie$ | async)?.synopsis }}
     </p>
     <div class="billboard__container__links">
       <a
-        href="/watch/123"
+        [href]="'/watch/' + (movie$ | async)?._id"
         class="
           billboard__container__links__link
           billboard__container__links__link--play

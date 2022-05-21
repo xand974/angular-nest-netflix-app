@@ -4,6 +4,13 @@
     <p class="play__link__text">Home</p>
   </a>
 
-  <video class="play__video" autoPlay progress controls #videoControl></video>
-  <malet-infos-movie> </malet-infos-movie>
+  <video
+    class="play__video"
+    [src]="(movie$ | async)?.movieURL"
+    progress
+    controls
+    #videoControl
+  ></video>
+  <malet-infos-movie *ngIf="movie$ | async as movie" [movie]="movie">
+  </malet-infos-movie>
 </div>

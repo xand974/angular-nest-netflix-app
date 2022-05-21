@@ -11,6 +11,9 @@ import { HomeStore } from './home.store';
 export class HomeService {
   private getListsUrl = environment.apiEndpoint + '/lists/random';
   private getMoviesUrl = environment.apiEndpoint + '/movies/get-movies-in-list';
+  private getRandomMovieUrl = environment.apiEndpoint + '/movies/random';
+  private getMovieByIdUrl = environment.apiEndpoint + '/movies/get-one';
+
   constructor(private http: HttpClient) {}
 
   public getLists() {
@@ -44,5 +47,17 @@ export class HomeService {
           throw err;
         })
       );
+  }
+
+  public getRandomMovie(type = 'movie'): Observable<MovieModel> {
+    return this.http.get<MovieModel>(`${this.getRandomMovieUrl}?type=${type}`, {
+      withCredentials: true,
+    });
+  }
+
+  public getMovieById(id: string) {
+    return this.http.get<MovieModel>(`${this.getMovieByIdUrl}?id=${id}`, {
+      withCredentials: true,
+    });
   }
 }

@@ -1,12 +1,16 @@
 <div class="infos__video">
   <div class="infos__video__wrapper">
     <h1 class="infos__video__wrapper__title">Vous regardez</h1>
-    <h2 class="infos__video__wrapper__sub--title">Harry Potter</h2>
-    <p class="infos__video__wrapper__text--big">Fantasy</p>
-    <p class="infos__video__wrapper__text--small">Episode 1</p>
+    <h2 class="infos__video__wrapper__sub--title">{{ movie.name }}</h2>
+    <p class="infos__video__wrapper__text--big">{{ movie.genre[0] }}</p>
+    <p
+      class="infos__video__wrapper__text--small"
+      *ngIf="movie.type === 'series'"
+    >
+      Episode 1
+    </p>
     <p class="infos__video__wrapper__text-long">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa doloribus
-      asperiores dolore itaque, illum qui alias ipsa quos suscipit nihil?
+      {{ movie.synopsis }}
     </p>
   </div>
 </div>

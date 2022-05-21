@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MovieModel } from 'netflix-malet-types';
 import { ComponentStore } from '@ngrx/component-store';
-interface MoviesState {
-  movies: MovieModel[];
+interface BillboardState {
+  movies: MovieModel | null;
   loading: boolean;
   error: boolean;
 }
 
 @Injectable()
-export class MovieListStore extends ComponentStore<MoviesState> {
+export class BillboardStore extends ComponentStore<BillboardState> {
   /* States */
-  movies$ = this.select((state) => state.movies);
+  movie$ = this.select((state) => state.movies);
   loading$ = this.select((state) => state.loading);
   error$ = this.select((state) => state.error);
 
@@ -26,12 +26,12 @@ export class MovieListStore extends ComponentStore<MoviesState> {
     error: value,
   }));
 
-  setMovies = this.updater((state, value: MovieModel[]) => ({
+  setMovie = this.updater((state, value: MovieModel) => ({
     ...state,
     movies: value,
   }));
 
   constructor() {
-    super({ movies: [], loading: false, error: false });
+    super({ movies: null, loading: false, error: false });
   }
 }
