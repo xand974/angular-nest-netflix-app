@@ -32,8 +32,15 @@ export class MoviesController {
     };
   }
 
+  @Get('get-one')
+  public async getOne(@Query('id') id: string) {
+    const movieFound = await this.movieService.getById(id);
+    this.logger.log(`random movie: ${movieFound.id} `);
+    return movieFound;
+  }
+
   @Post('get-movies-in-list')
-  public async getOne(@Body() body: { ids: string[] }) {
+  public async getMoviesInList(@Body() body: { ids: string[] }) {
     const { ids } = body;
 
     let movies: MovieModel[] = [];
