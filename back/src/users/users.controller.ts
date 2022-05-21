@@ -39,7 +39,6 @@ export class UsersController {
     return 'user has been deleted';
   }
 
-  @Roles(Role.Admin)
   @Get('get-user/:id')
   public async getUser(@Param('id') id: string) {
     this.logger.log(`get user : ${id}`);

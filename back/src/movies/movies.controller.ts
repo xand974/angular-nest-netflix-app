@@ -35,7 +35,6 @@ export class MoviesController {
   @Post('get-movies-in-list')
   public async getOne(@Body() body: { ids: string[] }) {
     const { ids } = body;
-    console.log(ids);
 
     let movies: MovieModel[] = [];
     for (const id of ids) {

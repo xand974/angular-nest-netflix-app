@@ -5,6 +5,7 @@ import {
   Logger,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
@@ -13,6 +14,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { EmailService } from '../email/email.service';
 import { Request, Response } from 'express';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Controller('api/auth')
 export class AuthController {
@@ -46,25 +48,21 @@ export class AuthController {
 
   @Get('check-auth')
   checkAuth(@Req() req: Request) {
-    req.session['auth'] = true;
-    console.log(req.user);
-
     return req.user && req.user !== null ? true : false;
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Req() req: Request) {
+  public login() {
     this.logger.log(`user is logged in`);
     return { data: 'success' };
   }
 
   @Post('logout')
-  logout(@Req() req: Request) {
-    req.session.destroy((err) => {
-      throw new Error(err);
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('connect.sid', {
+      path: '/',
     });
-    this.logger.log(`user is logged out`);
 
     return {
       data: 'success',

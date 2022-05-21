@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -10,12 +11,15 @@ async function bootstrap() {
     cors: { credentials: true, origin: 'http://localhost:4200' },
   });
 
+  app.use(cookieParser(process.env.SESSION_SECRET));
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: maxAge },
+      cookie: {
+        maxAge: maxAge,
+      },
     }),
   );
 
