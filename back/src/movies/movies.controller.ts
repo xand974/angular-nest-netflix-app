@@ -17,7 +17,7 @@ import { Roles } from '../roles/roles.decorator';
 import { Role } from '../roles/roles';
 
 @UseGuards(AuthenticatedGuard)
-@Controller('api/movies')
+@Controller('movies')
 export class MoviesController {
   private readonly logger = new Logger();
   constructor(private readonly movieService: MoviesService) {}

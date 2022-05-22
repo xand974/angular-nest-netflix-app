@@ -18,7 +18,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { ProfilesService } from '../profiles/profiles.service';
 import { ProfileModel } from 'netflix-malet-types';
 
-@Controller('api/auth')
+@Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
   constructor(
@@ -42,7 +42,7 @@ export class AuthController {
     const profile: ProfileModel = {
       userId: id,
       name: 'Default',
-      img: '/assets/img/default-user.jpg',
+      photoURL: '/assets/img/default-user.png',
       default: true,
     };
 

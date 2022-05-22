@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { ProfilesController } from './profiles.controller';
 import { ProfilesService } from './profiles.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Profile } from './schema/profiles.schema';
-import { MovieSchema } from 'src/movies/schema/movie.schema';
+import { Profile, ProfileSchema } from './schema/profiles.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Profile.name, schema: MovieSchema }]),
+    MongooseModule.forFeature([{ name: Profile.name, schema: ProfileSchema }]),
   ],
   controllers: [ProfilesController],
   providers: [ProfilesService],

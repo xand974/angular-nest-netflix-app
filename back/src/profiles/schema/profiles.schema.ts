@@ -13,11 +13,11 @@ export class Profile implements ProfileModel {
   @Prop({ required: true, type: String })
   name: string;
 
-  @Prop({ required: true, type: String })
-  img: string;
-
   @Prop({ type: [String], default: [] })
   preferences?: string[];
+
+  @Prop({ type: String, required: true })
+  photoURL: string;
 
   @Prop({ type: Boolean, default: false })
   default?: boolean;

@@ -17,7 +17,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthenticatedGuard } from '../guards/authenticated.guard';
 
 @UseGuards(AuthenticatedGuard)
-@Controller('api/lists')
+@Controller('lists')
 export class ListsController {
   private readonly logger = new Logger();
   constructor(private readonly listService: ListsService) {}

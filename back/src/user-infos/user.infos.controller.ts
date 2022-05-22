@@ -12,7 +12,7 @@ import { UserInfosService } from './user.infos.service';
 import { AuthenticatedGuard } from '../guards/authenticated.guard';
 
 @UseGuards(AuthenticatedGuard)
-@Controller('api/user-infos')
+@Controller('user-infos')
 export class UserInfosController {
   private logger: Logger = new Logger(UserInfosController.name);
   constructor(private readonly userInfosService: UserInfosService) {}
