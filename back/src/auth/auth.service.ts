@@ -24,6 +24,7 @@ export class AuthService {
       password: hashPass,
       roles: ['user'],
       isVerified: false,
+      profileCount: 1,
     });
 
     return { email, id };

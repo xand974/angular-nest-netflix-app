@@ -9,11 +9,13 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
 import { MoviesModule } from './movies/movies.module';
 import { ListsModule } from './lists/lists.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
+    ProfilesModule,
     TokenModule,
     UserInfosModule,
     MoviesModule,
