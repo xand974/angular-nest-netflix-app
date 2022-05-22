@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { BrowseCardInterface } from 'src/types/browse.types';
+import { ProfileModel } from 'netflix-malet-types';
 
 @Component({
   selector: 'app-browse-card',
@@ -15,7 +16,7 @@ import { BrowseCardInterface } from 'src/types/browse.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseCardComponent implements OnInit {
-  @Input() userCard = {} as BrowseCardInterface;
+  @Input() userCard = {} as ProfileModel;
   @Output() onSelectUser: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}

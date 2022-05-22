@@ -23,7 +23,7 @@
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
     "eva-icons": "^1.1.3",
-    "netflix-malet-types": "^1.0.0",
+    "netflix-malet-types": "^2.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

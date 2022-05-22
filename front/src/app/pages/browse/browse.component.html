@@ -1,12 +1,12 @@
 <div class="browse">
   <div class="browse__container">
     <h1 class="browse__container__title">Who's watching?</h1>
-    <div class="browse__container__cards">
+    <div class="browse__container__cards" *ngIf="profiles$ | async as profiles">
       <app-browse-card
         class="browse__container__cards__card"
-        *ngFor="let user of userCards"
-        [userCard]="user"
-        (onSelectUser)="selectUser(user.id)"
+        *ngFor="let profile of profiles"
+        [userCard]="profile"
+        (onSelectUser)="selectUser(profile._id || '')"
       ></app-browse-card>
       <a class="browse__container__cards__add" href="/add-profile">
         <div class="browse__container__cards__add__container">
