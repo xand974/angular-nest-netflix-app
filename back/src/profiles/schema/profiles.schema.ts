@@ -3,7 +3,7 @@ import { Document, SchemaTypes } from 'mongoose';
 import { ProfileModel } from 'netflix-malet-types';
 import { User } from 'src/users/schema/user.schema';
 
-export type ProfileType = Profile & Document;
+export type ProfileDocument = Profile & Document;
 
 @Schema({ timestamps: true })
 export class Profile implements ProfileModel {

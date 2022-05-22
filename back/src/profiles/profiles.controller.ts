@@ -22,7 +22,6 @@ export class ProfilesController {
   private logger = new Logger(ProfilesController.name);
   constructor(private readonly profilesService: ProfilesService) {}
 
-  @Roles(Role.Admin)
   @Post('create')
   public async create(@Body() profile: ProfileModel) {
     const newProfile = await this.profilesService.create(profile);
@@ -42,14 +41,12 @@ export class ProfilesController {
     }
   }
 
-  @Roles(Role.Admin)
-  @Get('all-from-user')
+  @Get('all-from-user/:id')
   public async getAllFromUser(@Param('id') id: string) {
     const profiles = await this.profilesService.findAllFromUserId(id);
     return profiles;
   }
 
-  @Roles(Role.Admin)
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() profile: ProfileModel) {
     const updatedProfile = await this.profilesService.updateOne({
@@ -60,7 +57,6 @@ export class ProfilesController {
     return updatedProfile;
   }
 
-  @Roles(Role.Admin)
   @Delete('delete/:id')
   public async delete(@Param('id') id: string) {
     await this.profilesService.deleteOne(id);

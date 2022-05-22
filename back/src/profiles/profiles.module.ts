@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProfilesController } from './profiles.controller';
 import { ProfilesService } from './profiles.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Profile } from './schema/profile.schema';
+import { Profile } from './schema/profiles.schema';
 import { MovieSchema } from 'src/movies/schema/movie.schema';
 
 @Module({

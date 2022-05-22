@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Profile } from './schema/profile.schema';
+import { Profile } from './schema/profiles.schema';
 import { Model } from 'mongoose';
 import { ProfileModel } from 'netflix-malet-types';
 
