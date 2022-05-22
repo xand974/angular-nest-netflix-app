@@ -16,10 +16,10 @@ export class Profile implements ProfileModel {
   @Prop({ required: true, type: String })
   img: string;
 
-  @Prop({ type: [String] })
+  @Prop({ type: [String], default: [] })
   preferences?: string[];
 
-  @Prop({ type: Boolean })
+  @Prop({ type: Boolean, default: false })
   default?: boolean;
 }
 

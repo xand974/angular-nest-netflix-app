@@ -15,6 +15,8 @@ import { RegisterDto } from './dto/register.dto';
 import { EmailService } from '../email/email.service';
 import { Request, Response } from 'express';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { ProfilesService } from '../profiles/profiles.service';
+import { ProfileModel } from 'netflix-malet-types';
 
 @Controller('api/auth')
 export class AuthController {
@@ -23,23 +25,36 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userInfosService: UserInfosService,
     private readonly emailService: EmailService,
+    private readonly profileService: ProfilesService,
   ) {}
 
   @Post('register')
   public async register(@Body() registerDto: RegisterDto) {
     this.logger.log(`proceed to register`);
     const { email, id } = await this.authService.register(registerDto);
-    await this.userInfosService.addUserInfos({
-      photoURL: '/assets/img/default-user.jpg',
+    const infos = {
       userId: id,
       username: registerDto.username ?? 'default',
       city: 'somewhere',
       ip: 'unknown',
-    });
-    // await this.emailService.sendEmailVerification({
-    //   email: 'weanimepro@gmail.com',
-    //   isVerified: true,
-    // });
+    };
+
+    const profile: ProfileModel = {
+      userId: id,
+      name: 'Default',
+      img: '/assets/img/default-user.jpg',
+      default: true,
+    };
+
+    const emailInfos = {
+      email: 'weanimepro@gmail.com',
+      isVerified: true,
+    };
+
+    await this.userInfosService.addUserInfos(infos);
+    await this.profileService.create(profile);
+    // await this.emailService.sendEmailVerification(emailInfos);
+
     this.logger.log(`register completed, new user : ${id}`);
     return {
       data: 'success',
