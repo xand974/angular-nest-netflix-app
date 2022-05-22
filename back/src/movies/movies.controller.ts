@@ -52,6 +52,15 @@ export class MoviesController {
     return movies;
   }
 
+  @Get('search')
+  public async search(@Query('q') searchText: string) {
+    const movies = await this.movieService.getAllSearchedMovies(searchText);
+    this.logger.log(
+      `query for ${searchText} | ${movies.length} matches was found `,
+    );
+    return movies;
+  }
+
   @Get('random')
   public async getRandom(@Query('type') type: MovieModel['type']) {
     const movieFound = await this.movieService.getRandomMovie(type);

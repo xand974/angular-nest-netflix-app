@@ -29,6 +29,14 @@ export class MoviesService {
     return movie;
   }
 
+  public async getAllSearchedMovies(searchText: string) {
+    const movies = await this.movieModel.find({
+      $text: { $search: searchText, $caseSensitive: false },
+    });
+    if (!movies) throw new HttpException('no matches', HttpStatus.NOT_FOUND);
+    return movies;
+  }
+
   public async getRandomMovie(type: MovieModel['type']) {
     const movie = (await this.movieModel.aggregate([
       {

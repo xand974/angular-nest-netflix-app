@@ -9,7 +9,7 @@ export class Movie implements MovieModel {
   @Prop({ required: true, type: String, index: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: true })
   synopsis: string;
 
   @Prop({ type: Number })
@@ -35,6 +35,6 @@ export class Movie implements MovieModel {
 }
 
 const MovieSchema = SchemaFactory.createForClass(Movie);
-MovieSchema.index({ name: 'text' });
+MovieSchema.indexes();
 
 export { MovieSchema };
