@@ -1,0 +1,7 @@
+:root ::ng-deep .dialog-class {
+  background: red;
+  position: fixed;
+  z-index: 10000;
+  width: 30vw;
+  height: 50vh;
+}

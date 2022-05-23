@@ -8,7 +8,7 @@
         [userCard]="profile"
         (onSelectUser)="selectUser(profile._id || '')"
       ></app-browse-card>
-      <a class="browse__container__cards__add" href="/add-profile">
+      <a (click)="openAddProfileModal()" class="browse__container__cards__add">
         <div class="browse__container__cards__add__container">
           <nb-icon
             class="browse__container__cards__add__container__icon"

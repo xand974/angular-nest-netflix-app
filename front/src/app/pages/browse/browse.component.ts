@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BrowseCardInterface } from 'src/types/index';
 import { BrowseStore } from './browse.store';
 import { BrowseService } from './browse.service';
 import { Store } from '@ngrx/store';
@@ -8,6 +7,8 @@ import { AuthState } from '../../shared/auth/reducer/auth.reducer';
 import { Observable, firstValueFrom } from 'rxjs';
 import { ProfileModel, UserModel } from 'netflix-malet-types';
 import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
+import { AddProfileComponent } from './components/add-profile/add-profile.component';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'app-browse',
@@ -19,28 +20,13 @@ import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
 export class BrowseComponent implements OnInit {
   user$: Observable<UserModel>;
   profiles$: Observable<ProfileModel[]>;
-  public userCards: BrowseCardInterface[] = [
-    {
-      id: 's',
-      name: 'Doe',
-      imgURL: 'none',
-    },
-    {
-      id: 'd',
-      name: 'John',
-      imgURL: 'none',
-    },
-    {
-      id: 'z',
-      name: 'Cena',
-      imgURL: 'none',
-    },
-  ];
+
   constructor(
     private router: Router,
     private cStore: BrowseStore,
     private browseService: BrowseService,
-    private userStore: Store<AuthState>
+    private userStore: Store<AuthState>,
+    private dialogRef: NbDialogService
   ) {
     this.user$ = this.userStore.select(selectUser);
     this.profiles$ = this.cStore.profiles$;
@@ -70,5 +56,11 @@ export class BrowseComponent implements OnInit {
       throw new Error('something went wrong');
     }
     this.router.navigate([`/home`], { queryParams: { user: id } });
+  }
+
+  public openAddProfileModal() {
+    this.dialogRef.open(AddProfileComponent, {
+      dialogClass: 'dialog-class',
+    });
   }
 }
