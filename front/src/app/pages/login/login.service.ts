@@ -13,7 +13,6 @@ export class LoginService {
   private apiLoginUrl = `${environment.apiEndpoint}/auth/login`;
   private apiCheckAuthUrl = `${environment.apiEndpoint}/auth/check-auth`;
   private apiGetUserInfosUrl = `${environment.apiEndpoint}/user-infos/get`;
-  private apiSetAuthUrl = `${environment.apiEndpoint}/auth/set-auth`;
   private apiLogoutUrl = `${environment.apiEndpoint}/auth/logout`;
 
   constructor(private readonly http: HttpClient) {}
@@ -51,11 +50,8 @@ export class LoginService {
     );
   }
 
-  setAuth() {
-    return lastValueFrom(this.http.get(this.apiSetAuthUrl));
-  }
-
   logout() {
+    localStorage.clear();
     return lastValueFrom(
       this.http.post<ReqType>(this.apiLogoutUrl, {}, { withCredentials: true })
     );
