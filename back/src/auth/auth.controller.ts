@@ -42,7 +42,7 @@ export class AuthController {
     const profile: ProfileModel = {
       userId: id,
       name: 'Default',
-      photoURL: '/assets/img/default-user.png',
+      photoURL: '/assets/images/default-user.png',
       default: true,
     };
 

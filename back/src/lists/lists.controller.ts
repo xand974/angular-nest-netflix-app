@@ -64,7 +64,7 @@ export class ListsController {
   @Roles(Role.Admin)
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() list: ListModel) {
-    const updatedList = await this.listService.updateOne({ id, ...list });
+    await this.listService.updateOne({ _id: id, ...list });
     this.logger.log(`list ${id} has been updated`);
     return {
       msg: 'List has been updated',

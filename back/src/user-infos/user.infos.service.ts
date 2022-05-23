@@ -25,7 +25,7 @@ export class UserInfosService {
   async getUserInfos(username: string): Promise<UserModel> {
     const user = await this.userService.getByUsername(username);
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-    const { password, roles, ...rest } = user;
+    const { password, roles, createdAt, updatedAt, ...rest } = user;
 
     return rest;
   }

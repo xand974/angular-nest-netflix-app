@@ -20,7 +20,7 @@ export class ProfilesService {
     return newProfile;
   }
 
-  async getOne(name: string): Promise<ProfileModel> {
+  async getOne(name: string): Promise<Profile> {
     const profile = await this.profileModel.findOne({ name });
     if (!profile)
       throw new HttpException('no profile found', HttpStatus.BAD_REQUEST);
@@ -48,10 +48,10 @@ export class ProfilesService {
   }
 
   public async updateOne(_profile: ProfileModel) {
-    const profile = await this.profileModel.findById(_profile.id);
+    const profile = await this.profileModel.findById(_profile._id);
     if (!profile)
       throw new HttpException(
-        `no profile found for ${_profile.id}`,
+        `no profile found for ${_profile._id}`,
         HttpStatus.NOT_FOUND,
       );
 

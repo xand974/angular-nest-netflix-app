@@ -58,7 +58,7 @@ export class UsersService {
     const userFound = await this.userModel.findById(id);
     if (!userFound)
       throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-    const { password, ...user } = userFound['_doc'];
+    const { password, createdAt, updatedAt, ...user } = userFound['_doc'];
     return user as UserModel;
   }
 

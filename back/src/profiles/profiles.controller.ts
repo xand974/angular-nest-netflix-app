@@ -50,7 +50,7 @@ export class ProfilesController {
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() profile: ProfileModel) {
     const updatedProfile = await this.profilesService.updateOne({
-      id,
+      _id: id,
       ...profile,
     });
     this.logger.log(`profile ${id} has been updated`);

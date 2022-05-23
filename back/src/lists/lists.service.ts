@@ -49,7 +49,7 @@ export class ListsService {
   }
 
   public async updateOne(listDto: ListModel) {
-    const list = await this.listModel.findById(listDto.id);
+    const list = await this.listModel.findById(listDto._id);
     if (!list) throw new HttpException('no list', HttpStatus.NOT_FOUND);
 
     const updatedList = await list.updateOne({
