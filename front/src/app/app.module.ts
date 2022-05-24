@@ -5,7 +5,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RegisterModule } from './pages/register/register.module';
-import { NbThemeModule, NbLayoutModule, NbDialogModule } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbDialogModule,
+  NbSpinnerModule,
+} from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
@@ -27,6 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       hasScroll: false,
       closeOnBackdropClick: false,
     }),
+    NbSpinnerModule,
     PagesModule,
     NbLayoutModule,
     HttpClientModule,

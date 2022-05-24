@@ -14,14 +14,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  public loading: boolean;
   constructor(
     private store: Store<AuthState>,
     private cookieService: CookieService,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) {
+    this.loading = false;
+  }
 
   async ngOnInit(): Promise<void> {
+    this.loading = true;
+    if (
+      window.location.href.includes('login') ||
+      window.location.href.includes('register')
+    ) {
+      this.loading = false;
+      return;
+    }
     const userFromStore = await lastValueFrom(
       this.store.select('user').pipe(take(1))
     );
@@ -34,5 +45,6 @@ export class AppComponent implements OnInit {
       }
       this.store.dispatch(browserReload({ user: userFromLS }));
     }
+    this.loading = false;
   }
 }

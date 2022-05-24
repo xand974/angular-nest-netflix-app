@@ -1,7 +1,83 @@
-:root ::ng-deep .dialog-class {
-  background: red;
-  position: fixed;
-  z-index: 10000;
-  width: 30vw;
-  height: 50vh;
+.profile__card {
+  width: 80vw;
+  height: 70vh;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.575);
+  border-radius: 6px;
+
+  background: black;
+  display: flex;
+  flex-direction: column;
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    &__header {
+      display: flex;
+      flex-direction: column;
+      &__title {
+        color: white;
+        font-size: 2.7rem;
+        line-height: 1;
+      }
+      &__subtitle {
+        font-size: 1rem;
+        color: #979797;
+        margin: 20px 0;
+      }
+    }
+    &__body {
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      border-top: 2px solid #979797;
+      border-bottom: 2px solid #979797;
+      &__img {
+        height: 90px;
+        width: auto;
+        object-fit: contain;
+      }
+      &__input {
+        margin-left: 20px;
+        outline: none;
+        width: 60%;
+        padding: 7px 9px;
+        border: none;
+        border-radius: 4px;
+        background: #979797;
+      }
+    }
+    ::placeholder {
+      color: white;
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      font-size: 1.11rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      button {
+        padding: 10px 26px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+      .create {
+        background: #f1f1f1;
+        color: black;
+        font-weight: bold;
+        margin-right: 10px;
+        border: none;
+      }
+      .cancel {
+        background: none;
+        color: #979797;
+        border: 1px solid #979797;
+        font-weight: bold;
+      }
+    }
+  }
 }

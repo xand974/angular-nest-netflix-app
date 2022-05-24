@@ -4,7 +4,7 @@ import { BrowseStore } from './browse.store';
 import { BrowseService } from './browse.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../shared/auth/reducer/auth.reducer';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, take } from 'rxjs';
 import { ProfileModel, UserModel } from 'netflix-malet-types';
 import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
 import { AddProfileComponent } from './components/add-profile/add-profile.component';
@@ -19,6 +19,7 @@ import { NbDialogService } from '@nebular/theme';
 })
 export class BrowseComponent implements OnInit {
   user$: Observable<UserModel>;
+  loading$: Observable<boolean>;
   profiles$: Observable<ProfileModel[]>;
 
   constructor(
@@ -29,13 +30,16 @@ export class BrowseComponent implements OnInit {
     private dialogRef: NbDialogService
   ) {
     this.user$ = this.userStore.select(selectUser);
+    this.loading$ = this.cStore.loading$;
     this.profiles$ = this.cStore.profiles$;
   }
 
   async ngOnInit() {
+    await this.initData();
     await this.initProfiles();
   }
 
+  async initData() {}
   async initProfiles() {
     const user = await firstValueFrom(this.user$);
 
@@ -45,6 +49,7 @@ export class BrowseComponent implements OnInit {
       this.cStore.setProfiles(
         this.browseService.getAllProfilesByUser(user._id)
       );
+      this.cStore.setLoading(false);
     } catch (err) {
       this.cStore.setLoading(false);
       this.cStore.setError(true);
@@ -58,9 +63,25 @@ export class BrowseComponent implements OnInit {
     this.router.navigate([`/home`], { queryParams: { user: id } });
   }
 
-  public openAddProfileModal() {
-    this.dialogRef.open(AddProfileComponent, {
-      dialogClass: 'dialog-class',
-    });
+  public async openAddProfileModal() {
+    const user = await firstValueFrom(this.user$);
+    if (!user || !user._id) return;
+
+    const ref = this.dialogRef.open(AddProfileComponent);
+    ref.onClose
+      .pipe(take(1))
+      .subscribe(
+        async (val: { data: string; profile: Partial<ProfileModel> }) => {
+          if (val.data === 'success') {
+            this.cStore.setLoading(true);
+            const res = await this.browseService.addProfile(
+              val.profile,
+              user._id!
+            );
+            this.cStore.addProfile(res.profile);
+            this.cStore.setLoading(false);
+          }
+        }
+      );
   }
 }

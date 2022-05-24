@@ -5,6 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &__logo {
+    position: absolute;
+    top: 32px;
+    left: 92px;
+    width: 9rem;
+  }
   &__container {
     width: 60%;
     display: flex;
@@ -31,7 +37,8 @@
         flex-direction: column;
         cursor: pointer;
         flex: 1;
-        height: 180px;
+        height: 200px;
+        margin-top: 40px;
         &__container {
           display: flex;
           align-items: center;
@@ -39,6 +46,7 @@
           flex: 1;
           &__icon {
             width: 100px;
+            font-size: 4rem;
             color: gray;
           }
         }

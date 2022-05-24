@@ -1,4 +1,5 @@
-<div class="browse">
+<div class="browse" [nbSpinner]="(loading$ | async) || false">
+  <img src="/assets/images/netflix.svg" class="browse__logo" alt="" />
   <div class="browse__container">
     <h1 class="browse__container__title">Who's watching?</h1>
     <div class="browse__container__cards" *ngIf="profiles$ | async as profiles">
