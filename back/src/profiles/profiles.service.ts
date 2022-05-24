@@ -11,13 +11,32 @@ export class ProfilesService {
     @InjectModel(Profile.name) private readonly profileModel: Model<Profile>,
   ) {}
 
-  async create(_profile: ProfileModel) {
-    const profile = new this.profileModel({ ..._profile });
+  async create(_profile: ProfileModel, userId: string) {
+    const isDefault = await this.isDefault(userId);
+    // TODO check si le profile a 4 profileCount
+    const profileData = {
+      name: _profile.name,
+      photoURL: _profile.photoURL,
+      preferences: [],
+      default: isDefault ? false : true,
+      userId: userId,
+    } as ProfileModel;
+    const profile = new this.profileModel(profileData);
     const newProfile = await profile.save();
     this.logger.log(
       `${profile.id} : new profile created for user${profile.userId}`,
     );
     return newProfile;
+  }
+
+  async isDefault(userId: string) {
+    const allProfiles = await this.findAllFromUserId(userId);
+    for (const profile of allProfiles) {
+      if (profile.default) {
+        return true;
+      }
+    }
+    return false;
   }
 
   async getOne(name: string): Promise<Profile> {

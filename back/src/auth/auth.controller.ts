@@ -52,7 +52,7 @@ export class AuthController {
     };
 
     await this.userInfosService.addUserInfos(infos);
-    await this.profileService.create(profile);
+    await this.profileService.create(profile, id);
     // await this.emailService.sendEmailVerification(emailInfos);
 
     this.logger.log(`register completed, new user : ${id}`);

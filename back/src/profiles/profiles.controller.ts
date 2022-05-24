@@ -15,6 +15,7 @@ import { AuthenticatedGuard } from '../guards/authenticated.guard';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/roles/roles';
 import { ProfileModel } from 'netflix-malet-types';
+import { CreateProfileDto } from './dto/create-profile.dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('profiles')
@@ -23,10 +24,14 @@ export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Post('create')
-  public async create(@Body() profile: ProfileModel) {
-    const newProfile = await this.profilesService.create(profile);
+  public async create(@Body() profileDto: CreateProfileDto) {
+    const newProfile = await this.profilesService.create(
+      profileDto.profile,
+      profileDto.userId,
+    );
     this.logger.log(`profile ${newProfile.id} has been created`);
     return {
+      profile: newProfile,
       msg: 'profile created',
     };
   }
