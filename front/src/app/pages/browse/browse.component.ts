@@ -2,18 +2,18 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowseService } from './browse.service';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../shared/auth/reducer/auth.reducer';
+import { AuthState } from '../../store/auth/reducer/auth.reducer';
 import { Observable, firstValueFrom, take } from 'rxjs';
 import { ProfileModel, UserModel } from 'netflix-malet-types';
-import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
+import { selectUser } from 'src/app/store/auth/selectors/auth.selectors';
 import { AddProfileComponent } from './components/add-profile/add-profile.component';
 import { NbDialogService } from '@nebular/theme';
-import { ProfileState } from 'src/app/shared/profiles/reducers/profiles.reducer';
+import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
 import { ManageProfilesComponent } from './components/manage-profiles/manage-profiles/manage-profiles.component';
 import {
   selectProfiles,
   selectLoading,
-} from '../../shared/profiles/selectors/profiles.selectors';
+} from '../../store/profiles/selectors/profiles.selectors';
 import {
   setProfilesStart,
   setProfilesSuccess,
@@ -21,7 +21,7 @@ import {
   addProfilesStart,
   addProfilesSuccess,
   addProfilesFailure,
-} from '../../shared/profiles/actions/profiles.actions';
+} from '../../store/profiles/actions/profiles.actions';
 
 @Component({
   selector: 'app-browse',

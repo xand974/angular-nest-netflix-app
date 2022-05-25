@@ -8,12 +8,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AuthState } from 'src/app/shared/auth/reducer/auth.reducer';
+import { AuthState } from 'src/app/store/auth/reducer/auth.reducer';
 import { ProfileModel, UserModel } from 'netflix-malet-types';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
-import { ProfileState } from 'src/app/shared/profiles/reducers/profiles.reducer';
-import { selectProfiles } from '../../../../shared/profiles/selectors/profiles.selectors';
+import { selectUser } from 'src/app/store/auth/selectors/auth.selectors';
+import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
+import { selectProfiles } from '../../../../store/profiles/selectors/profiles.selectors';
 import { NbDialogService } from '@nebular/theme';
 import { ManageProfilesComponent } from 'src/app/pages/browse/components/manage-profiles/manage-profiles/manage-profiles.component';
 

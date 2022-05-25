@@ -13,41 +13,10 @@ import {
 } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './services/interceptor.service';
-import {
-  ActionReducer,
-  ActionReducerMap,
-  combineReducers,
-  compose,
-  MetaReducer,
-  StoreModule,
-} from '@ngrx/store';
-import { authReducer, AuthState } from './shared/auth/reducer/auth.reducer';
+import { InterceptorService } from './services/interceptor/interceptor.service';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  profilesReducer,
-  ProfileState,
-} from './shared/profiles/reducers/profiles.reducer';
-import { localStorageSync } from 'ngrx-store-localstorage';
-
-interface AppState {
-  auth: AuthState;
-  profiles: ProfileState;
-}
-export const reducers = {
-  auth: authReducer,
-  profiles: profilesReducer,
-};
-
-export function localStorageSyncReducer(
-  reducer: ActionReducer<AppState>
-): ActionReducer<AppState> {
-  return localStorageSync({
-    keys: Object.keys(reducers),
-    rehydrate: true,
-  })(reducer);
-}
-const metaReducers: Array<MetaReducer<AppState>> = [localStorageSyncReducer];
+import { reducers, metaReducers } from './store/meta/meta.reducers';
 
 @NgModule({
   declarations: [AppComponent],

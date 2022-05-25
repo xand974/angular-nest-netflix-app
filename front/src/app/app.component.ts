@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthState } from './shared/auth/reducer/auth.reducer';
-import { CookieService } from './shared/cookie/cookie.service';
-import { UserService } from './shared/user/user.service';
+import { AuthState } from './store/auth/reducer/auth.reducer';
+import { CookieService } from './services/cookie/cookie.service';
+import { UserService } from './services/user/user.service';
 import { take, lastValueFrom } from 'rxjs';
-import { browserReload } from './shared/auth/actions/auth.actions';
+import { browserReload } from './store/auth/actions/auth.actions';
 import { LoginService } from './pages/login/login.service';
 import { Router } from '@angular/router';
 
