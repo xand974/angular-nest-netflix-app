@@ -34,6 +34,8 @@ export class BrowseComponent implements OnInit {
   loading$: Observable<boolean>;
   profiles$: Observable<ProfileModel[]>;
 
+  public loading: boolean;
+
   constructor(
     private router: Router,
     private browseService: BrowseService,
@@ -44,6 +46,7 @@ export class BrowseComponent implements OnInit {
     this.user$ = this.userStore.select(selectUser);
     this.profiles$ = this.store.select(selectProfiles);
     this.loading$ = this.store.select(selectLoading);
+    this.loading = false;
   }
 
   async ngOnInit() {
@@ -66,10 +69,12 @@ export class BrowseComponent implements OnInit {
   }
 
   public selectUser(id: string) {
+    this.loading = true;
     if (!id) {
       throw new Error('something went wrong');
     }
     this.router.navigate([`/home`], { queryParams: { user: id } });
+    this.loading = false;
   }
 
   public async openAddProfileModal() {

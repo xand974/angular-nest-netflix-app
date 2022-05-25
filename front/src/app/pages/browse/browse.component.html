@@ -1,9 +1,12 @@
-<div class="browse" [nbSpinner]="(loading$ | async) || false">
+<div class="browse" [nbSpinner]="(loading$ | async) || loading">
   <img src="/assets/images/netflix.svg" class="browse__logo" alt="" />
   <div class="browse__container">
     <h1 class="browse__container__title">Who's watching?</h1>
     <div class="browse__container__cards" *ngIf="profiles$ | async as profiles">
-      <div *ngFor="let profile of profiles; let index = index">
+      <div
+        class="browse__container__cards__item"
+        *ngFor="let profile of profiles; let index = index"
+      >
         <app-browse-card
           class="browse__container__cards__card"
           *ngIf="index < 4"
