@@ -1,18 +1,21 @@
 <div class="dropdown">
-  <img [src]="imgURL" class="dropdown__img" alt="" />
+  <img [src]="(user$ | async)?.photoURL" class="dropdown__img" alt="" />
   <nb-icon icon="arrow-ios-forward-outline" class="dropdown__icon"></nb-icon>
 
   <div class="dropdown__container">
     <div class="dropdown__container__users">
       <a
         class="dropdown__container__users__link"
-        (click)="goToAccount(user.tag)"
-        *ngFor="let user of usersDropdown"
+        (click)="goToAccount(profile._id || '')"
+        *ngFor="let profile of profiles$ | async"
       >
-        <img [src]="user.bgImage || ''" alt="" />
-        <p>{{ user.text }}</p>
+        <img [src]="profile.photoURL || ''" alt="" />
+        <p>{{ profile.name }}</p>
       </a>
-      <div class="dropdown__container__users__manage">
+      <div
+        class="dropdown__container__users__manage"
+        (click)="openManageProfileModal()"
+      >
         <nb-icon
           icon="edit-outline"
           class="dropdown__container__users__manage__icon"
@@ -21,10 +24,6 @@
       </div>
     </div>
     <div class="dropdown__container__settings">
-      <div class="dropdown__container__settings__item">
-        <nb-icon icon="person-outline"></nb-icon>
-        <p>Account</p>
-      </div>
       <div
         class="dropdown__container__settings__item"
         (click)="handleDropdownSettings(setting.tag)"

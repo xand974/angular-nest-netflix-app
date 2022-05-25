@@ -1,3 +1,11 @@
+@use 'themes' as *;
+@use '@nebular/theme/styles/globals' as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+$nb-enable-css-custom-properties: true;
+
 *,
 ::before,
 ::after {
@@ -6,16 +14,32 @@
   box-sizing: border-box;
 }
 
+/*reset base style*/
 body {
-  font-family: "Open sans", sans-serif;
-  height: 100vh;
-}
+  &.nb-theme-default {
+    font-family: "Open sans", sans-serif;
+    height: 100vh;
+    a,
+    li,
+    p,
+    h1 {
+      color: inherit;
+    }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+    a {
+      text-decoration: none;
+      &:hover {
+        color: inherit;
+      }
+    }
 
-li {
-  list-style: none;
+    li {
+      list-style: none;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin: inherit;
+    }
+  }
 }

@@ -31,18 +31,14 @@
       nb-icon.arrow {
         width: 50px;
         color: #f1f1f1;
+        font-size: 3rem;
       }
       &--left {
         left: calc(10px - 8%);
-        background: linear-gradient(
-          280deg,
-          rgba(5, 10, 28, 0.14189425770308128) 10%,
-          rgba(5, 10, 28, 0.6853335084033614) 34%,
-          rgba(10, 11, 15, 0.8954175420168067) 62%
-        );
+        background: linear-gradient(88deg, #00000099, #00000030, transparent);
       }
       &--right {
-        background: rgba(0, 0, 0, 0.336);
+        background: linear-gradient(289deg, #00000099, #00000030, transparent);
         right: -1px;
       }
     }

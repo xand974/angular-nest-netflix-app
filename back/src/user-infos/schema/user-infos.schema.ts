@@ -6,9 +6,6 @@ export type UserInfosDocument = UserInfos & Document;
 
 @Schema({ timestamps: true })
 export class UserInfos {
-  @Prop({ type: String })
-  photoURL: string;
-
   @Prop({ type: SchemaTypes.ObjectId, ref: User.name, required: true })
   userId: string;
 

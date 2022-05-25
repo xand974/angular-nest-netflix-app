@@ -7,4 +7,9 @@ export const loginSuccess = createAction(
   '[Auth] Login Success',
   props<{ user: UserModel }>()
 );
+
+export const browserReload = createAction(
+  '[Reload] Browser Reload',
+  props<{ user: UserModel }>()
+);
 export const loginStart = createAction('[Auth] Login Start');

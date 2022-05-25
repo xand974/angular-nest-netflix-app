@@ -5,13 +5,50 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RegisterModule } from './pages/register/register.module';
-import { NbThemeModule } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbDialogModule,
+  NbSpinnerModule,
+} from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
-import { StoreModule } from '@ngrx/store';
-import { authReducer } from './shared/auth/reducer/auth.reducer';
+import {
+  ActionReducer,
+  ActionReducerMap,
+  combineReducers,
+  compose,
+  MetaReducer,
+  StoreModule,
+} from '@ngrx/store';
+import { authReducer, AuthState } from './shared/auth/reducer/auth.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {
+  profilesReducer,
+  ProfileState,
+} from './shared/profiles/reducers/profiles.reducer';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+interface AppState {
+  auth: AuthState;
+  profiles: ProfileState;
+}
+export const reducers = {
+  auth: authReducer,
+  profiles: profilesReducer,
+};
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<AppState>
+): ActionReducer<AppState> {
+  return localStorageSync({
+    keys: Object.keys(reducers),
+    rehydrate: true,
+  })(reducer);
+}
+const metaReducers: Array<MetaReducer<AppState>> = [localStorageSyncReducer];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,11 +56,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     NbEvaIconsModule,
     RegisterModule,
-    NbThemeModule.forRoot(),
+    NbThemeModule.forRoot({ name: 'default' }),
     BrowserAnimationsModule,
+    NbDialogModule.forRoot({
+      hasBackdrop: true,
+      hasScroll: false,
+      closeOnBackdropClick: false,
+    }),
+    NbSpinnerModule,
     PagesModule,
+    NbLayoutModule,
     HttpClientModule,
-    StoreModule.forRoot({ auth: authReducer }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [

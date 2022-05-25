@@ -1,0 +1,17 @@
+.manage__card {
+  width: 80vw;
+  height: 70vh;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.575);
+  border-radius: 6px;
+
+  background: black;
+  display: flex;
+  flex-direction: column;
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+  }
+}

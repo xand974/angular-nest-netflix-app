@@ -65,6 +65,7 @@
         .arrow__icon,
         .info__icon {
           margin-right: 10px;
+          font-size: 2rem;
         }
         .arrow__icon {
           width: 40px;
@@ -80,13 +81,23 @@
           border: 2px solid #f1f1f1;
           color: #f1f1f1;
           font-weight: bold;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            color: black;
+            background: #f1f1f1;
+            border: 2px solid black;
+          }
         }
         &--play {
-          background: red;
-          padding: 2px 40px 2px 3px;
+          padding: 7px 40px 7px 3px;
           background: #f1f1f1;
           color: black;
           font-weight: bold;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            color: white;
+            background: black;
+          }
         }
       }
     }

@@ -15,9 +15,10 @@ import { MovieModel } from 'netflix-malet-types';
 import { AuthenticatedGuard } from '../guards/authenticated.guard';
 import { Roles } from '../roles/roles.decorator';
 import { Role } from '../roles/roles';
+import { Movie } from './schema/movie.schema';
 
 @UseGuards(AuthenticatedGuard)
-@Controller('api/movies')
+@Controller('movies')
 export class MoviesController {
   private readonly logger = new Logger();
   constructor(private readonly movieService: MoviesService) {}
@@ -43,7 +44,7 @@ export class MoviesController {
   public async getMoviesInList(@Body() body: { ids: string[] }) {
     const { ids } = body;
 
-    let movies: MovieModel[] = [];
+    let movies: Movie[] = [];
     for (const id of ids) {
       const movie = await this.movieService.getById(id);
       if (!movie) return;
@@ -55,7 +56,7 @@ export class MoviesController {
   @Get('random')
   public async getRandom(@Query('type') type: MovieModel['type']) {
     const movieFound = await this.movieService.getRandomMovie(type);
-    this.logger.log(`random movie: ${movieFound.id} `);
+    this.logger.log(`random movie: ${movieFound._id} `);
     return movieFound;
   }
 
@@ -70,7 +71,10 @@ export class MoviesController {
   @Roles(Role.Admin)
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() movie: MovieModel) {
-    const updatedMovie = await this.movieService.updateOne({ id, ...movie });
+    const updatedMovie = await this.movieService.updateOne({
+      _id: id,
+      ...movie,
+    });
     this.logger.log(`movie ${id} has been updated`);
     return updatedMovie;
   }

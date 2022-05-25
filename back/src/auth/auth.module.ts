@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { SessionSerializer } from './session.serialize';
+import { ProfilesModule } from '../profiles/profiles.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { SessionSerializer } from './session.serialize';
     UserInfosModule,
     PasswordModule,
     EmailModule,
+    ProfilesModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, SessionSerializer],

@@ -1,6 +1,10 @@
-<div class="browse__card" (click)="selectUser(userCard.id)">
+<div class="browse__card" (click)="selectUser(userCard._id || '')">
   <div class="browse__card__container">
-    <img [src]="userCard.imgURL" class="browse__card__container__img" alt="" />
+    <img
+      [src]="userCard.photoURL"
+      class="browse__card__container__img"
+      alt=""
+    />
   </div>
   <p class="browse__card__text">{{ userCard.name }}</p>
 </div>
