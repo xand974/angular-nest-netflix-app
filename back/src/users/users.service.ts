@@ -68,4 +68,22 @@ export class UsersService {
 
     await user.delete();
   }
+
+  async checkProfileCount(userId: string): Promise<boolean> {
+    const user = await this.getUser(userId);
+    if (!user) throw new HttpException('no user found', HttpStatus.NOT_FOUND);
+    return user.profileCount <= 4 ? true : false;
+  }
+
+  async addProfileCount(userId: string) {
+    const user = await this.getUser(userId);
+    if (!user) throw new HttpException('no user found', HttpStatus.NOT_FOUND);
+    const profileCount = user.profileCount ?? 1;
+    const newCount = profileCount + 1;
+    await this.userModel.findByIdAndUpdate(
+      userId,
+      { profileCount: newCount },
+      { new: true },
+    );
+  }
 }
