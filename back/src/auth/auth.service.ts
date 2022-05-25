@@ -24,7 +24,8 @@ export class AuthService {
       password: hashPass,
       roles: ['user'],
       isVerified: false,
-      profileCount: 1,
+      profileCount: 0,
+      photoURL: '/assets/images/default-user.png',
     });
 
     return { email, id };

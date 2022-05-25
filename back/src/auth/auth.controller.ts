@@ -37,6 +37,7 @@ export class AuthController {
       username: registerDto.username ?? 'default',
       city: 'somewhere',
       ip: 'unknown',
+      photoURL: '/assets/images/default-user.png',
     };
 
     const profile: ProfileModel = {

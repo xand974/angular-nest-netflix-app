@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { Model } from 'mongoose';
@@ -8,6 +8,7 @@ import { UserModel } from 'netflix-malet-types';
 
 @Injectable()
 export class UsersService {
+  private logger = new Logger(UsersService.name);
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly passwordService: PasswordService,
@@ -80,10 +81,13 @@ export class UsersService {
     if (!user) throw new HttpException('no user found', HttpStatus.NOT_FOUND);
     const profileCount = user.profileCount ?? 1;
     const newCount = profileCount + 1;
-    await this.userModel.findByIdAndUpdate(
+    const newUser = await this.userModel.findByIdAndUpdate(
       userId,
       { profileCount: newCount },
       { new: true },
+    );
+    this.logger.log(
+      `added profile count : ${newUser.profileCount} for ${newUser.id}`,
     );
   }
 }

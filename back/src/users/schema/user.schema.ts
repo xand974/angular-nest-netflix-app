@@ -23,6 +23,9 @@ export class User implements UserModel {
 
   @Prop({ required: true, type: Number, max: 4 })
   profileCount: number;
+
+  @Prop({ type: String })
+  photoURL?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
