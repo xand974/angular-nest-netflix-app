@@ -40,14 +40,14 @@ export const reducers = {
 };
 
 export function localStorageSyncReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
+  reducer: ActionReducer<AppState>
+): ActionReducer<AppState> {
   return localStorageSync({
     keys: Object.keys(reducers),
     rehydrate: true,
   })(reducer);
 }
-const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+const metaReducers: Array<MetaReducer<AppState>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [AppComponent],
