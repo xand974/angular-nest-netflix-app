@@ -1,0 +1,26 @@
+<div class="profile__card">
+  <div class="profile__card__wrapper">
+    <div class="profile__card__wrapper__header">
+      <h1 class="profile__card__wrapper__header__title">Add a profile</h1>
+      <p class="profile__card__wrapper__header__subtitle">
+        Add a profile for a new Netflix user.
+      </p>
+    </div>
+
+    <div class="profile__card__wrapper__body">
+      <img [src]="img" class="profile__card__wrapper__body__img" alt="" />
+      <input
+        name="name"
+        [(ngModel)]="profileName"
+        placeholder="Name"
+        type="text"
+        class="profile__card__wrapper__body__input"
+      />
+    </div>
+
+    <div class="profile__card__wrapper__footer">
+      <button class="create" (click)="create()">Create</button>
+      <button class="cancel" (click)="dismiss()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,8 @@ async function bootstrap() {
     cors: { credentials: true, origin: 'http://localhost:4200' },
   });
 
+  app.setGlobalPrefix('api');
+
   app.use(cookieParser(process.env.SESSION_SECRET));
   app.use(
     session({

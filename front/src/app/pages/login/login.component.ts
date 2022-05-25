@@ -8,17 +8,17 @@ import { FormBuilder } from '@angular/forms';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthState } from 'src/app/shared/auth/reducer/auth.reducer';
+import { AuthState } from 'src/app/store/auth/reducer/auth.reducer';
 import {
   loginStart,
   loginFailure,
   loginSuccess,
-} from 'src/app/shared/auth/actions/auth.actions';
+} from 'src/app/store/auth/actions/auth.actions';
 import { firstValueFrom, map, Observable, switchMap, take, tap } from 'rxjs';
 import {
   selectError,
   selectPending,
-} from 'src/app/shared/auth/selectors/auth.selectors';
+} from 'src/app/store/auth/selectors/auth.selectors';
 
 @Component({
   selector: 'app-login',
@@ -43,12 +43,17 @@ export class LoginComponent implements OnInit {
     private store: Store<AuthState>
   ) {
     this.error$ = this.store.select(selectError);
-    this.pending$ = this.store.select(selectPending);
+    this.pending$ = this.store.select('pending');
     this.pending = false;
   }
 
   async ngOnInit(): Promise<void> {
-    this.pending$.pipe(map((value) => (this.pending = value)));
+    await this.initData();
+  }
+
+  private async initData() {
+    this.pending = await firstValueFrom(this.pending$.pipe(take(1)));
+    console.log(this.pending);
   }
 
   public async login(e: MouseEvent) {

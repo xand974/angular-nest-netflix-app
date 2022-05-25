@@ -9,7 +9,7 @@ export class Movie implements MovieModel {
   @Prop({ required: true, type: String, index: true })
   name: string;
 
-  @Prop({ required: true, index: true })
+  @Prop({ required: true, type: String, index: true })
   synopsis: string;
 
   @Prop({ type: Number })

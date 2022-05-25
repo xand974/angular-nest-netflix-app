@@ -20,9 +20,8 @@
           id="password"
         />
       </div>
-      <button (click)="login($event)">
+      <button [nbSpinner]="(pending$ | async) || false" (click)="login($event)">
         Se connecter
-        <span *ngIf="pending$ | async as pending" [nbSpinner]="pending"> </span>
       </button>
       <span *ngIf="error$ | async" style="color: #d22f27">Cannot log in</span>
     </form>

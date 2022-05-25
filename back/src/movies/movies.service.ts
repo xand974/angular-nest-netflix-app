@@ -60,7 +60,7 @@ export class MoviesService {
   }
 
   public async updateOne(movieDto: MovieModel) {
-    const movie = await this.movieModel.findById(movieDto.id);
+    const movie = await this.movieModel.findById(movieDto._id);
     if (!movie) throw new HttpException('no movie', HttpStatus.NOT_FOUND);
 
     const updatedMovie = await movie.updateOne({

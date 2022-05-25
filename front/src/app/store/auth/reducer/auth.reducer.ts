@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { UserModel } from 'netflix-malet-types';
+import { browserReload } from '../actions/auth.actions';
 import {
   loginFailure,
   loginStart,
@@ -12,19 +13,19 @@ export interface AuthState {
   user: UserModel;
 }
 
-export const initalState: AuthState = {
+export const initialState: AuthState = {
   pending: false,
   error: false,
   user: {} as UserModel,
 };
 
 export const authReducer = createReducer(
-  initalState,
+  initialState,
   on(loginStart, (state) => ({
     ...state,
     pending: true,
   })),
-  on(loginSuccess, (state, action) => ({
+  on(loginSuccess, browserReload, (state, action) => ({
     ...state,
     pending: false,
     user: action.user,

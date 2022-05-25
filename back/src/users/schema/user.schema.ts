@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { UserModel } from 'netflix-malet-types';
 
 export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
-export class User {
+export class User implements UserModel {
   @Prop({ required: true, type: String })
   username: string;
 
@@ -19,6 +20,12 @@ export class User {
 
   @Prop({ required: true, type: [String] })
   roles: string[];
+
+  @Prop({ required: true, type: Number, max: 4 })
+  profileCount: number;
+
+  @Prop({ type: String })
+  photoURL?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

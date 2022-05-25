@@ -5,6 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &__logo {
+    position: absolute;
+    top: 32px;
+    left: 92px;
+    width: 9rem;
+  }
   &__container {
     width: 60%;
     display: flex;
@@ -18,27 +24,31 @@
     &__cards {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       margin-bottom: 30px;
       height: 180px;
-      &__card {
-        flex: 1;
-        height: 100%;
-        margin-right: 40px;
+      &__item {
+        height: 180px;
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
       }
       &__add {
         display: flex;
-        flex-direction: column;
         cursor: pointer;
-        flex: 1;
-        height: 180px;
+        height: 220px;
+        width: 180px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 30px;
         &__container {
+          height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
-          flex: 1;
           &__icon {
-            width: 50%;
+            font-size: 4rem;
             color: gray;
           }
         }
@@ -58,6 +68,10 @@
       width: max-content;
       margin: 50px auto 0 auto;
       font-size: 1rem;
+      cursor: pointer;
+      &:hover {
+        color: white;
+      }
     }
   }
 }

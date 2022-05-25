@@ -5,13 +5,19 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { RegisterModule } from './pages/register/register.module';
-import { NbThemeModule } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbDialogModule,
+  NbSpinnerModule,
+} from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './services/interceptor.service';
+import { InterceptorService } from './services/interceptor/interceptor.service';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './shared/auth/reducer/auth.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers, metaReducers } from './store/meta/meta.reducers';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,11 +25,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     NbEvaIconsModule,
     RegisterModule,
-    NbThemeModule.forRoot(),
+    NbThemeModule.forRoot({ name: 'default' }),
     BrowserAnimationsModule,
+    NbDialogModule.forRoot({
+      hasBackdrop: true,
+      hasScroll: false,
+      closeOnBackdropClick: false,
+    }),
+    NbSpinnerModule,
     PagesModule,
+    NbLayoutModule,
     HttpClientModule,
-    StoreModule.forRoot({ auth: authReducer }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [
