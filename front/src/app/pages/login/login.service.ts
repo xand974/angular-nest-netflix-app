@@ -33,13 +33,8 @@ export class LoginService {
         .get<UserModel>(`${this.apiGetUserInfosUrl}?u=${username}`, {
           withCredentials: true,
         })
-        .pipe(map((res) => this.setToLocalStorage(res)))
+        .pipe(map((res) => res))
     );
-  }
-
-  setToLocalStorage(user: UserModel) {
-    localStorage.setItem('user-profile', JSON.stringify(user));
-    return user;
   }
 
   checkAuth(): Promise<boolean> {

@@ -26,6 +26,12 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
+    this.isUserInLoginOrRegisterPage();
+    await this.checkUserInStore();
+    this.loading = false;
+  }
+
+  isUserInLoginOrRegisterPage() {
     if (
       window.location.href.includes('login') ||
       window.location.href.includes('register')
@@ -33,6 +39,9 @@ export class AppComponent implements OnInit {
       this.loading = false;
       return;
     }
+  }
+
+  async checkUserInStore() {
     const userFromStore = await lastValueFrom(
       this.store.select('user').pipe(take(1))
     );
@@ -41,10 +50,9 @@ export class AppComponent implements OnInit {
       if (!userFromLS) {
         await this.loginService.logout();
         this.router.navigate(['/login']);
+        this.loading = false;
         return;
       }
-      this.store.dispatch(browserReload({ user: userFromLS }));
     }
-    this.loading = false;
   }
 }

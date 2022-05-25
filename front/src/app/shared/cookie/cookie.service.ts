@@ -12,7 +12,7 @@ export class CookieService {
    * @returns {UserModel}
    */
   getUserInLocalStorage() {
-    const storage = localStorage.getItem('user-profile') ?? '';
+    const storage = localStorage.getItem('auth') ?? '';
     if (storage.length === 0) {
       return undefined;
     }
