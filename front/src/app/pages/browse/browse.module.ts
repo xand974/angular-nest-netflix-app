@@ -6,6 +6,7 @@ import { BrowseCardModule } from './components/browse-card/browse-card.module';
 import { NbIconModule, NbSpinnerModule } from '@nebular/theme';
 import { BrowseRoutingModule } from './browse-routing.module';
 import { AddProfileModule } from './components/add-profile/add-profile.module';
+import { ManageProfilesModule } from './components/manage-profiles/manage-profiles/manage-profiles.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AddProfileModule } from './components/add-profile/add-profile.module';
     BrowseRoutingModule,
     NbSpinnerModule,
     AddProfileModule,
+    ManageProfilesModule,
   ],
   declarations: [BrowseComponent],
   providers: [BrowseService],

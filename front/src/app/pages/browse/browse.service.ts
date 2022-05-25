@@ -13,12 +13,14 @@ export class BrowseService {
 
   constructor(private http: HttpClient) {}
 
-  public getAllProfilesByUser(id: string): Observable<ProfileModel[]> {
-    return this.http
-      .get<ProfileModel[]>(`${this.getProfileUrl}/${id}`, {
-        withCredentials: true,
-      })
-      .pipe(map((val) => val));
+  public getAllProfilesByUser(id: string): Promise<ProfileModel[]> {
+    return lastValueFrom(
+      this.http
+        .get<ProfileModel[]>(`${this.getProfileUrl}/${id}`, {
+          withCredentials: true,
+        })
+        .pipe(map((val) => val))
+    );
   }
 
   public addProfile(profile: Partial<ProfileModel>, userId: string) {

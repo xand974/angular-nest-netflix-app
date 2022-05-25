@@ -81,12 +81,23 @@
           border: 2px solid #f1f1f1;
           color: #f1f1f1;
           font-weight: bold;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            color: black;
+            background: #f1f1f1;
+            border: 2px solid black;
+          }
         }
         &--play {
-          padding: 11px 40px 11px 3px;
+          padding: 7px 40px 7px 3px;
           background: #f1f1f1;
           color: black;
           font-weight: bold;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            color: white;
+            background: black;
+          }
         }
       }
     }

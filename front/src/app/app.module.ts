@@ -17,6 +17,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './shared/auth/reducer/auth.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { profilesReducer } from './shared/profiles/reducers/profiles.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     PagesModule,
     NbLayoutModule,
     HttpClientModule,
-    StoreModule.forRoot({ auth: authReducer }),
+    StoreModule.forRoot({ auth: authReducer, profiles: profilesReducer }),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [

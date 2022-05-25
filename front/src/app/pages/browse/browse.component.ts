@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BrowseStore } from './browse.store';
 import { BrowseService } from './browse.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../shared/auth/reducer/auth.reducer';
@@ -9,13 +8,26 @@ import { ProfileModel, UserModel } from 'netflix-malet-types';
 import { selectUser } from 'src/app/shared/auth/selectors/auth.selectors';
 import { AddProfileComponent } from './components/add-profile/add-profile.component';
 import { NbDialogService } from '@nebular/theme';
+import { ProfileState } from 'src/app/shared/profiles/reducers/profiles.reducer';
+import { ManageProfilesComponent } from './components/manage-profiles/manage-profiles/manage-profiles.component';
+import {
+  selectProfiles,
+  selectLoading,
+} from '../../shared/profiles/selectors/profiles.selectors';
+import {
+  setProfilesStart,
+  setProfilesSuccess,
+  setProfilesFailure,
+  addProfilesStart,
+  addProfilesSuccess,
+  addProfilesFailure,
+} from '../../shared/profiles/actions/profiles.actions';
 
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [BrowseStore],
 })
 export class BrowseComponent implements OnInit {
   user$: Observable<UserModel>;
@@ -24,14 +36,14 @@ export class BrowseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private cStore: BrowseStore,
     private browseService: BrowseService,
     private userStore: Store<AuthState>,
-    private dialogRef: NbDialogService
+    private dialogRef: NbDialogService,
+    private store: Store<ProfileState>
   ) {
     this.user$ = this.userStore.select(selectUser);
-    this.loading$ = this.cStore.loading$;
-    this.profiles$ = this.cStore.profiles$;
+    this.profiles$ = this.store.select(selectProfiles);
+    this.loading$ = this.store.select(selectLoading);
   }
 
   async ngOnInit() {
@@ -42,17 +54,14 @@ export class BrowseComponent implements OnInit {
   async initData() {}
   async initProfiles() {
     const user = await firstValueFrom(this.user$);
-
     if (!user || !user._id) return;
+
     try {
-      this.cStore.setLoading(true);
-      this.cStore.setProfiles(
-        this.browseService.getAllProfilesByUser(user._id)
-      );
-      this.cStore.setLoading(false);
+      this.store.dispatch(setProfilesStart());
+      const profiles = await this.browseService.getAllProfilesByUser(user._id);
+      this.store.dispatch(setProfilesSuccess({ profiles }));
     } catch (err) {
-      this.cStore.setLoading(false);
-      this.cStore.setError(true);
+      this.store.dispatch(setProfilesFailure());
     }
   }
 
@@ -73,15 +82,27 @@ export class BrowseComponent implements OnInit {
       .subscribe(
         async (val: { data: string; profile: Partial<ProfileModel> }) => {
           if (val.data === 'success') {
-            this.cStore.setLoading(true);
-            const res = await this.browseService.addProfile(
-              val.profile,
-              user._id!
-            );
-            this.cStore.addProfile(res.profile);
-            this.cStore.setLoading(false);
+            this.store.dispatch(addProfilesStart());
+            try {
+              const res = await this.browseService.addProfile(
+                val.profile,
+                user._id!
+              );
+              this.store.dispatch(addProfilesSuccess({ profile: res.profile }));
+            } catch (err) {
+              this.store.dispatch(addProfilesFailure());
+            }
           }
         }
       );
+  }
+
+  public async openManageProfileModal() {
+    const profiles = await firstValueFrom(this.profiles$);
+    this.dialogRef.open(ManageProfilesComponent, {
+      context: {
+        profiles: profiles,
+      },
+    });
   }
 }
