@@ -1,1 +1,21 @@
-<p>search works!</p>
+<div class="search">
+  <div class="search__title__container" *ngIf="movies$ | async as movies">
+    <h1 class="search__title" *ngIf="movies.length > 0">
+      {{ (movies$ | async)?.length }}
+      <span>
+        {{ "Result" | plural: movies.length > 1 }}
+      </span>
+      for {{ searchTextFromParam }}
+    </h1>
+    <h1 class="search__title" *ngIf="movies.length === 0">No matches found</h1>
+  </div>
+  <div class="search__container">
+    <malet-movie-list-item
+      [loading]="(loading$ | async) || false"
+      *ngFor="let movie of movies$ | async"
+      [fromSearch]="true"
+      [movie]="movie"
+      class="search__container__item"
+    ></malet-movie-list-item>
+  </div>
+</div>

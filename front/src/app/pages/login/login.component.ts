@@ -29,7 +29,6 @@ import {
 export class LoginComponent implements OnInit {
   public error$: Observable<boolean>;
   public pending$: Observable<boolean>;
-  public pending: boolean;
   public credential = this.formBuilder.group({
     password: '',
     username: '',
@@ -44,17 +43,9 @@ export class LoginComponent implements OnInit {
   ) {
     this.error$ = this.store.select(selectError);
     this.pending$ = this.store.select('pending');
-    this.pending = false;
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.initData();
-  }
-
-  private async initData() {
-    this.pending = await firstValueFrom(this.pending$.pipe(take(1)));
-    console.log(this.pending);
-  }
+  async ngOnInit(): Promise<void> {}
 
   public async login(e: MouseEvent) {
     try {

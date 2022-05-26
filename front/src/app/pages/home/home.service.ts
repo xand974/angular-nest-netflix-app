@@ -17,7 +17,7 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   public getLists() {
-    let params = new HttpParams().set('size', 3);
+    const params = new HttpParams().set('size', 3);
 
     return this.http
       .get<ListModel[]>(this.getListsUrl, {

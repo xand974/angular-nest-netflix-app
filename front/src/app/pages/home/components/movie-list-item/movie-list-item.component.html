@@ -1,3 +1,8 @@
-<div class="item" (click)="goToWatch(movie?._id || '')">
+<div
+  [nbSpinner]="loading"
+  class="item"
+  [ngClass]="fromSearch ? 'item__from__search' : 'item__default'"
+  (click)="goToWatch(movie?._id || '')"
+>
   <img [src]="movie.thumbnailURL" class="item__img" alt="" />
 </div>
