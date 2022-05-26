@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { MovieModel } from 'netflix-malet-types';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, lastValueFrom } from 'rxjs';
 import { SearchService } from './search.service';
 import { SearchStore } from './search.store';
 
@@ -75,9 +75,5 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(true);
     this._destroy$.unsubscribe();
-  }
-
-  checkRender() {
-    console.log(true);
   }
 }

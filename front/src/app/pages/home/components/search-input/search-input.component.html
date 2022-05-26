@@ -4,6 +4,7 @@
     type="text"
     (blur)="blur($event)"
     class="search__input"
+    (ngModelChange)="onChange()"
     #inputElement
   />
   <button class="search__btn" (click)="search($event)">

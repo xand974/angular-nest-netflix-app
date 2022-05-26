@@ -26,10 +26,6 @@ export class SearchComponent implements OnInit {
   search(e: MouseEvent) {
     e.preventDefault();
     this.handleToggle();
-    if (this.searchText.length === 0) return;
-
-    // TODO handle search text here
-    this.router.navigate(['/search'], { queryParams: { q: this.searchText } });
   }
 
   handleToggle() {
@@ -39,5 +35,10 @@ export class SearchComponent implements OnInit {
   blur(e: FocusEvent) {
     if (this.searchText.length > 0) return;
     this.inputElement.nativeElement.style.transform = 'scaleX(0)';
+  }
+
+  onChange() {
+    if (this.searchText.length === 0) return;
+    this.router.navigate(['/search'], { queryParams: { q: this.searchText } });
   }
 }
