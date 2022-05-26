@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [ 
         {
+            "name": "Bon Courage",
+            "command": "npm run start:dev",
+            "request": "launch",
+            "type": "node-terminal",
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "Debug Typescript",
