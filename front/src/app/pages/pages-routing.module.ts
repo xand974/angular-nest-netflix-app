@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
+import { NavbarLayoutComponent } from '../layout/navbar-layout/navbar-layout.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    component: NavbarLayoutComponent,
+    loadChildren: () =>
+      import('../layout/navbar-layout/navbar-layout.module').then(
+        (m) => m.NavbarLayoutModule
+      ),
   },
   {
     path: 'watch/:id',

@@ -26,21 +26,31 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
-    this.isUserInLoginOrRegisterPage();
+    if (this.isUserInLoginOrRegisterPage()) return;
     await this.checkUserInStore();
     this.loading = false;
   }
 
-  isUserInLoginOrRegisterPage() {
-    if (
+  /**
+   * @name isUserInLoginOrRegisterPage
+   * @description checks whether the current user is on the login or  register page
+   * @type {boolean}
+   */
+  isUserInLoginOrRegisterPage(): boolean {
+    return (
       window.location.href.includes('login') ||
       window.location.href.includes('register')
-    ) {
-      this.loading = false;
-      return;
-    }
+    );
   }
 
+  /**
+   * @name check user in store
+   * @description
+   *  1. get user from store
+   *  2. if undefined -> get user in local storage
+   *  3. if still undefined -> logout()
+   * @returns
+   */
   async checkUserInStore() {
     const userFromStore = await lastValueFrom(
       this.store.select('user').pipe(take(1))

@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeModule } from './home/home.module';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
 import { NotFoundModule } from './not-found/not-found.module';
 import { WatchModule } from './watch/watch.module';
 import { BrowseModule } from './browse/browse.module';
 import { PagesRoutingModule } from './pages-routing.module';
+import { NavbarLayoutModule } from '../layout/navbar-layout/navbar-layout.module';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     RegisterModule,
@@ -18,6 +17,7 @@ import { PagesRoutingModule } from './pages-routing.module';
     WatchModule,
     BrowseModule,
     PagesRoutingModule,
+    NavbarLayoutModule,
   ],
 })
 export class PagesModule {}

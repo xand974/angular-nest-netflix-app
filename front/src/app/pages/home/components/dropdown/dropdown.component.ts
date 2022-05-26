@@ -1,7 +1,7 @@
 import { DropdownItem } from 'src/types/dropdown.types';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../login/login.service';
-import { firstValueFrom, map, Observable } from 'rxjs';
+import { firstValueFrom, Observable, take } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,6 +16,7 @@ import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
 import { selectProfiles } from '../../../../store/profiles/selectors/profiles.selectors';
 import { NbDialogService } from '@nebular/theme';
 import { ManageProfilesComponent } from 'src/app/pages/browse/components/manage-profiles/manage-profiles/manage-profiles.component';
+import { setCurrentProfile } from 'src/app/store/profiles/actions/profiles.actions';
 
 @Component({
   selector: 'malet-dropdown',
@@ -75,6 +76,7 @@ export class DropdownComponent implements OnInit {
 
   public goToAccount(id: string): void {
     if (!id || id.length === 0) return;
+    this.profileStore.dispatch(setCurrentProfile({ id: id }));
     this.router.navigate([`/home`], { queryParams: { user: id } });
   }
 
@@ -86,7 +88,7 @@ export class DropdownComponent implements OnInit {
   }
 
   public async openManageProfileModal() {
-    const profiles = await firstValueFrom(this.profiles$);
+    const profiles = await firstValueFrom(this.profiles$.pipe(take(1)));
     this.dialogRef.open(ManageProfilesComponent, {
       context: {
         profiles: profiles,

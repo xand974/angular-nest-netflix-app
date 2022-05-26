@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,16 +8,16 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'malet-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+  selector: 'malet-search-input',
+  templateUrl: './search-input.component.html',
+  styleUrls: ['./search-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
   @ViewChild('inputElement') inputElement = {} as ElementRef<HTMLInputElement>;
   public searchText: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.searchText = '';
   }
 
@@ -28,6 +29,7 @@ export class SearchComponent implements OnInit {
     if (this.searchText.length === 0) return;
 
     // TODO handle search text here
+    this.router.navigate(['/search'], { queryParams: { q: this.searchText } });
   }
 
   handleToggle() {

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { LinkInterface } from 'src/types/index';
 
 @Component({
@@ -8,14 +13,25 @@ import { LinkInterface } from 'src/types/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarLinksComponent implements OnInit {
-  public links: LinkInterface[] = [
-    { name: 'Home', link: '/home' },
-    { name: 'TV Shows', link: '/tv-shows' },
-    { name: 'Movies', link: '/movies' },
-    { name: 'Latest', link: '/latest' },
-    { name: 'My List', link: '/my-list' },
-  ];
-  constructor() {}
+  @Input() currentProfileId: string | undefined;
+  public links: LinkInterface[];
 
-  ngOnInit(): void {}
+  constructor() {
+    this.currentProfileId = '';
+    this.links = [];
+  }
+
+  ngOnInit(): void {
+    this.populateLinks();
+  }
+
+  private populateLinks() {
+    this.links = [
+      { name: 'Home', link: `/home?user=${this.currentProfileId}` },
+      { name: 'TV Shows', link: '/tv-shows' },
+      { name: 'Movies', link: '/movies' },
+      { name: 'Latest', link: '/latest' },
+      { name: 'My List', link: '/my-list' },
+    ];
+  }
 }

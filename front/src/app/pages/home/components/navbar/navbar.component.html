@@ -1,14 +1,20 @@
 <header class="nav">
   <div class="nav__left">
-    <img
-      src="../../../../../assets/images/netflix.svg"
-      alt=""
-      class="nav__left__logo"
-    />
-    <malet-navbar-links class="nav__left__links"> </malet-navbar-links>
+    <a [href]="'/home?user=' + (currentProfile$ | async)?._id">
+      <img
+        src="../../../../../assets/images/netflix.svg"
+        alt=""
+        class="nav__left__logo"
+      />
+    </a>
+    <malet-navbar-links
+      [currentProfileId]="(currentProfile$ | async)?._id"
+      class="nav__left__links"
+    >
+    </malet-navbar-links>
   </div>
   <div class="nav__right">
-    <malet-search class="nav__right__search"></malet-search>
+    <malet-search-input class="nav__right__search"></malet-search-input>
     <malet-dropdown class="nav__right__dropdown"></malet-dropdown>
   </div>
 </header>

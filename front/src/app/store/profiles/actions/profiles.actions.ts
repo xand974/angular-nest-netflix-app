@@ -20,3 +20,8 @@ export const addProfilesSuccess = createAction(
   '[Profile] Add Profiles Success',
   props<{ profile: ProfileModel }>()
 );
+
+export const setCurrentProfile = createAction(
+  '[Profile] Set Current Profile',
+  props<{ id: string }>()
+);

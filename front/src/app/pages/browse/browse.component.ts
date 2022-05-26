@@ -10,6 +10,7 @@ import { AddProfileComponent } from './components/add-profile/add-profile.compon
 import { NbDialogService } from '@nebular/theme';
 import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
 import { ManageProfilesComponent } from './components/manage-profiles/manage-profiles/manage-profiles.component';
+import { setCurrentProfile } from '../../store/profiles/actions/profiles.actions';
 import {
   selectProfiles,
   selectLoading,
@@ -73,6 +74,7 @@ export class BrowseComponent implements OnInit {
     if (!id) {
       throw new Error('something went wrong');
     }
+    this.store.dispatch(setCurrentProfile({ id: id }));
     this.router.navigate([`/home`], { queryParams: { user: id } });
     this.loading = false;
   }

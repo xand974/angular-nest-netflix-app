@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search.component';
-import { NbIconModule } from '@nebular/theme';
-import { FormsModule } from '@angular/forms';
+import { SearchRoutingModule } from './search-routing.module';
 
 @NgModule({
-  imports: [CommonModule, NbIconModule, FormsModule],
+  imports: [CommonModule, SearchRoutingModule],
   declarations: [SearchComponent],
   exports: [SearchComponent],
 })

@@ -13,3 +13,8 @@ export const selectProfiles = createSelector(
   profilesSelectors,
   (state: ProfileState) => state.profiles
 );
+
+export const selectCurrentProfile = createSelector(
+  profilesSelectors,
+  (state: ProfileState) => state.currentProfile
+);
