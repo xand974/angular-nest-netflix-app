@@ -10,7 +10,14 @@
         *ngFor="let profile of profiles$ | async"
       >
         <img [src]="profile.photoURL || ''" alt="" />
-        <p>{{ profile.name }}</p>
+        <p>
+          {{ profile.name }}
+          <span
+            *ngIf="profile.default"
+            class="dropdown__container__users__link__text"
+            >{{ profile.default && "(default)" }}</span
+          >
+        </p>
       </a>
       <div
         class="dropdown__container__users__manage"
