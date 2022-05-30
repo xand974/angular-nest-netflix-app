@@ -104,10 +104,15 @@ export class BrowseComponent implements OnInit {
 
   public async openManageProfileModal() {
     const profiles = await firstValueFrom(this.profiles$);
-    this.dialogRef.open(ManageProfilesComponent, {
+    const ref = this.dialogRef.open(ManageProfilesComponent, {
       context: {
         profiles: profiles,
       },
     });
+    ref.onClose.pipe(take(1)).subscribe((status) => {});
   }
+
+  removeProfile(id: string) {}
+
+  editProfile(data: Partial<ProfileModel>) {}
 }

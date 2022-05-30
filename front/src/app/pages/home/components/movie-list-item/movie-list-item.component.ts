@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { MovieModel } from 'netflix-malet-types';
 import { Router } from '@angular/router';
 
@@ -6,6 +11,7 @@ import { Router } from '@angular/router';
   selector: 'malet-movie-list-item',
   templateUrl: './movie-list-item.component.html',
   styleUrls: ['./movie-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieListItemComponent implements OnInit {
   @Input() movie;

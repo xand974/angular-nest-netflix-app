@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { ProfileModel } from 'netflix-malet-types';
 @Component({
   selector: 'malet-add-profile',
   templateUrl: './add-profile.component.html',
   styleUrls: ['./add-profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProfileComponent implements OnInit {
   public profileName: string;

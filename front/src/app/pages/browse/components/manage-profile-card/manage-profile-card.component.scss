@@ -1,0 +1,111 @@
+.manage__card {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.507);
+  }
+  &__label {
+    position: relative;
+    pointer-events: none;
+    &__img {
+      flex: 1;
+      width: 100px;
+      height: 100%;
+      border-radius: 5px;
+    }
+  }
+  &__input {
+    display: none;
+  }
+  &__infos {
+    padding: 10px 30px;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    span {
+      margin-bottom: 10px;
+      color: white;
+      strong {
+        transition: all 0.3s ease;
+      }
+    }
+  }
+  &__actions {
+    flex: 1;
+    &__btn {
+      outline: none;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 7px;
+      font-weight: bold;
+      span {
+        flex: 1;
+      }
+      &.edit {
+        background: linear-gradient(190deg, #363636, #000000, #4a4a4a);
+        border: 1px solid white;
+        color: white;
+        margin-bottom: 10px;
+        & > span {
+          margin-right: 10px;
+        }
+      }
+      &.delete {
+        background: linear-gradient(190deg, #e62f2f, #ff4040, #cd1515);
+        color: #f1f1f1;
+        border: 1px solid #f1f1f1;
+
+        & > span {
+          margin-left: 10px;
+        }
+      }
+      &.done {
+        background: linear-gradient(190deg, #62b631, #3d9124, #3fc43a);
+        color: #f1f1f1;
+        border: 1px solid #f1f1f1;
+        & > span {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.editable {
+  &-text {
+    border-radius: 3px;
+    background: rgba(221, 221, 221, 0.788);
+    outline: none;
+    cursor: pointer;
+    padding: 5px 7px;
+    color: rgba(255, 255, 255, 0.486);
+    cursor: text;
+  }
+  &-label {
+    cursor: pointer;
+    pointer-events: all;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 95%;
+      background: url(../../../../../assets/images/icons/edit-icon.svg)
+        no-repeat center center fixed;
+      background-color: rgba(0, 0, 0, 0.356);
+      background-size: 55px;
+      z-index: 10000;
+      top: 95%;
+      left: 100%;
+      transform: translate(-100%, -100%);
+      border-radius: 3px;
+    }
+    &:hover::before {
+      background-color: rgba(172, 172, 172, 0.61);
+    }
+  }
+}

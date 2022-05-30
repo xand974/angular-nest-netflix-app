@@ -1,0 +1,65 @@
+<div class="manage__card" [nbSpinner]="loading">
+  <label
+    for="img"
+    class="manage__card__label"
+    [ngClass]="editEnabled ? 'editable-label' : ''"
+  >
+    <img
+      #imgRef
+      [src]="photoURL"
+      class="manage__card__label__img"
+      alt=""
+      width="50"
+      height="50"
+      [ngClass]="editEnabled ? 'editable-img' : ''"
+    />
+  </label>
+  <input
+    accept="image/*"
+    type="file"
+    id="img"
+    class="manage__card__input"
+    (change)="uploadImg($event)"
+    name="photoURL"
+  />
+  <div class="manage__card__infos">
+    <span
+      >Name :
+      <strong
+        (input)="onNameChange($event)"
+        [ngClass]="editEnabled ? 'editable-text' : ''"
+        [contentEditable]="editEnabled"
+        >{{ profile.name }}</strong
+      >
+    </span>
+    <span *ngIf="profile.default"><strong>Default</strong></span>
+    <span
+      >Created At :
+      <strong> {{ profile.createdAt | date: "medium" }}</strong></span
+    >
+  </div>
+  <div class="manage__card__actions">
+    <button
+      class="manage__card__actions__btn edit"
+      *ngIf="!editEnabled; else done"
+      (click)="edit()"
+    >
+      <span> Edit </span>
+      <nb-icon class="icon" icon="edit-outline"></nb-icon>
+    </button>
+    <ng-template #done>
+      <button class="manage__card__actions__btn done">
+        <span (click)="editDone()">Done</span>
+        <nb-icon icon="checkmark-circle-2-outline" class="icon"></nb-icon>
+      </button>
+    </ng-template>
+    <button
+      *ngIf="!profile.default"
+      (click)="remove()"
+      class="manage__card__actions__btn delete"
+    >
+      <span> Delete </span>
+      <nb-icon class="icon" icon="trash-outline"></nb-icon>
+    </button>
+  </div>
+</div>

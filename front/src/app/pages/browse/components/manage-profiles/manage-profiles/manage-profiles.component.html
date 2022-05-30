@@ -1,37 +1,22 @@
-<div class="manage">
+<div class="manage" [nbSpinner]='loading'>
   <div class="manage__container">
     <div class="manage__container__header">
       <h1 class="manage__container__header__title">MANAGE PROFILES</h1>
     </div>
-    <!-- A faire -->
     <div class="manage__container__cards">
-      <div class="manage__card">
-        <img
-          src="https://preview.redd.it/7ppvb8uyrjj61.jpg?width=960&crop=smart&auto=webp&s=a90ba07aac235f776b6ee29980c434aa542e2f05"
-          class="manage__card__img"
-          alt=""
-          width="50"
-          height="50"
-        />
-        <div class="manage__card__infos">
-          <span>Name : <strong>Test Account</strong> </span>
-          <span><strong>Default</strong></span>
-          <span>Created At : <strong> 2 Mai 2022 </strong></span>
-        </div>
-        <div class="manage__card__actions">
-          <button class="manage__card__actions__btn edit">
-            <span> Edit </span>
-            <nb-icon class="icon" icon="edit-outline"></nb-icon>
-          </button>
-          <button class="manage__card__actions__btn delete">
-            <span> Delete </span>
-            <nb-icon class="icon" icon="trash-outline"></nb-icon>
-          </button>
-        </div>
-      </div>
+      <malet-manage-profile-card
+        *ngFor="let profile of profiles"
+        [profile]="profile"
+        (onEdit)="edit($event)"
+        (onRemove)="remove($event)"
+      >
+      </malet-manage-profile-card>
     </div>
   </div>
   <div class="manage__footer">
-    <button class="manage__footer__btn" (click)="dismiss()">Close</button>
+    <button class="manage__footer__btn" (click)="dismiss()">
+      <nb-icon icon="close-outline" class="manage__footer__btn__icon"></nb-icon>
+      Close
+    </button>
   </div>
 </div>

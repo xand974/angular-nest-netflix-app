@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BillboardStore } from './billboard.store';
 import { HomeService } from '../../home.service';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { MovieModel } from 'netflix-malet-types';
   templateUrl: './billboard.component.html',
   styleUrls: ['./billboard.component.scss'],
   providers: [BillboardStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BillboardComponent implements OnInit {
   movie$: Observable<MovieModel | null>;
