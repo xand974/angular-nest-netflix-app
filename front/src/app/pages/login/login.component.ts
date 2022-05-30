@@ -42,10 +42,10 @@ export class LoginComponent implements OnInit {
     private store: Store<AuthState>
   ) {
     this.error$ = this.store.select(selectError);
-    this.pending$ = this.store.select('pending');
+    this.pending$ = this.store.select(selectPending);
   }
 
-  async ngOnInit(): Promise<void> {}
+  async ngOnInit() {}
 
   public async login(e: MouseEvent) {
     try {

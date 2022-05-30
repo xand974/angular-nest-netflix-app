@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ProfileModel } from 'netflix-malet-types';
+import { NbDialogRef } from '@nebular/theme';
 
 @Component({
   selector: 'malet-manage-profiles',
@@ -14,9 +15,15 @@ import { ProfileModel } from 'netflix-malet-types';
 })
 export class ManageProfilesComponent implements OnInit {
   @Input() profiles: ProfileModel[];
-  constructor() {
+  constructor(private ref: NbDialogRef<ManageProfilesComponent>) {
     this.profiles = [];
   }
 
   ngOnInit(): void {}
+
+  public dismiss() {
+    this.ref.close({
+      data: 'close',
+    });
+  }
 }

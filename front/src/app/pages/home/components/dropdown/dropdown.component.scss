@@ -26,12 +26,12 @@
     transition: all 0.3s ease-in;
     position: relative;
     top: 5px;
-    margin-left: 1px;
+    margin-left: 2px;
   }
   &__container {
     position: absolute;
     top: 40px;
-    width: 170px;
+    width: 200px;
     background: #000;
     right: -10px;
     border-radius: 3px;
@@ -51,6 +51,17 @@
         cursor: pointer;
         transition: all 0.3s ease-in;
         margin-bottom: 10px;
+        p  {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        &__text {
+          color: gray;
+          font-style: italic;
+        }
+
         &:hover {
           text-decoration: underline;
         }
