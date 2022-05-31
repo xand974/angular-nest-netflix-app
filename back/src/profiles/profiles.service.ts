@@ -82,8 +82,8 @@ export class ProfilesService {
         HttpStatus.NOT_FOUND,
       );
 
-    const updatedProfile = await profile.updateOne({
-      $set: { ...profile },
+    const updatedProfile = await profile.update({
+      $set: { ..._profile },
       new: true,
     });
     return updatedProfile;
@@ -96,6 +96,7 @@ export class ProfilesService {
         `no profile found for ${id}`,
         HttpStatus.NOT_FOUND,
       );
+    await this.userService.removeProfileCount(profile.userId);
     await profile.delete();
   }
 }

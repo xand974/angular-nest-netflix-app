@@ -45,7 +45,11 @@ export const profilesReducer = createReducer(
   })),
   on(fromProfile.setCurrentProfile, (state, action) =>
     selectProfile(state, action.id)
-  )
+  ),
+  on(fromProfile.updateProfile, (state, action) =>
+    update(state, action.profile)
+  ),
+  on(fromProfile.removeProfile, (state, action) => remove(state, action._id))
 );
 
 const selectProfile = (state: ProfileState, id: string) => {
@@ -54,5 +58,31 @@ const selectProfile = (state: ProfileState, id: string) => {
   return {
     ...state,
     currentProfile: profile,
+  };
+};
+
+const update = (state: ProfileState, profile: Partial<ProfileModel>) => {
+  if (!profile._id) return { ...state };
+  const profiles = state.profiles.map((item) => {
+    if (item._id === profile._id) {
+      return {
+        ...item,
+        ...profile,
+      };
+    }
+    return item;
+  });
+  return {
+    ...state,
+    profiles,
+  };
+};
+
+const remove = (state: ProfileState, _id: string) => {
+  if (!_id) return { ...state };
+  const profiles = state.profiles.filter((item) => item._id !== _id);
+  return {
+    ...state,
+    profiles,
   };
 };

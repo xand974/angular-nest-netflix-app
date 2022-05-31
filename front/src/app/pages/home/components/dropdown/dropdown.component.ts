@@ -1,7 +1,7 @@
 import { DropdownItem } from 'src/types/dropdown.types';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../login/login.service';
-import { firstValueFrom, Observable, take } from 'rxjs';
+import { firstValueFrom, map, Observable, take } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,6 +17,10 @@ import { selectProfiles } from '../../../../store/profiles/selectors/profiles.se
 import { NbDialogService } from '@nebular/theme';
 import { ManageProfilesComponent } from 'src/app/pages/browse/components/manage-profiles/manage-profiles/manage-profiles.component';
 import { setCurrentProfile } from 'src/app/store/profiles/actions/profiles.actions';
+import {
+  removeProfile,
+  updateProfile,
+} from 'src/app/store/profiles/actions/profiles.actions';
 
 @Component({
   selector: 'malet-dropdown',
@@ -29,6 +33,8 @@ export class DropdownComponent implements OnInit {
   user$: Observable<UserModel>;
   profiles$: Observable<ProfileModel[]>;
 
+  public loading: boolean;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -38,6 +44,7 @@ export class DropdownComponent implements OnInit {
   ) {
     this.user$ = this.userStore.select(selectUser);
     this.profiles$ = this.profileStore.select(selectProfiles);
+    this.loading = false;
   }
 
   public settingsDropdown: DropdownItem[] = [
@@ -88,11 +95,32 @@ export class DropdownComponent implements OnInit {
   }
 
   public async openManageProfileModal() {
-    const profiles = await firstValueFrom(this.profiles$.pipe(take(1)));
-    this.dialogRef.open(ManageProfilesComponent, {
+    const profiles = await firstValueFrom(this.profiles$);
+    const ref = this.dialogRef.open(ManageProfilesComponent, {
       context: {
         profiles: profiles,
       },
     });
+    ref.onClose
+      .pipe<{
+        status: string;
+        profilesToUpdate: Partial<ProfileModel>[];
+        profilesToDelete: string[];
+      }>(take(1))
+      .subscribe((res) => {
+        if (!res) return;
+        this.loading = true;
+        if (res.profilesToDelete.length > 0) {
+          for (const id of res.profilesToDelete) {
+            this.profileStore.dispatch(removeProfile({ _id: id }));
+          }
+        }
+        if (res.profilesToUpdate.length > 0) {
+          for (const profile of res.profilesToUpdate) {
+            this.profileStore.dispatch(updateProfile({ profile: profile }));
+          }
+        }
+        this.loading = false;
+      });
   }
 }

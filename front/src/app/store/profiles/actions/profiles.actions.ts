@@ -25,3 +25,12 @@ export const setCurrentProfile = createAction(
   '[Profile] Set Current Profile',
   props<{ id: string }>()
 );
+export const updateProfile = createAction(
+  '[Profile] Update Profile',
+  props<{ profile: Partial<ProfileModel> }>()
+);
+
+export const removeProfile = createAction(
+  '[Profile] Remove Profile',
+  props<{ _id: string }>()
+);
