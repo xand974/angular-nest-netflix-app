@@ -90,4 +90,19 @@ export class UsersService {
       `added profile count : ${newUser.profileCount} for ${newUser.id}`,
     );
   }
+
+  async removeProfileCount(userId: string) {
+    const user = await this.getUser(userId);
+    if (!user) throw new HttpException('no user found', HttpStatus.NOT_FOUND);
+    const profileCount = user.profileCount ?? 1;
+    const newCount = profileCount - 1;
+    const newUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { profileCount: newCount },
+      { new: true },
+    );
+    this.logger.log(
+      `remove profile count : ${newUser.profileCount} for ${newUser.id}`,
+    );
+  }
 }

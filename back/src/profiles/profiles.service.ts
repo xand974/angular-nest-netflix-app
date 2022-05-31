@@ -96,6 +96,7 @@ export class ProfilesService {
         `no profile found for ${id}`,
         HttpStatus.NOT_FOUND,
       );
+    await this.userService.removeProfileCount(profile.userId);
     await profile.delete();
   }
 }
