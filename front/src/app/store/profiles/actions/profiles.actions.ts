@@ -20,3 +20,13 @@ export const addProfilesSuccess = createAction(
   '[Profile] Add Profiles Success',
   props<{ profile: ProfileModel }>()
 );
+
+export const updateProfile = createAction(
+  '[Profile] Update Profile',
+  props<{ profile: Partial<ProfileModel> }>()
+);
+
+export const removeProfile = createAction(
+  '[Profile] Remove Profile',
+  props<{ _id: string }>()
+);

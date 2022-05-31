@@ -13,11 +13,7 @@ export class BrowseService {
   private updateProfileUrl = `${environment.apiEndpoint}/profiles/update`;
   private removeProfileUrl = `${environment.apiEndpoint}/profiles/delete`;
 
-  profiles$: BehaviorSubject<ProfileModel[]>;
-
-  constructor(private http: HttpClient) {
-    this.profiles$ = new BehaviorSubject<ProfileModel[]>([]);
-  }
+  constructor(private http: HttpClient) {}
 
   public getAllProfilesByUser(id: string): Promise<ProfileModel[]> {
     return lastValueFrom(
@@ -25,12 +21,7 @@ export class BrowseService {
         .get<ProfileModel[]>(`${this.getProfileUrl}/${id}`, {
           withCredentials: true,
         })
-        .pipe(
-          map((val) => {
-            this.profiles$.next(val);
-            return val;
-          })
-        )
+        .pipe(map((val) => val))
     );
   }
 

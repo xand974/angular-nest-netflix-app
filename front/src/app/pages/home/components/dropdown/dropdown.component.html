@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" [nbSpinner]="loading">
   <img [src]="(user$ | async)?.photoURL" class="dropdown__img" alt="" />
   <nb-icon icon="arrow-ios-forward-outline" class="dropdown__icon"></nb-icon>
 

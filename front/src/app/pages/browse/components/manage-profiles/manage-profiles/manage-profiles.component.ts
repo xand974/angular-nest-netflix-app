@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   EventEmitter,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ProfileModel } from 'netflix-malet-types';
 import { NbDialogRef } from '@nebular/theme';
@@ -20,14 +21,18 @@ export class ManageProfilesComponent implements OnInit {
   @Input() profiles: ProfileModel[];
   @Output() onEdit: EventEmitter<Partial<ProfileModel>>;
   @Output() onRemove: EventEmitter<string>;
-
+  private profilesToUpdate: Partial<ProfileModel>[];
+  private profilesToDelete: string[];
   public loading: boolean;
 
   constructor(
     private ref: NbDialogRef<ManageProfilesComponent>,
-    private browseService: BrowseService
+    private browseService: BrowseService,
+    private cdr: ChangeDetectorRef
   ) {
     this.profiles = [];
+    this.profilesToUpdate = [];
+    this.profilesToDelete = [];
     this.onEdit = new EventEmitter<Partial<ProfileModel>>();
     this.onRemove = new EventEmitter<string>();
     this.loading = false;
@@ -38,6 +43,8 @@ export class ManageProfilesComponent implements OnInit {
   public dismiss() {
     this.ref.close({
       data: 'close',
+      profilesToUpdate: this.profilesToUpdate,
+      profilesToDelete: this.profilesToDelete,
     });
   }
 
@@ -47,8 +54,9 @@ export class ManageProfilesComponent implements OnInit {
       const { _id, ...rest } = data;
       if (!_id) return;
       await this.browseService.updateProfile(_id, rest);
+      this.profilesToUpdate.push(data);
       this.loading = false;
-      this.onEdit.emit(data);
+      this.cdr.detectChanges();
     } catch (error) {
       this.loading = false;
       throw error;
@@ -56,9 +64,17 @@ export class ManageProfilesComponent implements OnInit {
   }
 
   async remove(id: string) {
-    this.loading = true;
-    await this.browseService.removeProfile(id);
-    this.onRemove.emit(id);
-    this.loading = false;
+    try {
+      this.loading = true;
+      await this.browseService.removeProfile(id);
+      this.profilesToDelete.push(id);
+      const filtered = this.profiles.filter((item) => item._id !== id);
+      this.profiles = [...filtered];
+      this.loading = false;
+      this.cdr.detectChanges();
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
   }
 }

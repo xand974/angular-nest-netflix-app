@@ -82,8 +82,8 @@ export class ManageProfileCardComponent implements OnInit {
    * edit done
    */
   editDone() {
-    this.onEdit.emit(this.dataToUpdate);
     this.editEnabled = false;
+    this.onEdit.emit(this.dataToUpdate);
   }
 
   /**

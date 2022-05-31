@@ -21,6 +21,8 @@ import {
   addProfilesStart,
   addProfilesSuccess,
   addProfilesFailure,
+  removeProfile,
+  updateProfile,
 } from '../../store/profiles/actions/profiles.actions';
 
 @Component({
@@ -109,10 +111,26 @@ export class BrowseComponent implements OnInit {
         profiles: profiles,
       },
     });
-    ref.onClose.pipe(take(1)).subscribe((status) => {});
+    ref.onClose
+      .pipe<{
+        status: string;
+        profilesToUpdate: Partial<ProfileModel>[];
+        profilesToDelete: string[];
+      }>(take(1))
+      .subscribe((res) => {
+        if (!res) return;
+        this.loading = true;
+        if (res.profilesToDelete.length > 0) {
+          for (const id of res.profilesToDelete) {
+            this.store.dispatch(removeProfile({ _id: id }));
+          }
+        }
+        if (res.profilesToUpdate.length > 0) {
+          for (const profile of res.profilesToUpdate) {
+            this.store.dispatch(updateProfile({ profile: profile }));
+          }
+        }
+        this.loading = false;
+      });
   }
-
-  removeProfile(id: string) {}
-
-  editProfile(data: Partial<ProfileModel>) {}
 }
