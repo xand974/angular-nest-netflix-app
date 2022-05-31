@@ -2,31 +2,35 @@
   <img src="/assets/images/netflix.svg" class="browse__logo" alt="" />
   <div class="browse__container">
     <h1 class="browse__container__title">Who's watching?</h1>
-    <div class="browse__container__cards" *ngIf="profiles$ | async as profiles">
-      <div
-        class="browse__container__cards__item"
-        *ngFor="let profile of profiles; let index = index"
-      >
-        <app-browse-card
-          class="browse__container__cards__card"
-          *ngIf="index < 4"
-          [userCard]="profile"
-          (onSelectUser)="selectUser(profile._id || '')"
-        ></app-browse-card>
-      </div>
-      <div
-        (click)="openAddProfileModal()"
-        class="browse__container__cards__add"
-      >
-        <div class="browse__container__cards__add__container">
-          <nb-icon
-            class="browse__container__cards__add__container__icon"
-            icon="plus-circle-outline"
-          ></nb-icon>
+    <ng-container *ngIf="profiles$ | async as profiles">
+      <div class="browse__container__cards">
+        <div
+          class="browse__container__cards__item"
+          *ngFor="let profile of profiles$ | async; let index = index"
+        >
+          <app-browse-card
+            class="browse__container__cards__card"
+            *ngIf="index < 5"
+            [userCard]="profile"
+            (onSelectUser)="selectUser(profile._id || '')"
+          ></app-browse-card>
         </div>
-        <p class="browse__container__cards__add__link">Add Profile</p>
+        <div
+          (click)="openAddProfileModal()"
+          class="browse__container__cards__add"
+          *ngIf="profiles.length < 5"
+        >
+          <div class="browse__container__cards__add__container">
+            <nb-icon
+              class="browse__container__cards__add__container__icon"
+              icon="plus-circle-outline"
+            ></nb-icon>
+          </div>
+          <p class="browse__container__cards__add__link">Add Profile</p>
+        </div>
       </div>
-    </div>
+    </ng-container>
+
     <a class="browse__container__link" (click)="openManageProfileModal()"
       >Manage Profiles
     </a>

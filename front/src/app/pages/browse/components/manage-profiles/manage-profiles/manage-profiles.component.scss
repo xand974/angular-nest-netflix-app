@@ -31,65 +31,6 @@
       border-top: 2px solid gray;
       border-bottom: 2px solid gray;
       overflow-y: scroll;
-      .manage__card {
-        display: flex;
-        align-items: center;
-        padding: 20px 0;
-        &:not(:last-child) {
-          border-bottom: 1px solid rgba(128, 128, 128, 0.507);
-        }
-        &__img {
-          flex: 1;
-          width: 100px;
-          height: 100%;
-          border-radius: 5px;
-        }
-        &__infos {
-          padding: 10px 30px;
-          flex: 4;
-          display: flex;
-          flex-direction: column;
-          span {
-            margin-bottom: 5px;
-            color: white;
-          }
-        }
-        &__actions {
-          flex: 1;
-          &__btn {
-            outline: none;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            padding: 6px 10px;
-            border: none;
-            border-radius: 7px;
-            font-weight: bold;
-            span {
-              flex: 1;
-            }
-            &.edit {
-              background: linear-gradient(190deg, #363636, #000000, #4a4a4a);
-              border: 1px solid white;
-              color: white;
-              margin-bottom: 10px;
-              & > span {
-                margin-right: 10px;
-              }
-            }
-            &.delete {
-              background: linear-gradient(190deg, #e62f2f, #ff4040, #cd1515);
-              color: #f1f1f1;
-              border: 1px solid #f1f1f1;
-
-              & > span {
-                margin-left: 10px;
-              }
-            }
-          }
-        }
-      }
     }
   }
   &__footer {
@@ -101,12 +42,15 @@
     &__btn {
       cursor: pointer;
       width: 80px;
-      padding: 10px 0;
+      padding: 10px;
       background: linear-gradient(190deg, #e62f2f, #ff4040, #cd1515);
       border: none;
       border-radius: 5px;
       color: white;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      outline: none;
     }
   }
 }
