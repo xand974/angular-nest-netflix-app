@@ -69,11 +69,10 @@ export class MoviesController {
     return movieFound;
   }
 
-  @Roles(Role.Admin)
   @Get('all')
   public async getAll() {
-    const movies = await this.movieService.getAll();
-    this.logger.log(`get all movies`);
+    const movies = (await this.movieService.getAll()) ?? [];
+    this.logger.log(`get all movies, count ${movies.length}`);
     return movies;
   }
 

@@ -21,7 +21,9 @@ export class SearchComponent implements OnInit {
     this.searchText = '';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.searchText.length === 0) return;
+  }
 
   search(e: MouseEvent) {
     e.preventDefault();
@@ -38,7 +40,6 @@ export class SearchComponent implements OnInit {
   }
 
   onChange() {
-    if (this.searchText.length === 0) return;
     this.router.navigate(['/search'], { queryParams: { q: this.searchText } });
   }
 }

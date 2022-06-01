@@ -5,29 +5,40 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Route, Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MovieModel } from 'netflix-malet-types';
-import { Observable, Subject, takeUntil, lastValueFrom } from 'rxjs';
-import { SearchService } from './search.service';
+import {
+  Observable,
+  Subject,
+  takeUntil,
+  take,
+  lastValueFrom,
+  map,
+  tap,
+} from 'rxjs';
 import { SearchStore } from './search.store';
+import { filter } from 'rxjs/operators';
+import { MoviesService } from '../../services/movies/movies.service';
 
 @Component({
   selector: 'malet-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SearchStore],
 })
 export class SearchComponent implements OnInit, OnDestroy {
   public searchTextFromParam: string;
   private _destroy$: Subject<boolean>;
 
   movies$: Observable<MovieModel[]>;
+  movies: MovieModel[];
   loading$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private searchService: SearchService,
+    private movieService: MoviesService,
     private cStore: SearchStore,
     private cdr: ChangeDetectorRef
   ) {
@@ -35,11 +46,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.movies$ = this.cStore.movies$;
     this.loading$ = this.cStore.loading$;
     this._destroy$ = new Subject<boolean>();
+    this.movies = [];
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.checkEmptyInput();
-    this.getMoviesFromSearchQuery();
+    await this.getAllMovies();
   }
 
   /**
@@ -54,22 +66,38 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.route.queryParamMap
       .pipe(takeUntil(this._destroy$))
       .subscribe((val) => {
-        const query = val.get('q') ?? undefined;
-        if (!query || query.length === 0) {
-          this.router.navigate(['/home']);
-          return;
-        }
+        const query = val.get('q') ?? '';
         this.searchTextFromParam = query;
-        this.getMoviesFromSearchQuery();
+        this.filterMovies(this.searchTextFromParam);
       });
   }
 
-  getMoviesFromSearchQuery() {
+  async getAllMovies() {
     this.cStore.setLoading(true);
     this.cStore.setMovies(
-      this.searchService.getMoviesFromSearch(this.searchTextFromParam)
+      this.movieService
+        .getAllMovies()
+        .pipe(takeUntil(this._destroy$.asObservable()))
     );
     this.cStore.setLoading(false);
+  }
+
+  filterMovies(str: string) {
+    this.movies$
+      .pipe(
+        takeUntil(this._destroy$.asObservable()),
+        map((val) => {
+          if (str === '') return val;
+          return val.filter((item) =>
+            item.name.toLowerCase().includes(str.toLowerCase())
+          );
+        })
+      )
+      .subscribe((val) => {
+        this.cStore.setLoading(true);
+        this.movies = val;
+        this.cStore.setLoading(false);
+      });
   }
 
   ngOnDestroy(): void {

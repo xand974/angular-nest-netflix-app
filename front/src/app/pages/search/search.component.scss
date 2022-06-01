@@ -2,10 +2,26 @@
   margin-top: 60px;
   min-height: 100vh;
   background: #000;
-  &__title {
-    margin: 20px 0;
-    text-align: center;
-    color: white;
+  &__title__container {
+    position: relative;
+    &__link {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+      color: #6b6b6b;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      &:hover {
+        color: white;
+      }
+    }
+    .search__title {
+      margin: 20px 0;
+      text-align: center;
+      color: white;
+    }
   }
   &__container {
     width: calc(90% + 14px);

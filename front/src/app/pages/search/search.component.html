@@ -1,18 +1,27 @@
-<div class="search">
-  <div class="search__title__container" *ngIf="movies$ | async as movies">
+<div class="search" [nbSpinner]="(loading$ | async) ?? false">
+  <div class="search__title__container">
+    <a class="search__title__container__link" routerLink="/home">
+      <nb-icon
+        class="search__title__container__link__icon"
+        icon="arrow-ios-back-outline"
+      ></nb-icon>
+      Go Home
+    </a>
     <h1 class="search__title" *ngIf="movies.length > 0">
-      {{ (movies$ | async)?.length }}
+      {{ movies?.length }}
       <span>
         {{ "Result" | plural: movies.length > 1 }}
       </span>
-      for {{ searchTextFromParam }}
+      <span *ngIf="searchTextFromParam !== ''">
+        for {{ searchTextFromParam }}
+      </span>
     </h1>
     <h1 class="search__title" *ngIf="movies.length === 0">No matches found</h1>
   </div>
   <div class="search__container">
     <malet-movie-list-item
       [loading]="(loading$ | async) || false"
-      *ngFor="let movie of movies$ | async"
+      *ngFor="let movie of movies"
       [fromSearch]="true"
       [movie]="movie"
       class="search__container__item"
