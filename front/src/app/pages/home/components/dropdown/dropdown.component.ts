@@ -15,7 +15,7 @@ import { selectUser } from 'src/app/store/auth/selectors/auth.selectors';
 import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
 import { selectProfiles } from '../../../../store/profiles/selectors/profiles.selectors';
 import { NbDialogService } from '@nebular/theme';
-import { ManageProfilesComponent } from 'src/app/pages/browse/components/manage-profiles/manage-profiles/manage-profiles.component';
+import { ManageProfilesComponent } from 'src/app/@core/modals/manage/manage-profiles/manage-profiles.component';
 import { setCurrentProfile } from 'src/app/store/profiles/actions/profiles.actions';
 import {
   removeProfile,

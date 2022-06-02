@@ -6,10 +6,10 @@ import { AuthState } from '../../store/auth/reducer/auth.reducer';
 import { Observable, firstValueFrom, take } from 'rxjs';
 import { ProfileModel, UserModel } from 'netflix-malet-types';
 import { selectUser } from 'src/app/store/auth/selectors/auth.selectors';
-import { AddProfileComponent } from './components/add-profile/add-profile.component';
+import { AddProfileComponent } from '../../@core/modals/manage/add-profile/add-profile.component';
 import { NbDialogService } from '@nebular/theme';
 import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
-import { ManageProfilesComponent } from './components/manage-profiles/manage-profiles/manage-profiles.component';
+import { ManageProfilesComponent } from '../../@core/modals/manage/manage-profiles/manage-profiles.component';
 import { setCurrentProfile } from '../../store/profiles/actions/profiles.actions';
 import {
   selectProfiles,
