@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LogInInterface } from 'src/types';
-import { lastValueFrom, map, Observable, switchMap } from 'rxjs';
+import { lastValueFrom, map, Observable, retry, switchMap } from 'rxjs';
 import { UserModel } from 'netflix-malet-types';
 import { ReqType } from '../../../types/req.types';
 
@@ -39,9 +39,10 @@ export class LoginService {
 
   checkAuth(): Promise<boolean> {
     return lastValueFrom(
-      this.http
-        .get(this.apiCheckAuthUrl, { withCredentials: true })
-        .pipe(map((res) => res as boolean))
+      this.http.get(this.apiCheckAuthUrl, { withCredentials: true }).pipe(
+        map((res) => res as boolean),
+        retry(3)
+      )
     );
   }
 
