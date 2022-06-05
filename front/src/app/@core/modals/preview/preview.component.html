@@ -1,0 +1,73 @@
+<div class="preview">
+  <div class="preview__header">
+    <div class="preview__header__close">
+      <button class="preview__header__close__btn" (click)="dismiss()">
+        <nb-icon icon="close-outline" class="icon"></nb-icon>
+      </button>
+    </div>
+    <img
+      [src]="
+        movie?.thumbnailURL ||
+        'https://img.welt.de/img/kultur/kino/mobile222551740/5071356787-ci16x9-w1280/SOUL.jpg'
+      "
+      class="preview__header__img"
+      alt=""
+    />
+    <div class="preview__header__play">
+      <button
+        class="preview__header__play__btn play"
+        (click)="goToPlay(movie?._id ?? '')"
+      >
+        <nb-icon icon="arrow-right-outline" class="icon"></nb-icon>
+        <span> Play </span>
+      </button>
+      <button
+        class="preview__header__play__btn add"
+        (click)="addToFavorite(movie?._id ?? '')"
+      >
+        <nb-icon icon="plus-outline" class="icon"></nb-icon>
+      </button>
+    </div>
+  </div>
+  <div class="preview__body">
+    <div class="preview__body__container">
+      <h3 class="preview__body__container__title">{{ movie?.name }}</h3>
+      <p class="preview__body__container__description">
+        {{ movie?.synopsis }}
+      </p>
+    </div>
+    <div class="divider"></div>
+    <div class="preview__body__container">
+      <h3 class="preview__body__container__title">
+        Info on <strong>{{ movie?.name }}</strong>
+      </h3>
+      <p class="preview__body__container__text">
+        <span class="dark">Genres: </span>
+        <span class="light">{{ genre }}</span>
+      </p>
+      <p class="preview__body__container__text">
+        <span class="dark">Release date: </span>
+        <span class="light">{{ movie?.releaseYear }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="episodes" *ngIf="movie?.type === 'series'">
+    <div class="episodes__header">
+      <h3 class="episodes__header__title">Episodes</h3>
+      <select class="episodes__header__select" name="season">
+        <option value="1">Season 1</option>
+        <option value="1">Season 2</option>
+        <option value="1">Season 3</option>
+        <option value="1">Season 4</option>
+        <option value="1">Season 5</option>
+      </select>
+    </div>
+    <div class="episodes__body">
+      <malet-preview-item> </malet-preview-item>
+      <malet-preview-item> </malet-preview-item>
+      <malet-preview-item> </malet-preview-item>
+      <malet-preview-item> </malet-preview-item>
+      <malet-preview-item> </malet-preview-item>
+    </div>
+  </div>
+</div>

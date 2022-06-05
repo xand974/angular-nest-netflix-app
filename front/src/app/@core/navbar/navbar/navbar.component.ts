@@ -3,7 +3,7 @@ import { ProfileModel } from 'netflix-malet-types';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ProfileState } from 'src/app/store/profiles/reducers/profiles.reducer';
-import { selectCurrentProfile } from '../../../../store/profiles/selectors/profiles.selectors';
+import { selectCurrentProfile } from '../../../store/profiles/selectors/profiles.selectors';
 
 @Component({
   selector: 'malet-navbar',

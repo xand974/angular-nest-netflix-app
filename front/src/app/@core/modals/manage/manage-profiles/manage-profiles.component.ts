@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ProfileModel } from 'netflix-malet-types';
 import { NbDialogRef } from '@nebular/theme';
-import { BrowseService } from '../../../browse.service';
+import { BrowseService } from '../../../../pages/browse/browse.service';
 
 @Component({
   selector: 'malet-manage-profiles',

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar.component';
 import { NavbarLinksModule } from '../navbar-links/navbar-links.module';
 import { SearchInputModule } from '../search-input/search-input.module';
-import { DropdownModule } from '../dropdown/dropdown.module';
+import { DropdownModule } from '../../../pages/home/components/dropdown/dropdown.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
