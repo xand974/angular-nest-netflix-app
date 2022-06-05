@@ -1,18 +1,11 @@
-<div class="preview">
+<div class="preview" [nbSpinner]="loading">
   <div class="preview__header">
     <div class="preview__header__close">
       <button class="preview__header__close__btn" (click)="dismiss()">
         <nb-icon icon="close-outline" class="icon"></nb-icon>
       </button>
     </div>
-    <img
-      [src]="
-        movie?.thumbnailURL ||
-        'https://img.welt.de/img/kultur/kino/mobile222551740/5071356787-ci16x9-w1280/SOUL.jpg'
-      "
-      class="preview__header__img"
-      alt=""
-    />
+    <img [src]="movie?.thumbnailURL" class="preview__header__img" alt="" />
     <div class="preview__header__play">
       <button
         class="preview__header__play__btn play"
@@ -23,9 +16,16 @@
       </button>
       <button
         class="preview__header__play__btn add"
-        (click)="addToFavorite(movie?._id ?? '')"
+        (click)="addToFavorites(movie?._id ?? '')"
       >
-        <nb-icon icon="plus-outline" class="icon"></nb-icon>
+        <nb-icon
+          [icon]="
+            favorites?.includes(movie?._id ?? '')
+              ? 'minus-outline'
+              : 'plus-outline'
+          "
+          class="icon"
+        ></nb-icon>
       </button>
     </div>
   </div>

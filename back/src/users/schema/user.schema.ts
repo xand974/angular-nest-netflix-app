@@ -18,7 +18,7 @@ export class User implements UserModel {
   @Prop({ required: true, type: Boolean })
   isVerified: boolean;
 
-  @Prop({ required: true, type: [String] })
+  @Prop({ required: true, type: [String], default: [] })
   roles: string[];
 
   @Prop({ required: true, type: Number, max: 4 })
