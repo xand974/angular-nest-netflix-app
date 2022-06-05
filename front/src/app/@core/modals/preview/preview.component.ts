@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
+import { MovieModel } from 'netflix-malet-types';
+import { Router } from '@angular/router';
+import { capitalize, formatGenres } from '../../../helpers/utils.helper';
 
 @Component({
   selector: 'malet-preview',
@@ -7,9 +10,30 @@ import { NbDialogRef } from '@nebular/theme';
   styleUrls: ['./preview.component.scss'],
 })
 export class PreviewComponent implements OnInit {
-  constructor(private ref: NbDialogRef<PreviewComponent>) {}
+  @Input() movie: MovieModel;
+  public genre: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private ref: NbDialogRef<PreviewComponent>,
+    private router: Router
+  ) {
+    this.movie = {} as MovieModel;
+    this.genre = '';
+  }
+
+  ngOnInit(): void {
+    this.genre = formatGenres(this.movie.genre);
+  }
+
+  goToPlay(id: string) {
+    if (!id || id === '') return;
+    this.router.navigate([`/watch/${id}`]);
+  }
+
+  addToFavorite(id: string) {
+    if (!id || id === '') return;
+    // TODO add to favorite
+  }
 
   dismiss() {
     this.ref.close();

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BillboardStore } from './billboard.store';
 import { HomeService } from '../../home.service';
-import { Observable } from 'rxjs';
+import { Observable, take, firstValueFrom } from 'rxjs';
 import { MovieModel } from 'netflix-malet-types';
 import { NbDialogService } from '@nebular/theme';
 import { PreviewComponent } from '../../../../@core/modals/preview/preview.component';
@@ -38,7 +38,13 @@ export class BillboardComponent implements OnInit {
     }
   }
 
-  public openInfosPreviewModal() {
-    const res = this.dialogService.open(PreviewComponent, {});
+  public async openInfosPreviewModal() {
+    const movie = await firstValueFrom(this.movie$.pipe(take(1)));
+    if (!movie) return;
+    this.dialogService.open(PreviewComponent, {
+      context: {
+        movie: movie,
+      },
+    });
   }
 }

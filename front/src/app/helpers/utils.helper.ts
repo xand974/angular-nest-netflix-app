@@ -4,3 +4,19 @@ export const checkEmailValid = (email: string): boolean => {
   if (email.match(pattern)) return true;
   return false;
 };
+
+export const capitalize = (str: string) => {
+  const firstLetter = str[0].toUpperCase();
+  return ` ${firstLetter}${str.slice(1)}`;
+};
+
+export const formatGenres = (arr: string[]): string => {
+  const genres = [...arr];
+  let array = [];
+  if (!genres || genres.length === 0) return '';
+  for (const genre of genres) {
+    const value = capitalize(genre);
+    array.push(value);
+  }
+  return array.join(',');
+};
