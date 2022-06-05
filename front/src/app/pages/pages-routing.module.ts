@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { NavbarLayoutComponent } from '../layout/navbar-layout/navbar-layout.component';
+import { NavbarLayoutModule } from '../layout/navbar-layout/navbar-layout.module';
 
 const routes: Routes = [
   {

@@ -1,0 +1,176 @@
+.preview {
+  position: relative;
+  top: 10px;
+  width: 60vw;
+  height: 100%;
+  overflow: scroll;
+  background: #131212;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #231f1f;
+  &__header {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background: linear-gradient(
+        176deg,
+        rgba(5, 10, 28, 0.14189425770308128) 10%,
+        rgba(5, 10, 28, 0.2259497549019608) 54%,
+        rgba(10, 11, 15, 0.5480786064425771) 98%
+      );
+    }
+    &__img {
+      width: 100%;
+      height: 50vh;
+      object-fit: cover;
+    }
+    &__close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 200;
+      &__btn {
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        border: 1px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        cursor: pointer;
+        &:hover {
+          background: white;
+          border: 1px solid black;
+          .icon {
+            color: black;
+          }
+        }
+        .icon {
+          font-size: 1.3rem;
+        }
+      }
+    }
+    &__play {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      z-index: 200;
+      &__btn {
+        display: flex;
+        align-items: center;
+        width: 110px;
+        justify-content: center;
+        height: 40px;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        &.play {
+          background-color: white;
+          color: black;
+          &:hover {
+            background: black;
+            border: 1px solid white;
+            color: white;
+            .icon {
+              color: white;
+            }
+          }
+          .icon {
+            color: black;
+            font-size: 1.5rem;
+          }
+          span {
+            position: relative;
+            top: -1px;
+            margin-right: 10px;
+          }
+        }
+        &.add {
+          margin-left: 20px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: none;
+          border: 1px solid white;
+          &:hover {
+            background: white;
+            border: 1px solid black;
+            .icon {
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      &__title {
+        color: white;
+        margin-bottom: 10px;
+      }
+      &__description {
+        line-height: 1.5;
+      }
+      &__text {
+        display: flex;
+        align-items: center;
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+        .dark {
+          color: gray;
+          margin-right: 10px;
+        }
+        .light {
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .episodes {
+    padding: 20px;
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &__title {
+        color: white;
+      }
+      &__select {
+        padding: 5px 10px;
+        outline: none;
+        border: 1px solid white;
+        background: #515151;
+        color: white;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+    &__body {
+      padding: 20px 0;
+    }
+  }
+}

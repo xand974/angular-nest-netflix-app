@@ -1,0 +1,47 @@
+.episode {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 20px 0;
+  border-bottom: 1px solid #404040;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #2e2c2c;
+  }
+  &__left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+  &__right {
+    flex: 6;
+    display: flex;
+    align-items: center;
+    &__img {
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    &__container {
+      display: flex;
+      flex-direction: column;
+      &__title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      &__text {
+        color: gray;
+        font-weight: lighter;
+      }
+    }
+    &__minute {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+}
