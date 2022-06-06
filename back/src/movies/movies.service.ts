@@ -3,11 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Movie } from './schema/movie.schema';
 import { Model } from 'mongoose';
 import { MovieModel } from 'netflix-malet-types';
+import { UserInfosService } from '../user-infos/user.infos.service';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectModel(Movie.name) private readonly movieModel: Model<Movie>,
+    private readonly userInfosService: UserInfosService,
   ) {}
 
   public async create(movie: MovieModel) {
@@ -50,6 +52,20 @@ export class MoviesService {
     ])) as MovieModel[];
     if (!movie) throw new HttpException('no movie', HttpStatus.NOT_FOUND);
     return movie[0];
+  }
+
+  public async getFavorites(userId: string): Promise<MovieModel[]> {
+    const user = await this.userInfosService.getByUserId(userId);
+    if (!user)
+      throw new HttpException('cannot get favorites', HttpStatus.BAD_REQUEST);
+    let movies = [];
+    const favorites = user.favorites ?? [];
+    for (const favorite of favorites) {
+      const movie = await this.movieModel.findById(favorite);
+      if (!movie) continue;
+      movies.push(movie);
+    }
+    return movies;
   }
 
   public async getAll(limit = 10, asc = true) {

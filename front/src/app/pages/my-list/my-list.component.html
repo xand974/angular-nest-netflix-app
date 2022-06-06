@@ -1,0 +1,21 @@
+<div class="list" [nbSpinner]="(loading$ | async) ?? false">
+  <div class="list__title__container">
+    <a class="list__title__container__link" routerLink="/home">
+      <nb-icon
+        class="list__title__container__link__icon"
+        icon="arrow-ios-back-outline"
+      ></nb-icon>
+      Go Home
+    </a>
+    <h1 class="list__title">My List</h1>
+  </div>
+  <div class="list__container">
+    <malet-movie-list-item
+      [loading]="(loading$ | async) || false"
+      *ngFor="let movie of movies$ | async"
+      [fromSearch]="true"
+      [movie]="movie"
+      class="list__container__item"
+    ></malet-movie-list-item>
+  </div>
+</div>

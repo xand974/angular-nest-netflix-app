@@ -6,6 +6,7 @@ import { NavbarLayoutRoutingModule } from './navbar-layout-router.module';
 import { HomeModule } from '../../pages/home/home.module';
 import { SearchModule } from 'src/app/pages/search/search.module';
 import { RouterModule } from '@angular/router';
+import { MyListModule } from '../../pages/my-list/my-list.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     HomeModule,
     RouterModule,
     SearchModule,
+    MyListModule,
   ],
   declarations: [NavbarLayoutComponent],
   exports: [NavbarLayoutComponent],

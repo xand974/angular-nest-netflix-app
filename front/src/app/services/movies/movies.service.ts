@@ -9,12 +9,21 @@ import { map } from 'rxjs';
 })
 export class MoviesService {
   private getAllMoviesURL = `${environment.apiEndpoint}/movies/all`;
+  private getFavMoviesURL = `${environment.apiEndpoint}/movies/favorites`;
 
   constructor(private http: HttpClient) {}
 
   getAllMovies() {
     return this.http
       .get<MovieModel[]>(this.getAllMoviesURL, {
+        withCredentials: true,
+      })
+      .pipe(map((val) => val));
+  }
+
+  getFavoriteMovies(userId: string) {
+    return this.http
+      .get<MovieModel[]>(`${this.getFavMoviesURL}/${userId}`, {
         withCredentials: true,
       })
       .pipe(map((val) => val));

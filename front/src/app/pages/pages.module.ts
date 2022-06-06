@@ -19,5 +19,6 @@ import { NavbarLayoutModule } from '../layout/navbar-layout/navbar-layout.module
     PagesRoutingModule,
     NavbarLayoutModule,
   ],
+  declarations: [],
 })
 export class PagesModule {}
