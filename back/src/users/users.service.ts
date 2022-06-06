@@ -47,7 +47,7 @@ export class UsersService {
   async getByUsername(username: string) {
     const user = await this.userModel.findOne({ username });
     if (!user) throw new HttpException('no user found', HttpStatus.BAD_REQUEST);
-    return user['_doc'];
+    return user['_doc'] as UserModel;
   }
 
   async getAll(limit = 10) {

@@ -9,6 +9,8 @@ import {
   Param,
   Delete,
   Query,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { MovieModel } from 'netflix-malet-types';
@@ -85,6 +87,14 @@ export class MoviesController {
     });
     this.logger.log(`movie ${id} has been updated`);
     return updatedMovie;
+  }
+
+  @Get('favorites/:id')
+  public async getFavMovies(@Param('id') id: string) {
+    if (!id)
+      throw new HttpException('cannot get favorites', HttpStatus.BAD_REQUEST);
+    this.logger.log(`get fav movies for ${id}`);
+    return await this.movieService.getFavorites(id);
   }
 
   @Roles(Role.Admin)

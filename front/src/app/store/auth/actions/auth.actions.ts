@@ -13,3 +13,8 @@ export const browserReload = createAction(
   props<{ user: UserModel }>()
 );
 export const loginStart = createAction('[Auth] Login Start');
+
+export const favorites = createAction(
+  '[User] Add or Remove From Fav',
+  props<{ movieId: string }>()
+);

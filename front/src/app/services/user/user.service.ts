@@ -9,6 +9,8 @@ import { lastValueFrom } from 'rxjs';
 })
 export class UserService {
   private getUserByIdURL = `${environment.apiEndpoint}/users/get-user`;
+  private favoritesURL = `${environment.apiEndpoint}/user-infos/favorites`;
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -21,6 +23,22 @@ export class UserService {
       this.http.get<UserModel>(`${this.getUserByIdURL}/${id}`, {
         withCredentials: true,
       })
+    );
+  }
+
+  /**
+   * add or remove to favorites
+   * @param {string} userId
+   * @param {string} movieId
+   * @returns
+   */
+  favorites(userId: string, movieId: string): Promise<UserModel> {
+    return lastValueFrom(
+      this.http.post<UserModel>(
+        this.favoritesURL,
+        { userId, movieId },
+        { withCredentials: true }
+      )
     );
   }
 }
