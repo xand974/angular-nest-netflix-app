@@ -1,8 +1,40 @@
 <div
   [nbSpinner]="loading"
   class="item"
+  [ngStyle]="{ overflow: showExpand ? 'visible' : 'hidden' }"
   [ngClass]="fromSearch ? 'item__from__search' : 'item__default'"
   (click)="goToWatch(movie?._id || '')"
+  (mouseenter)="mouseIn()"
+  (mouseleave)="mouseOut()"
 >
   <img [src]="movie.thumbnailURL" class="item__img" alt="" />
+
+  <div class="item__infos" *ngIf="showExpand">
+    <button class="item__infos__play">
+      <nb-icon class="icon" icon="play-circle-outline"></nb-icon>
+    </button>
+    <div class="item__infos__left">
+      <h4 class="item__infos__left__title">{{ movie?.name }}</h4>
+      <p class="item__infos__left__description">
+        <span class="green"> 97% Match </span>
+        <strong>{{ movie?.releaseYear || "2002" }}</strong>
+        <span class="age">{{ movie.ageLimit || "+14" }}</span>
+        <strong *ngIf="movie?.type === 'series'">5 Seasons</strong>
+      </p>
+      <p class="item__infos__left__synopsis">
+        {{ movie?.synopsis }}
+      </p>
+    </div>
+    <div class="item__infos__right">
+      <button class="item__infos__right__btn">
+        <nb-icon icon="arrow-upward-outline"></nb-icon>
+      </button>
+      <button class="item__infos__right__btn">
+        <nb-icon icon="arrow-downward-outline"></nb-icon>
+      </button>
+      <button class="item__infos__right__btn">
+        <nb-icon icon="plus-outline"></nb-icon>
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { MovieModel, UserModel } from 'netflix-malet-types';
 import { Router } from '@angular/router';
@@ -14,6 +19,7 @@ import { UserService } from '../../../services/user/user.service';
   selector: 'malet-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewComponent implements OnInit {
   @Input() movie: MovieModel;

@@ -11,6 +11,7 @@
     </button>
     <div class="list__bottom__list" #listElement>
       <malet-movie-list-item
+        class="list__bottom__list__item"
         *ngFor="let movie of movies$ | async"
         [movie]="movie"
       >
