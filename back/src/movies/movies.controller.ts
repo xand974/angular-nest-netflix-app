@@ -45,6 +45,8 @@ export class MoviesController {
   @Post('get-movies-in-list')
   public async getMoviesInList(@Body() body: { ids: string[] }) {
     const { ids } = body;
+    if (!ids)
+      throw new HttpException('no ids provided', HttpStatus.BAD_REQUEST);
 
     let movies: Movie[] = [];
     for (const id of ids) {
@@ -52,6 +54,7 @@ export class MoviesController {
       if (!movie) return;
       movies.push(movie);
     }
+    this.logger.log(` ${movies.length} matched found `);
     return movies;
   }
 
