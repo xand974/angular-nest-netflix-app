@@ -1,8 +1,9 @@
 .item {
   height: 150px;
-  overflow: hidden;
   cursor: pointer;
   border-radius: 3px;
+  position: relative;
+  transition: transform 0.3s ease;
   &__from__search {
     width: calc(20vw - 49px);
     margin-right: 0;
@@ -15,5 +16,113 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  &__infos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transform: translateX(5%);
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 9%;
+      transform: translateX(-13%);
+      width: 112%;
+      height: 112%;
+      background: rgba(0, 0, 0, 0.404);
+    }
+    &__play {
+      cursor: pointer;
+      position: absolute;
+      background: none;
+      height: 20%;
+      border: none;
+      top: 20%;
+      transform: translateY(-50%);
+      z-index: 1223;
+      .icon {
+        transition: all 0.3s ease;
+        font-size: 2.5rem;
+        color: white;
+        &:hover {
+          color: rgb(235, 28, 28);
+        }
+      }
+    }
+    &__left {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 90%;
+      overflow: hidden;
+      position: relative;
+      z-index: 1223;
+      &__title {
+        font-size: 1rem;
+        line-height: 1;
+        color: white;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 80%;
+        text-overflow: ellipsis;
+      }
+      &__description {
+        font-size: 0.7rem;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        span,
+        strong {
+          margin-right: 5px;
+          color: white;
+        }
+        .green {
+          color: #67c36a;
+          font-weight: bold;
+        }
+        .age {
+          border: 1px solid white;
+          padding: 1px 3px;
+        }
+      }
+      &__synopsis {
+        color: white;
+        width: 80%;
+        margin-top: 3px;
+        font-size: 0.6rem;
+        line-height: 1.2;
+        overflow: hidden;
+        white-space: break-spaces;
+        text-overflow: ellipsis;
+      }
+    }
+    &__right {
+      position: relative;
+      z-index: 1223;
+      display: flex;
+      flex-direction: column;
+      &__btn {
+        transition: all 0.3s ease;
+        &:hover {
+          color: #00000052;
+          background: white;
+          border: 1px solid #00000052;
+        }
+        cursor: pointer;
+        margin-bottom: 5px;
+        border-radius: 50%;
+        border: 1px solid white;
+        color: white;
+        background: #00000052;
+      }
+    }
   }
 }
