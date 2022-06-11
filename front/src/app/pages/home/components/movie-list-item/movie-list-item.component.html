@@ -17,9 +17,12 @@
       <h4 class="item__infos__left__title">{{ movie?.name }}</h4>
       <p class="item__infos__left__description">
         <span class="green"> 97% Match </span>
-        <strong>{{ movie?.releaseYear || "2002" }}</strong>
-        <span class="age">{{ movie.ageLimit || "+14" }}</span>
-        <strong *ngIf="movie?.type === 'series'">5 Seasons</strong>
+        ·
+        <strong> {{ movie?.releaseYear || "2002" }} </strong>
+        ·
+        <span class="age"> {{ movie.ageLimit || "+14" }} </span>
+        ·
+        <strong *ngIf="movie?.type === 'series'"> 5 Seasons </strong>
       </p>
       <p class="item__infos__left__synopsis">
         {{ movie?.synopsis }}
