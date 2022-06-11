@@ -1,21 +1,27 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Movie } from './schema/movie.schema';
+import { Movie, MovieType } from './schema/movie.schema';
 import { Model } from 'mongoose';
 import { MovieModel } from 'netflix-malet-types';
 import { UserInfosService } from '../user-infos/user.infos.service';
+import { SeasonsService } from '../seasons/seasons.service';
 
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectModel(Movie.name) private readonly movieModel: Model<Movie>,
+    @InjectModel(Movie.name) private readonly movieModel: Model<MovieType>,
     private readonly userInfosService: UserInfosService,
+    private readonly seasonsService: SeasonsService,
   ) {}
 
-  public async create(movie: MovieModel) {
-    const newMovie = new this.movieModel(movie);
-
-    await newMovie.save();
+  public async create(_movie: MovieModel) {
+    const movie = new this.movieModel({ ..._movie });
+    const newMovie = await movie.save();
+    switch (newMovie.type) {
+      case 'series':
+        this.seasonsService.addSeriesToSeason(newMovie, this.movieModel);
+        break;
+    }
     return newMovie;
   }
 
@@ -75,8 +81,8 @@ export class MoviesService {
       .limit(limit);
   }
 
-  public async updateOne(movieDto: MovieModel) {
-    const movie = await this.movieModel.findById(movieDto._id);
+  public async updateOne(id: string, movieDto: Partial<MovieModel>) {
+    const movie = await this.movieModel.findById(id);
     if (!movie) throw new HttpException('no movie', HttpStatus.NOT_FOUND);
 
     const updatedMovie = await movie.updateOne({

@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 import { MovieModel } from 'netflix-malet-types';
+import { Season } from '../../seasons/schema/seasons.schema';
 
 export type MovieType = Movie & Document;
 
@@ -32,6 +33,18 @@ export class Movie implements MovieModel {
 
   @Prop({ type: String })
   type: 'series' | 'movie' | 'documentary';
+
+  @Prop({ type: Number, default: 1 })
+  season?: number;
+
+  @Prop({ type: Number, default: 1 })
+  episode?: number;
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: Season.name })
+  seasonId?: string;
+
+  @Prop({ type: String })
+  uSeriesId?: string;
 }
 
 const MovieSchema = SchemaFactory.createForClass(Movie);

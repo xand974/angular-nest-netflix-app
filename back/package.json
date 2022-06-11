@@ -36,7 +36,7 @@
     "dotenv": "^16.0.0",
     "express-session": "^1.17.2",
     "mongoose": "^6.2.10",
-    "netflix-malet-types": "^2.2.0",
+    "netflix-malet-types": "^2.2.5",
     "nodemailer": "^6.7.3",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
