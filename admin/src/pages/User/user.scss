@@ -1,0 +1,165 @@
+.user {
+  flex: 4;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    h3 {
+      font-size: 40px;
+    }
+    a {
+      text-decoration: none;
+      margin-right: 50px;
+      span {
+        background-color: rgb(6, 0, 61);
+        padding: 10px 20px;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+      }
+    }
+  }
+  .wrapper {
+    width: 100%;
+    display: flex;
+    .profile {
+      margin-right: 50px;
+      flex: 1;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+      height: 31rem;
+      overflow-y: hidden;
+      padding: 20px;
+      .picture {
+        display: flex;
+        align-items: center;
+        img {
+          width: 90px;
+          height: 90px;
+          object-fit: cover;
+          margin-right: 20px;
+        }
+        .infos {
+          display: flex;
+          flex-direction: column;
+          span {
+            font-size: 20px;
+          }
+          :first-child {
+            font-weight: bold;
+          }
+          :last-child {
+            color: gray;
+          }
+        }
+      }
+      .account {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        p {
+          color: rgb(175, 175, 175);
+          font-weight: bold;
+          margin: 15px 0;
+          font-size: 20px;
+        }
+        span {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          color: rgb(85, 85, 85);
+          margin-bottom: 20px;
+          .icon {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .edit {
+      padding: 20px;
+      height: 31rem;
+      overflow-y: hidden;
+      max-height: 40rem;
+      margin-right: 50px;
+      flex: 2;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+      h3 {
+        font-size: 30px;
+      }
+      .wrapper {
+        display: flex;
+
+        .left {
+          flex: 1;
+          form {
+            display: flex;
+            flex-direction: column;
+
+            label {
+              font-weight: bold;
+              margin: 15px 0;
+              font-size: 18px;
+              color: rgb(85, 85, 85);
+            }
+            input {
+              outline: none;
+              background: none;
+              border: none;
+              border-bottom: 1px solid black;
+              width: 100%;
+              font-size: 18px;
+            }
+            ::placeholder {
+              font-size: 16px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+        .right {
+          position: relative;
+          flex: 2;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: right;
+          .img {
+            display: flex;
+            align-items: center;
+            img {
+              width: 200px;
+              height: 200px;
+              border-radius: 20%;
+              object-fit: cover;
+              margin-right: 20px;
+            }
+            button {
+              background: none;
+              border: none;
+              * {
+                font-size: 40px;
+                cursor: pointer;
+                transition: all 0.1s ease-in-out;
+                &:hover {
+                  color: crimson;
+                }
+              }
+            }
+          }
+          .btn__update {
+            position: absolute;
+            left: 35%;
+            padding: 10px 40px;
+            bottom: 0;
+            background-color: rgb(6, 0, 61);
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

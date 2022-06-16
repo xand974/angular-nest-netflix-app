@@ -1,0 +1,35 @@
+.userlist {
+  flex: 4;
+  .renderUser {
+    display: flex;
+    align-items: center;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 6px;
+    }
+  }
+  .userlist {
+    display: flex;
+    align-items: center;
+    a {
+      display: inline-flex;
+    }
+    button {
+      margin-right: 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      .btn {
+        &__edit {
+          color: rgb(24, 24, 104);
+        }
+        &__delete {
+          color: rgb(255, 110, 110);
+        }
+      }
+    }
+  }
+}

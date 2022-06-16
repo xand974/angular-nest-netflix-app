@@ -1,0 +1,40 @@
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  p {
+    color: gray;
+    font-weight: bold;
+  }
+  a {
+    text-decoration: none;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: rgb(65, 65, 65);
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    .icon {
+      font-size: 25px;
+      margin-right: 10px;
+      color: rgb(65, 65, 65);
+    }
+
+    &:hover {
+      background-color: rgba(202, 210, 255, 0.555);
+      border-radius: 10px;
+    }
+  }
+  .menu,
+  .notif {
+    margin-top: 20px;
+  }
+}
