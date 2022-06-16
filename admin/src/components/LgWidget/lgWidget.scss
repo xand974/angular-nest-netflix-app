@@ -1,0 +1,55 @@
+.lgWidget {
+  flex: 2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+  padding: 20px 0 0 20px;
+  overflow-y: scroll;
+  height: 25rem;
+  .transaction__text {
+    font-size: 25px;
+  }
+  table {
+    width: 100%;
+    margin-top: 10px;
+
+    thead {
+      tr {
+        th {
+          text-align: left;
+        }
+      }
+    }
+    tbody {
+      tr {
+        .tableProfile {
+          display: flex;
+          align-items: center;
+        }
+        td {
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+          .btn {
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            &.approuved {
+              background-color: rgb(110, 255, 175);
+              color: rgb(243, 255, 235);
+            }
+            &.pending {
+              background-color: rgb(110, 124, 255);
+              color: rgb(238, 235, 255);
+            }
+            &.rejected {
+              background-color: rgb(255, 110, 110);
+              color: rgb(255, 235, 235);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.card {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+  flex: 1;
+  margin-right: 40px;
+  padding: 40px 40px 40px 60px;
+  .title {
+    font-size: 26px;
+  }
+  .money {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    .dollar {
+      font-size: 30px;
+      margin-right: 20px;
+      font-weight: bold;
+    }
+    .evo {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+    }
+  }
+}

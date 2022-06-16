@@ -1,0 +1,51 @@
+.add {
+  flex: 4;
+  .title {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  form {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    .data {
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      input {
+        width: 100%;
+        padding: 10px 200px;
+        outline: none;
+      }
+      .radioItem {
+        display: flex;
+        align-items: center;
+        * {
+          margin: 5px;
+        }
+        input {
+          width: 50px;
+        }
+      }
+      select {
+        padding: 10px 256px;
+        width: 100%;
+      }
+      button {
+        padding: 20px 30px;
+        background-color: rgb(6, 0, 61);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+  }
+}

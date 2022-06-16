@@ -1,0 +1,51 @@
+.smWidget {
+  flex: 1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+  margin-right: 20px;
+  padding: 20px 0 0 20px;
+  overflow-y: scroll;
+  height: 25rem;
+  .members__text {
+    font-size: 25px;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    .display__user {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 5px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+      .infos {
+        display: flex;
+        flex-direction: column;
+        .name {
+          font-weight: bold;
+        }
+        .job {
+          color: gray;
+          font-size: 14px;
+        }
+      }
+      button {
+        display: flex;
+        align-items: center;
+        margin-left: 50px;
+        padding: 5px;
+        border: none;
+        background-color: #06003d;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+}
