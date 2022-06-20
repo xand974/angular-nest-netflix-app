@@ -1,0 +1,51 @@
+.login {
+  background: url(https://images.unsplash.com/photo-1655710130882-fcaf3839372e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+  border-radius: 20px;
+  width: 100%;
+  height: calc(100vh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .form {
+    width: 20vw;
+    background-color: rgb(243, 243, 243);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(121, 121, 121);
+    &__title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    &__container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      &__label {
+        margin-bottom: 5px;
+        color: rgb(170, 170, 170);
+        font-weight: lighter;
+      }
+      &__input {
+        outline: none;
+        padding: 3px 10px;
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 4px;
+      }
+    }
+    &__btn {
+      margin: 10px 0;
+      width: 100%;
+      cursor: pointer;
+      padding: 5px 0;
+      border-radius: 4px;
+      border: 1px solid rgb(216, 216, 216);
+      background: white;
+      color: rgb(216, 216, 216);
+      transition: all 0.3s ease;
+      &:hover {
+        color: rgb(216, 216, 216);
+        background: black;
+      }
+    }
+  }
+}
