@@ -1,9 +1,15 @@
 import "./login.scss";
 import { ChangeEvent, useState } from "react";
 import { UserModel } from "netflix-malet-types";
+import { LoginService } from "./login.service";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 export default function Login() {
+  const history = useHistory();
+  const loginService = new LoginService();
   const [credential, setCredential] = useState({} as Partial<UserModel>);
+  const dispatch = useDispatch();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredential((prev) => ({
@@ -13,6 +19,8 @@ export default function Login() {
   };
   const login = async () => {
     try {
+      await loginService.signIn(credential, dispatch);
+      history.push("/");
     } catch (error) {
       throw error;
     }

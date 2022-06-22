@@ -13,8 +13,26 @@ import User from "pages/User/User";
 import Add from "pages/AddUser/Add";
 import ProductsList from "pages/ProductsList/ProductsList";
 import Login from "pages/Login/Login";
+import { useAppSelector } from "./context/hooks";
+import { useEffect, useRef } from "react";
+import { LoginService } from "./pages/Login/login.service";
+import { useDispatch } from "react-redux";
 function App() {
-  const currentUser = false;
+  const { currentUser } = useAppSelector((state) => state.user);
+  const loginService = useRef(new LoginService());
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const init = async () => {
+      const isAuth = await loginService.current.checkAuth();
+      if (!currentUser || !isAuth) {
+        await loginService.current.signOut(dispatch);
+        return;
+      }
+    };
+    init();
+  }, [currentUser, dispatch, loginService]);
+
   return (
     <Router>
       <div className="app">
