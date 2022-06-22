@@ -1,17 +1,35 @@
-import { Language, NotificationsNone, Settings } from "@material-ui/icons";
+import {
+  ExitToAppOutlined,
+  Language,
+  NotificationsNone,
+  Settings,
+} from "@material-ui/icons";
 import { useRef, useState } from "react";
 import "./topbar.scss";
 import { Link } from "react-router-dom";
+import { LoginService } from "pages/Login/login.service";
+import { useDispatch } from "react-redux";
 export default function Topbar() {
-  const [isTriggered, setIstriggered] = useState(false);
+  const [isTriggered, setIsTriggered] = useState(false);
   const nav = useRef(null);
+  const loginService = useRef(new LoginService());
+  const dispatch = useDispatch();
+
   window.addEventListener("scroll", (e) => {
     if (window.scrollY > 50) {
-      setIstriggered(true);
+      setIsTriggered(true);
     } else {
-      setIstriggered(false);
+      setIsTriggered(false);
     }
   });
+
+  const logout = async () => {
+    try {
+      await loginService.current.signOut(dispatch);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <div
@@ -24,11 +42,20 @@ export default function Topbar() {
       </Link>
       <div className="links">
         <div className="notif">
-          <NotificationsNone className="icon " />
-          <span>2</span>
+          <button className="btn">
+            <NotificationsNone className="icon " />
+            <span>2</span>
+          </button>
         </div>
-        <Language className="icon" />
-        <Settings className="icon" />
+        <button className="btn">
+          <Language className="icon" />
+        </button>
+        <button className="btn">
+          <Settings className="icon" />
+        </button>
+        <button className="btn" onClick={() => logout()}>
+          <ExitToAppOutlined className="icon" />
+        </button>
         <img
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           alt="profile"

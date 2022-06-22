@@ -41,9 +41,13 @@
     * {
       margin-left: 10px;
     }
-    .icon {
-      font-size: 30px;
+    .btn {
+      background: none;
+      border: none;
       cursor: pointer;
+      .icon {
+        font-size: 30px;
+      }
     }
     img {
       width: 40px;

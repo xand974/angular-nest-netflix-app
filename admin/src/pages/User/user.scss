@@ -31,6 +31,7 @@
       height: 31rem;
       overflow-y: hidden;
       padding: 20px;
+      border-radius: 5px;
       .picture {
         display: flex;
         align-items: center;
@@ -77,6 +78,7 @@
       }
     }
     .edit {
+      border-radius: 5px;
       padding: 20px;
       height: 31rem;
       overflow-y: hidden;
@@ -84,7 +86,7 @@
       margin-right: 50px;
       flex: 2;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
-      h3 {
+      &__title {
         font-size: 30px;
       }
       .wrapper {
@@ -92,17 +94,16 @@
 
         .left {
           flex: 1;
-          form {
+          &__form {
             display: flex;
             flex-direction: column;
-
-            label {
+            &__label {
               font-weight: bold;
               margin: 15px 0;
               font-size: 18px;
               color: rgb(85, 85, 85);
             }
-            input {
+            &__input {
               outline: none;
               background: none;
               border: none;
@@ -123,15 +124,21 @@
           align-items: center;
           flex-direction: column;
           justify-content: right;
+          &__input {
+            display: none;
+          }
           .img {
             display: flex;
             align-items: center;
-            img {
-              width: 200px;
-              height: 200px;
-              border-radius: 20%;
-              object-fit: cover;
-              margin-right: 20px;
+            &__label {
+              cursor: pointer;
+              &__picture {
+                width: 200px;
+                height: 200px;
+                border-radius: 20%;
+                object-fit: cover;
+                margin-right: 20px;
+              }
             }
             button {
               background: none;

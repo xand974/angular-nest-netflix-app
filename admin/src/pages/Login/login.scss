@@ -42,6 +42,17 @@
       background: white;
       color: rgb(216, 216, 216);
       transition: all 0.3s ease;
+      .loading-icon {
+        animation: turn 1s linear infinite;
+        @keyframes turn {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      }
       &:hover {
         color: rgb(216, 216, 216);
         background: black;

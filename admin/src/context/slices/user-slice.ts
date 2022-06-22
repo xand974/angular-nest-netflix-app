@@ -37,7 +37,7 @@ export const userSlice = createSlice({
         error: true,
       };
     },
-    resetLogin: (state) => {
+    resetAuth: () => {
       return {
         ...initialState,
       };
@@ -46,15 +46,11 @@ export const userSlice = createSlice({
       return {
         ...state,
         currentUser: null,
+        error: false,
       };
     },
   },
 });
 export default userSlice.reducer;
-export const {
-  loginFailure,
-  loginStart,
-  loginSuccess,
-  resetLogin,
-  logoutUser,
-} = userSlice.actions;
+export const { loginFailure, loginStart, loginSuccess, resetAuth, logoutUser } =
+  userSlice.actions;

@@ -1,15 +1,22 @@
 import "./login.scss";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { UserModel } from "netflix-malet-types";
 import { LoginService } from "./login.service";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { useAppSelector } from "../../context/hooks";
+import { RefreshOutlined } from "@material-ui/icons";
+import { resetAuth } from "context/slices/user-slice";
 
 export default function Login() {
   const history = useHistory();
   const loginService = new LoginService();
   const [credential, setCredential] = useState({} as Partial<UserModel>);
   const dispatch = useDispatch();
+  const { error, pending } = useAppSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(resetAuth());
+  }, [dispatch]);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredential((prev) => ({
@@ -54,8 +61,15 @@ export default function Login() {
             name="password"
           />
         </div>
+        {error ? (
+          <span style={{ color: "crimson" }}>
+            Username or password incorrect{" "}
+          </span>
+        ) : (
+          <></>
+        )}
         <button onClick={() => login()} className="form__btn">
-          LOGIN
+          {pending ? <RefreshOutlined className="loading-icon" /> : "LOGIN"}
         </button>
       </form>
     </div>
