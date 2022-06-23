@@ -1,27 +1,33 @@
 import "./userList.scss";
 import { DataGrid, GridColumns } from "@mui/x-data-grid";
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
-import { users } from "mockData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { UserModel } from "netflix-malet-types";
+import { UserService } from "../../services/user.service";
 
 export default function UserList() {
-  const [data, setData] = useState(users);
-  const HandleClick = (id: number) => {
-    setData((prev) => {
-      return prev.filter((m) => m.id !== id);
-    });
-  };
+  const [data, setData] = useState<UserModel[]>([]);
+  const userService = useRef(new UserService());
+  const removeUser = (id: string | undefined) => {};
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await userService.current.getNewUsers();
+      setData(res.data);
+    };
+    getUsers();
+  }, []);
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     {
       field: "user",
       headerName: "User",
       width: 160,
-      renderCell: (params) => {
+      renderCell: (params: { row: UserModel }) => {
         return (
           <div className="renderUser">
-            <img src={params.row.avatar} alt="" />
+            <img src={params.row.photoURL} alt="" />
             {params.row.username}
           </div>
         );
@@ -29,26 +35,37 @@ export default function UserList() {
     },
     { field: "email", headerName: "Email", width: 130 },
     {
-      field: "isAdmin",
-      headerName: "Admin",
-      type: "boolean",
+      field: "roles",
+      headerName: "Roles",
       width: 160,
+      renderCell: (params: { row: UserModel }) => (
+        <div className="roles">
+          {params.row.roles?.map((item, index) => (
+            <div className="roles__single" key={index}>
+              <span className="roles__single__text">
+                {item}
+                {index !== (params.row.roles?.length ?? 0) - 1 && ","}
+              </span>
+            </div>
+          ))}
+        </div>
+      ),
     },
     {
       field: "action",
       headerName: "Action",
       width: 160,
-      renderCell: (params) => {
+      renderCell: (params: { row: UserModel }) => {
         return (
           <div className="userlist">
-            <Link to={`/user/${params.row.id}`}>
+            <Link to={`/user/${params.row._id}`}>
               <button>
                 <EditOutlined className="btn__edit" />
               </button>
             </Link>
             <button
               onClick={() => {
-                HandleClick(params.row.id);
+                removeUser(params.row._id);
               }}
             >
               <DeleteOutlined className="btn__delete" />
@@ -66,6 +83,7 @@ export default function UserList() {
         pageSize={10}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        getRowId={(row) => row._id}
         disableSelectionOnClick
       />
     </div>

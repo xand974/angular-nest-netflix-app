@@ -1,11 +1,12 @@
 import {
   AttachMoneyOutlined,
   HomeOutlined,
+  ListOutlined,
   MailOutlined,
   MessageOutlined,
+  MovieOutlined,
   PersonOutlined,
   ShowChart,
-  StorefrontOutlined,
   Timeline,
 } from "@material-ui/icons";
 import "./sidebar.scss";
@@ -16,9 +17,11 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="dashboard">
         <p>Dashboard</p>
-        <span>
-          <HomeOutlined className="icon" /> Home
-        </span>
+        <Link to="/">
+          <span>
+            <HomeOutlined className="icon" /> Home
+          </span>
+        </Link>
         <span>
           <Timeline className="icon" /> Analyses
         </span>
@@ -33,14 +36,19 @@ export default function Sidebar() {
             <PersonOutlined className="icon" /> utilisateurs
           </span>
         </Link>
-        <Link to="products">
+        <Link to="films">
           <span>
-            <StorefrontOutlined className="icon" /> Produits
+            <MovieOutlined className="icon" /> Films
           </span>
         </Link>
-        <span>
+        <Link to="list">
+          <span>
+            <ListOutlined className="icon" /> List
+          </span>
+        </Link>
+        {/* <span>
           <AttachMoneyOutlined className="icon" /> Transactions
-        </span>
+        </span> */}
       </div>
       <div className="notif">
         <p>Notifications</p>

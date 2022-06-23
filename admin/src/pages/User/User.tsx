@@ -1,6 +1,5 @@
 import {
   CalendarTodayOutlined,
-  CloudUploadOutlined,
   EmailOutlined,
   LocationCityOutlined,
   PermIdentityOutlined,
@@ -55,39 +54,71 @@ export default function User() {
           </div>
         </div>
         <div className="edit">
-          <h3>Edit</h3>
+          <h3 className="edit__title">Edit</h3>
           <div className="wrapper">
             <div className="left">
-              <form>
-                <label htmlFor="username">Username</label>
-                <input placeholder="anabeck" type="text" id="username" />
+              <form className="left__form">
+                <label htmlFor="username" className="left__form__label">
+                  Username
+                </label>
+                <input
+                  placeholder="anabeck"
+                  className="left__form__input"
+                  type="text"
+                  id="username"
+                />
 
-                <label htmlFor="fullname">Full Name</label>
-                <input placeholder="anna back" type="text" id="fullname" />
+                <label htmlFor="fullname" className="left__form__label">
+                  Full Name
+                </label>
+                <input
+                  placeholder="anna back"
+                  className="left__form__input"
+                  type="text"
+                  id="fullname"
+                />
 
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="left__form__label">
+                  Email
+                </label>
                 <input
                   placeholder="annaback@gmail.com"
                   type="text"
                   id="email"
+                  className="left__form__input"
                 />
 
-                <label htmlFor="phone">Phone</label>
-                <input placeholder="06 98 75 32 45" type="text" id="phone" />
+                <label htmlFor="phone" className="left__form__label">
+                  Phone
+                </label>
+                <input
+                  placeholder="06 98 75 32 45"
+                  className="left__form__input"
+                  type="text"
+                  id="phone"
+                />
 
-                <label htmlFor="address">Address</label>
-                <input placeholder="New York | USA" type="text" id="adresse" />
+                <label htmlFor="address" className="left__form__label">
+                  Address
+                </label>
+                <input
+                  placeholder="New York | USA"
+                  className="left__form__input"
+                  type="text"
+                  id="adresse"
+                />
               </form>
             </div>
             <div className="right">
               <div className="img">
-                <img
-                  src="https://www.verywellmind.com/thmb/IeZeA3IaM9a6P8df_hIdUpu4hw0=/500x350/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-4660327211-56b5fae93df78c0b13571d1e.jpg"
-                  alt=""
-                />
-                <button>
-                  <CloudUploadOutlined />
-                </button>
+                <label htmlFor="picture" className="img__label">
+                  <img
+                    src="https://www.verywellmind.com/thmb/IeZeA3IaM9a6P8df_hIdUpu4hw0=/500x350/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-4660327211-56b5fae93df78c0b13571d1e.jpg"
+                    alt=""
+                    className="img__label__picture"
+                  />
+                </label>
+                <input type="file" id="picture" className="right__input" />
               </div>
               <button className="btn__update">Update</button>
             </div>

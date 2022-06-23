@@ -47,7 +47,7 @@ export class UsersController {
 
   @Roles(Role.Admin)
   @Get('get-all')
-  public async getAllUser(limit?: number) {
+  public async getAllUser(@Param('limit') limit?: number) {
     this.logger.log(`proceed get ${limit} users`);
     return await this.userService.getAll(limit);
   }

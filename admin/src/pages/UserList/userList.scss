@@ -11,6 +11,17 @@
       margin-right: 6px;
     }
   }
+  .roles {
+    display: flex;
+    align-items: center;
+    &__single {
+      display: flex;
+      align-items: center;
+      &__text {
+        margin-right: 4px;
+      }
+    }
+  }
   .userlist {
     display: flex;
     align-items: center;
