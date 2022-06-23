@@ -84,8 +84,7 @@ export class MoviesController {
   @Roles(Role.Admin)
   @Patch('update/:id')
   public async update(@Param('id') id: string, @Body() movie: MovieModel) {
-    const updatedMovie = await this.movieService.updateOne({
-      _id: id,
+    const updatedMovie = await this.movieService.updateOne(id, {
       ...movie,
     });
     this.logger.log(`movie ${id} has been updated`);

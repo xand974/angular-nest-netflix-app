@@ -10,6 +10,7 @@ import { RolesGuard } from './guards/role.guard';
 import { MoviesModule } from './movies/movies.module';
 import { ListsModule } from './lists/lists.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { SeasonsModule } from './seasons/seasons.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     TokenModule,
     UserInfosModule,
     MoviesModule,
+    SeasonsModule,
     ListsModule,
     ConfigModule.forRoot({
       isGlobal: true,
