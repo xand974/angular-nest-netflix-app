@@ -21,8 +21,6 @@ export class LoginService {
         ...credentials,
       });
       const res = await this.getUserProfile(credentials.username ?? "");
-      console.log(res);
-
       dispatch(loginSuccess(res.data));
     } catch (error) {
       dispatch(loginFailure());

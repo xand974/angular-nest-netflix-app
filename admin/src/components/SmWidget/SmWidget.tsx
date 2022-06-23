@@ -1,102 +1,42 @@
 import { Visibility } from "@material-ui/icons";
 import "./smWidget.scss";
+import { useEffect, useState, useRef } from "react";
+import { UserService } from "../../services/user.service";
+import { UserModel } from "netflix-malet-types";
+import { useHistory } from "react-router";
 
 export default function SmWidget() {
+  const [newUsers, setNewUsers] = useState<UserModel[]>([]);
+  const history = useHistory();
+  const userService = useRef(new UserService());
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await userService.current.getNewUsers(10);
+      setNewUsers([...res.data]);
+    };
+    getUsers();
+  }, []);
+  const goToProfile = (id: string | undefined) => {
+    if (!id) return;
+    history.push(`/user/${id}`);
+  };
   return (
     <div className="smWidget">
       <h3 className="members__text">New Join Members</h3>
       <div className="wrapper">
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
+        {newUsers.map((item, index) => (
+          <div className="display__user" key={index}>
+            <img src={item.photoURL} alt="" />
+            <div className="infos">
+              <span className="name">{item.email}</span>
+              <span className="job">{item.username}</span>
+            </div>
+            <button onClick={() => goToProfile(item._id)}>
+              <Visibility /> display
+            </button>
           </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
-        <div className="display__user">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGiMXujrwq5L7xmQIr22E5r87Q57B5e5BCnZZ93e4Ad5fToDjuLElDAI1YDhiTtpxZt4&usqp=CAU"
-            alt=""
-          />
-          <div className="infos">
-            <span className="name">Anna Keller</span>
-            <span className="job">Software Engineer</span>
-          </div>
-          <button>
-            <Visibility /> display
-          </button>
-        </div>
+        ))}
       </div>
     </div>
   );
