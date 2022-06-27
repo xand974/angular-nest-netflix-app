@@ -1,19 +1,27 @@
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
 import { DataGrid, GridColumns } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./productsList.scss";
-import { products } from "mockData";
+import { FilmService } from "services/film.service";
+import { MovieModel } from "netflix-malet-types";
 
 export default function Products() {
-  const [data, setData] = useState(products);
-  const HandleClick = (id: number) => {
-    setData((prev) => {
-      return prev.filter((m) => m.id !== id);
-    });
-  };
+  const [data, setData] = useState<MovieModel[]>([]);
+  const filmService = useRef(new FilmService());
+  useEffect(() => {
+    const getFilms = async () => {
+      const res = await filmService.current.getAllMovies();
+      if (!res) return;
+      setData(res.data);
+    };
+    getFilms();
+  }, []);
+  console.log(data);
+
+  const HandleClick = (id: string) => {};
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "_id", headerName: "ID", width: 100 },
     {
       field: "name",
       headerName: "Name",
@@ -21,21 +29,26 @@ export default function Products() {
       renderCell: (params) => {
         return (
           <div className="renderProduct">
-            <img src={params.row.img} alt="" />
+            <img src={params.row.thumbnailURL} alt="" />
             {params.row.name}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", type: "number", width: 130 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "releaseYear",
+      headerName: "Release Year",
+      type: "number",
+      width: 130,
+    },
+    {
+      field: "synopsis",
+      headerName: "Synopsis",
       width: 160,
     },
     {
-      field: "price",
-      headername: "Price",
+      field: "type",
+      headername: "Type",
       width: 160,
     },
     {
@@ -45,14 +58,14 @@ export default function Products() {
       renderCell: (params) => {
         return (
           <div className="productlist">
-            <Link to={`/product/${params.row.id}`}>
+            <Link to={`/product/${params.row._id}`}>
               <button>
                 <EditOutlined className="btn__edit" />
               </button>
             </Link>
             <button
               onClick={() => {
-                HandleClick(params.row.id);
+                HandleClick(params.row._id);
               }}
             >
               <DeleteOutlined className="btn__delete" />
@@ -67,6 +80,7 @@ export default function Products() {
       <DataGrid
         rows={data}
         columns={columns}
+        getRowId={(row) => row._id}
         pageSize={10}
         rowsPerPageOptions={[5]}
         checkboxSelection

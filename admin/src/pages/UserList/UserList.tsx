@@ -19,7 +19,7 @@ export default function UserList() {
     getUsers();
   }, []);
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "_id", headerName: "ID", width: 100 },
     {
       field: "user",
       headerName: "User",

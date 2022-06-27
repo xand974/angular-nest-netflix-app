@@ -2,7 +2,7 @@ import { ApiService } from "./api.service";
 import { UserModel } from "netflix-malet-types";
 
 export class UserService {
-  public apiService: ApiService;
+  private apiService: ApiService;
 
   constructor() {
     this.apiService = new ApiService();
