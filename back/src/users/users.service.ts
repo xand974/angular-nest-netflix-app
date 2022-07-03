@@ -105,4 +105,26 @@ export class UsersService {
       `remove profile count : ${newUser.profileCount} for ${newUser.id}`,
     );
   }
+
+  public async getNewUsersByDate() {
+    try {
+      const analytics = await this.userModel.aggregate([
+        {
+          $project: {
+            month: { $month: '$createdAt' },
+          },
+        },
+        {
+          $group: {
+            _id: '$month',
+            total: { $sum: 1 },
+          },
+        },
+      ]);
+
+      return analytics;
+    } catch (error) {
+      throw new HttpException('cannot ', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

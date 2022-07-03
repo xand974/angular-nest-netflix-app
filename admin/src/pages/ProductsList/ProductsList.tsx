@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
-import { DataGrid, GridColumns } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./productsList.scss";
@@ -17,7 +17,6 @@ export default function Products() {
     };
     getFilms();
   }, []);
-  console.log(data);
 
   const HandleClick = (id: string) => {};
   const columns = [
@@ -48,7 +47,7 @@ export default function Products() {
     },
     {
       field: "type",
-      headername: "Type",
+      headerName: "Type",
       width: 160,
     },
     {
@@ -74,7 +73,7 @@ export default function Products() {
         );
       },
     },
-  ] as GridColumns;
+  ] as GridColDef[];
   return (
     <div className="products">
       <DataGrid

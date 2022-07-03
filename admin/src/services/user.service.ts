@@ -8,6 +8,16 @@ export class UserService {
     this.apiService = new ApiService();
   }
 
+  public async getUser(id: string) {
+    try {
+      return await this.apiService.privateReq.get<UserModel>(
+        `/users/get-user/${id}`
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
   public async getNewUsers(limit?: number) {
     try {
       if (!limit)
