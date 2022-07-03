@@ -10,6 +10,7 @@ import { RolesGuard } from './guards/role.guard';
 import { MoviesModule } from './movies/movies.module';
 import { ListsModule } from './lists/lists.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     UserInfosModule,
     MoviesModule,
     ListsModule,
+    AnalyticsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.development.env',

@@ -33,7 +33,7 @@ export default function Sidebar() {
         <p>Menu</p>
         <Link to="/users">
           <span>
-            <PersonOutlined className="icon" /> utilisateurs
+            <PersonOutlined className="icon" /> Utilisateurs
           </span>
         </Link>
         <Link to="films">
@@ -46,9 +46,9 @@ export default function Sidebar() {
             <ListOutlined className="icon" /> List
           </span>
         </Link>
-        {/* <span>
+        <span>
           <AttachMoneyOutlined className="icon" /> Transactions
-        </span> */}
+        </span>
       </div>
       <div className="notif">
         <p>Notifications</p>

@@ -1,0 +1,53 @@
+.profile {
+  margin-right: 50px;
+  flex: 1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+  height: 31rem;
+  overflow-y: hidden;
+  padding: 20px;
+  border-radius: 5px;
+  .picture {
+    display: flex;
+    align-items: center;
+    img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+    .infos {
+      display: flex;
+      flex-direction: column;
+      span {
+        font-size: 20px;
+      }
+      :first-child {
+        font-weight: bold;
+      }
+      :last-child {
+        color: gray;
+      }
+    }
+  }
+  .account {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    p {
+      color: rgb(175, 175, 175);
+      font-weight: bold;
+      margin: 15px 0;
+      font-size: 20px;
+    }
+    span {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: rgb(85, 85, 85);
+      margin-bottom: 20px;
+      .icon {
+        margin-right: 10px;
+      }
+    }
+  }
+}
