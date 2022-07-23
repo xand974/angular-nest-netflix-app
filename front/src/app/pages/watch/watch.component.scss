@@ -18,6 +18,8 @@
     color: white;
     transition: opacity 0.3s ease;
     padding: 5px 20px 5px 10px;
+    width: 100px;
+    height: 35px;
     &__icon {
       width: 30px;
       margin-right: 10px;
@@ -28,6 +30,7 @@
   &__video {
     width: 100%;
     height: 100%;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
   }
 }

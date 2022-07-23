@@ -1,7 +1,7 @@
 <div class="play">
   <a class="play__link" [routerLink]="'/home'">
     <nb-icon class="play__link__icon" icon="arrow-ios-back-outline"></nb-icon>
-    <p class="play__link__text">Home</p>
+    <p class="play__link__text">Home {{ isPause }}</p>
   </a>
 
   <video
@@ -11,6 +11,10 @@
     controls
     #videoControl
   ></video>
-  <malet-infos-movie *ngIf="movie$ | async as movie" [movie]="movie">
+
+  <malet-infos-movie
+    *ngIf="isPause && (movie$ | async) as movie"
+    [movie]="movie"
+  >
   </malet-infos-movie>
 </div>

@@ -3,6 +3,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1000;
 
   display: flex;
   justify-content: center;
@@ -17,6 +18,16 @@
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
 
+  &::before {
+    content: "";
+    width: 100%;
+    position: absolute;
+    background: black;
+    height: 100%;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
   &__wrapper {
     color: white;
     width: 50%;
@@ -27,15 +38,21 @@
     }
     &__sub--title {
       font-size: 70px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      line-height: 1;
+      color: white;
     }
     &__text--big {
       margin-bottom: 15px;
       font-size: 20px;
+      line-height: 1;
+      font-size: 1.1rem;
     }
     &__text--small {
       font-weight: 500;
       font-size: 30px;
+      line-height: 1;
+
       margin-bottom: 10px;
     }
     &__text--long {
