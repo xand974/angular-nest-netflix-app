@@ -11,12 +11,13 @@ import {
 } from "react-router-dom";
 import User from "pages/User/User";
 import Add from "pages/AddUser/Add";
-import ProductsList from "pages/ProductsList/ProductsList";
+import MovieList from "pages/MovieList/MovieList";
 import Login from "pages/Login/Login";
 import { useAppSelector } from "./context/hooks";
 import { useEffect, useRef } from "react";
 import { LoginService } from "./pages/Login/login.service";
 import { useDispatch } from "react-redux";
+import List from "./pages/List/List";
 function App() {
   const { currentUser } = useAppSelector((state) => state.user);
   const loginService = useRef(new LoginService());
@@ -61,10 +62,10 @@ function App() {
                   <Add />
                 </Route>
                 <Route path="/films" exact>
-                  <ProductsList />
+                  <MovieList />
                 </Route>
                 <Route path="/list" exact>
-                  <ProductsList />
+                  <List />
                 </Route>
               </Switch>
             </div>

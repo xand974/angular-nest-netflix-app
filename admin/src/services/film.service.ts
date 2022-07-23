@@ -18,4 +18,14 @@ export class FilmService {
       throw error;
     }
   }
+
+  public async getById(id: string) {
+    try {
+      return await this.apiService.privateReq.get<MovieModel>(
+        `/movies/get-one?id=${id}`
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 }

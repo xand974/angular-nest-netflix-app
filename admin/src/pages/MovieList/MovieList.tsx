@@ -2,7 +2,7 @@ import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import "./productsList.scss";
+import "./movieList.scss";
 import { FilmService } from "services/film.service";
 import { MovieModel } from "netflix-malet-types";
 
@@ -18,7 +18,7 @@ export default function Products() {
     getFilms();
   }, []);
 
-  const HandleClick = (id: string) => {};
+  const removeOne = (id: string) => {};
   const columns = [
     { field: "_id", headerName: "ID", width: 100 },
     {
@@ -64,7 +64,7 @@ export default function Products() {
             </Link>
             <button
               onClick={() => {
-                HandleClick(params.row._id);
+                removeOne(params.row._id);
               }}
             >
               <DeleteOutlined className="btn__delete" />
