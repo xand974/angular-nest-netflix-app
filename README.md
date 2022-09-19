@@ -1,3 +1,3 @@
 # angular-nest-netflix-app
 
-Netflix clone using Angularjs, Netsjs, MongoDB and Firebase
+Netflix clone using Angular, Netsjs, MongoDB and Firebase
